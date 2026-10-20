@@ -1,0 +1,1161 @@
+codigo,nombre,precio,categoria,tamano,activo
+143,,19.00,ACCESORIOS CABELLO,,true
+114,,15.00,ACCESORIOS CABELLO,,true
+171,,21.00,ACCESORIOS CABELLO,,true
+132,,17.00,ACCESORIOS CABELLO,,true
+150,,19.00,ACCESORIOS CABELLO,,true
+124,banda bebe,10.00,ACCESORIOS CABELLO,grande,true
+104,banda bebe gde,25.00,ACCESORIOS CABELLO,grande,true
+147,banda cabello mascarilla,27.00,ACCESORIOS CABELLO,grande,true
+127,banda delgada,13.00,ACCESORIOS CABELLO,grande,true
+100,banda gruesa,16.00,ACCESORIOS CABELLO,grande,true
+144,bandas,21.00,ACCESORIOS CABELLO,grande,true
+111,bolsa donita,25.00,ACCESORIOS CABELLO,grande,true
+128,bolsa unicornio latex,20.00,ACCESORIOS CABELLO,chica,true
+159,bote estrella,51.00,ACCESORIOS CABELLO,grande,true
+117,cepillo cerda negra,25.00,ACCESORIOS CABELLO,grande,true
+118,cepillo cuadrado,38.00,ACCESORIOS CABELLO,grande,true
+137,cepillo madera,52.00,ACCESORIOS CABELLO,grande,true
+152,cepillo niña pastel,20.00,ACCESORIOS CABELLO,chica,true
+167,cepillo oval perro,70.00,ACCESORIOS CABELLO,grande,true
+112,cepillo redondo ch,15.00,ACCESORIOS CABELLO,chica,true
+151,cepillo redondo metal,40.00,ACCESORIOS CABELLO,grande,true
+155,coletero,19.00,ACCESORIOS CABELLO,chica,true
+122,cuca gde,25.00,ACCESORIOS CABELLO,grande,true
+109,dona,12.00,ACCESORIOS CABELLO,chica,false
+116,dona bonita,26.00,ACCESORIOS CABELLO,chica,true
+110,dona gde,18.00,ACCESORIOS CABELLO,chica,true
+133,dona posada,5.00,ACCESORIOS CABELLO,grande,true
+148,dona/pinza capibara,25.00,ACCESORIOS CABELLO,chica,true
+108,donitas de color,12.00,ACCESORIOS CABELLO,chica,true
+156,espejo/cepillo,39.00,ACCESORIOS CABELLO,grande,true
+165,gusano p/cabello,16.00,ACCESORIOS CABELLO,chica,true
+153,lente c/moño,32.00,ACCESORIOS CABELLO,grande,true
+107,liga nudo,10.00,ACCESORIOS CABELLO,chica,true
+162,liga pompom,23.00,ACCESORIOS CABELLO,chica,true
+158,liga pompom ch,15.00,ACCESORIOS CABELLO,chica,true
+145,liga resorte,15.00,ACCESORIOS CABELLO,chica,true
+157,liga telefono,21.00,ACCESORIOS CABELLO,grande,true
+115,liga tubo latex,19.00,ACCESORIOS CABELLO,grande,true
+170,ligas,14.00,ACCESORIOS CABELLO,chica,true
+161,moñito,10.00,ACCESORIOS CABELLO,chica,true
+126,moño largo,41.00,ACCESORIOS CABELLO,chica,true
+154,moño niña,18.00,ACCESORIOS CABELLO,chica,true
+169,moño patrio,19.00,ACCESORIOS CABELLO,chica,true
+168,par patrio,15.00,ACCESORIOS CABELLO,chica,true
+135,pasadores,15.00,ACCESORIOS CABELLO,chica,true
+103,peine ch,5.00,ACCESORIOS CABELLO,chica,true
+149,peine grueso,10.00,ACCESORIOS CABELLO,chica,true
+125,peine nude,12.00,ACCESORIOS CABELLO,grande,true
+119,peine sacapiojos,20.00,ACCESORIOS CABELLO,chica,true
+130,peines delgados,8.00,ACCESORIOS CABELLO,chica,true
+164,pinza banana,15.00,ACCESORIOS CABELLO,chica,true
+160,pinza banana gde,20.00,ACCESORIOS CABELLO,chica,true
+120,pinza elegante,23.00,ACCESORIOS CABELLO,grande,true
+163,pinza extra,25.00,ACCESORIOS CABELLO,chica,true
+146,pinza flor,67.00,ACCESORIOS CABELLO,chica,true
+136,pinza kity,35.00,ACCESORIOS CABELLO,grande,true
+134,pinza mariposa larga,33.00,ACCESORIOS CABELLO,grande,true
+131,pinza mediana,17.00,ACCESORIOS CABELLO,chica,true
+121,pinza p/pestaña individual,10.00,ACCESORIOS CABELLO,chica,true
+113,pinza pesada,60.00,ACCESORIOS CABELLO,chica,true
+101,pinzas pelo ch,13.00,ACCESORIOS CABELLO,chica,true
+102,pinzas pelo gde,21.00,ACCESORIOS CABELLO,chica,true
+129,prendedor,19.00,ACCESORIOS CABELLO,chica,true
+123,prendedor flor,26.00,ACCESORIOS CABELLO,chica,true
+106,prendedor plata/kity,21.00,ACCESORIOS CABELLO,grande,true
+166,toalla quitaesmalte,10.00,ACCESORIOS CABELLO,chica,true
+105,uñas negra,49.00,ACCESORIOS CABELLO,grande,true
+507,cepillo oval metal,89.00,ACCESORIOS DE BELLEZA,grande,true
+515,cepillo raro,27.00,ACCESORIOS DE BELLEZA,grande,true
+514,cepillo secador,210.00,ACCESORIOS DE BELLEZA,grande,true
+513,cosmetiquera gde,158.00,ACCESORIOS DE BELLEZA,grande,true
+502,delineador negro,14.00,ACCESORIOS DE BELLEZA,chica,true
+506,depilador nariz,65.00,ACCESORIOS DE BELLEZA,grande,true
+518,dreal metal,550.00,ACCESORIOS DE BELLEZA,grande,true
+503,minirasuradora plata,110.00,ACCESORIOS DE BELLEZA,grande,true
+504,peineta,18.00,ACCESORIOS DE BELLEZA,chica,true
+508,perfilador,110.00,ACCESORIOS DE BELLEZA,grande,true
+501,perfiladora de 2,15.00,ACCESORIOS DE BELLEZA,grande,true
+511,plancha azul,189.00,ACCESORIOS DE BELLEZA,grande,true
+500,planchita,55.00,ACCESORIOS DE BELLEZA,grande,true
+516,rizadora tela,91.00,ACCESORIOS DE BELLEZA,grande,true
+509,secadora may,410.00,ACCESORIOS DE BELLEZA,grande,true
+505,set depilacion,375.00,ACCESORIOS DE BELLEZA,grande,true
+517,vanity extra,265.00,ACCESORIOS DE BELLEZA,grande,true
+512,washa,25.00,ACCESORIOS DE BELLEZA,grande,true
+263,,20.00,ACCESORIOS PANEL,,true
+235,,8.00,ACCESORIOS PANEL,,true
+258,abanico,25.00,ACCESORIOS PANEL,grande,true
+236,abanico cafe,49.00,ACCESORIOS PANEL,grande,true
+232,abanico gde,65.00,ACCESORIOS PANEL,grande,true
+210,alicata ch,32.00,ACCESORIOS PANEL,grande,true
+209,alicatas gde,75.00,ACCESORIOS PANEL,grande,true
+243,alicatas medianas,52.00,ACCESORIOS PANEL,grande,true
+288,aplicador mascarilla metalica,25.00,ACCESORIOS PANEL,grande,true
+271,aplicador sombra,10.00,ACCESORIOS PANEL,chica,true
+241,bob tape,49.00,ACCESORIOS PANEL,grande,true
+233,brocha gruesa,21.00,ACCESORIOS PANEL,grande,true
+211,brocha kabuki gde,25.00,ACCESORIOS PANEL,grande,true
+252,brocha p/pintar cabello,12.00,ACCESORIOS PANEL,grande,true
+201,brochas,35.00,ACCESORIOS PANEL,grande,true
+249,cable v8,12.00,ACCESORIOS PANEL,grande,true
+206,caja cable iphone,95.00,ACCESORIOS PANEL,grande,true
+254,caja uñas niña,42.00,ACCESORIOS PANEL,grande,true
+266,cepillo aplicador,19.00,ACCESORIOS PANEL,grande,true
+229,cepillo facial,25.00,ACCESORIOS PANEL,grande,true
+239,cepillo flor,25.00,ACCESORIOS PANEL,grande,true
+207,cortauñas chico,10.00,ACCESORIOS PANEL,chica,true
+208,cortauñas gde.,19.00,ACCESORIOS PANEL,chica,true
+257,cuadrito cable buy,45.00,ACCESORIOS PANEL,grande,true
+276,cuarteto de esponja,48.00,ACCESORIOS PANEL,grande,true
+285,cuca med,15.00,ACCESORIOS PANEL,grande,true
+256,cuquita,10.00,ACCESORIOS PANEL,grande,true
+250,diadema plastico,25.00,ACCESORIOS PANEL,chica,true
+214,enchinador,28.00,ACCESORIOS PANEL,grande,true
+283,enchinador princes,40.00,ACCESORIOS PANEL,grande,true
+282,extension 15mt,122.00,ACCESORIOS PANEL,grande,true
+265,extensiones,22.00,ACCESORIOS PANEL,grande,true
+242,guantes azul,175.00,ACCESORIOS PANEL,grande,true
+221,huevitos,15.00,ACCESORIOS PANEL,grande,true
+218,huevo,12.00,ACCESORIOS PANEL,grande,true
+238,juego de hilos,18.00,ACCESORIOS PANEL,grande,true
+269,kit envase,39.00,ACCESORIOS PANEL,grande,true
+215,kit viaje,52.00,ACCESORIOS PANEL,grande,true
+225,lima fosfo,9.00,ACCESORIOS PANEL,grande,true
+272,lima p/pies ch,10.00,ACCESORIOS PANEL,grande,true
+231,lima pies,18.00,ACCESORIOS PANEL,grande,true
+278,lima pies madera,39.00,ACCESORIOS PANEL,grande,true
+203,limpiador facial,18.00,ACCESORIOS PANEL,grande,true
+418,luz led 10mts,205.00,ACCESORIOS PANEL,grande,true
+268,microfono celular,120.00,ACCESORIOS PANEL,grande,true
+281,mini set oidos,15.00,ACCESORIOS PANEL,chica,true
+224,moño varios,26.00,ACCESORIOS PANEL,chica,true
+223,parche meno,42.00,ACCESORIOS PANEL,grande,true
+284,parche tiger,62.00,ACCESORIOS PANEL,grande,true
+287,pastillero botiquin,30.00,ACCESORIOS PANEL,grande,true
+248,pastillero cafe,20.00,ACCESORIOS PANEL,grande,true
+260,pastillero giratorio,35.00,ACCESORIOS PANEL,grande,true
+204,pegamento pestaña,12.00,ACCESORIOS PANEL,grande,true
+275,percing,18.00,ACCESORIOS PANEL,grande,true
+277,perfilador 1,10.00,ACCESORIOS PANEL,grande,true
+212,perfilador triple,20.00,ACCESORIOS PANEL,grande,true
+234,perfumero,23.00,ACCESORIOS PANEL,grande,true
+291,perlas,19.00,ACCESORIOS PANEL,grande,true
+292,perlitas,10.00,ACCESORIOS PANEL,grande,true
+230,pestaña 5,45.00,ACCESORIOS PANEL,grande,true
+240,pestaña magnetica,61.00,ACCESORIOS PANEL,grande,true
+205,pestañas sencillas,14.00,ACCESORIOS PANEL,grande,true
+280,pinta caritas,21.00,ACCESORIOS PANEL,grande,true
+251,pintar cabello c/tazon,55.00,ACCESORIOS PANEL,grande,true
+244,pinza alargada,15.00,ACCESORIOS PANEL,chica,true
+216,pinza ceja,12.00,ACCESORIOS PANEL,grande,true
+219,pinza metal,5.00,ACCESORIOS PANEL,grande,true
+262,pinza p/puntos,15.00,ACCESORIOS PANEL,chica,true
+245,pinza pestaña,19.00,ACCESORIOS PANEL,chica,true
+273,pinza redonda,19.00,ACCESORIOS PANEL,chica,true
+226,plantillas,22.00,ACCESORIOS PANEL,grande,true
+253,porta cepillo dientes,17.00,ACCESORIOS PANEL,grande,true
+237,portaretrato,165.00,ACCESORIOS PANEL,grande,true
+202,prendedor nude,23.00,ACCESORIOS PANEL,chica,true
+222,pupilente,79.00,ACCESORIOS PANEL,chica,true
+270,queso color,12.00,ACCESORIOS PANEL,grande,true
+227,quita cuticula,19.00,ACCESORIOS PANEL,chica,true
+274,quitacuticuticula individual,5.00,ACCESORIOS PANEL,grande,true
+259,raquetas,130.00,ACCESORIOS PANEL,grande,true
+267,repuesto enchinador,12.00,ACCESORIOS PANEL,grande,true
+261,rosario,25.00,ACCESORIOS PANEL,chica,true
+200,separador pies,15.00,ACCESORIOS PANEL,chica,true
+246,set pedicure brilloso,35.00,ACCESORIOS PANEL,grande,true
+217,soporte abdominal,192.00,ACCESORIOS PANEL,grande,true
+213,talonera azul,109.00,ACCESORIOS PANEL,grande,true
+255,tatuaje pecas,12.00,ACCESORIOS PANEL,grande,true
+220,tijera bolsillo,19.00,ACCESORIOS PANEL,chica,true
+264,tira led,110.00,ACCESORIOS PANEL,grande,true
+228,tirante transparente,10.00,ACCESORIOS PANEL,grande,true
+289,uñas,39.00,ACCESORIOS PANEL,grande,true
+286,uñas niña,29.00,ACCESORIOS PANEL,grande,true
+290,uñas paquete,15.00,ACCESORIOS PANEL,grande,true
+710,acetona gde,21.00,BELLEZA,grande,true
+746,aplicacion de uñas,15.00,BELLEZA,grande,true
+722,aplicador mascarilla,15.00,BELLEZA,grande,true
+736,body corporal,75.00,BELLEZA,grande,true
+739,body corporal ch,43.00,BELLEZA,grande,true
+726,bolsillo duo,39.00,BELLEZA,chica,true
+745,brocha individual,8.00,BELLEZA,grande,true
+747,brocha sweet,185.00,BELLEZA,grande,true
+701,caja cuadro fx,99.00,BELLEZA,grande,true
+715,cinta p/dolor,75.00,BELLEZA,grande,true
+705,colagenos,5.00,BELLEZA,grande,true
+755,cosmetiquera fashion,67.00,BELLEZA,grande,true
+737,cosmetiqueras,115.00,BELLEZA,grande,true
+742,espejo circulo pastel,18.00,BELLEZA,chica,true
+700,espejo cuadrado,38.00,BELLEZA,grande,true
+743,esponja,28.00,BELLEZA,grande,true
+754,esponja tela,15.00,BELLEZA,grande,true
+724,espumas faciales,51.00,BELLEZA,grande,true
+740,exfoliante cuerpo,35.00,BELLEZA,grande,true
+714,gel blooming,35.00,BELLEZA,chica,true
+712,gel gato,49.00,BELLEZA,chica,true
+757,huevo c/perfilador,44.00,BELLEZA,grande,true
+738,iman,75.00,BELLEZA,grande,true
+718,incienzos,25.00,BELLEZA,grande,true
+735,lata c/toallitas humedas,23.00,BELLEZA,grande,true
+751,lima metal,26.00,BELLEZA,grande,true
+731,lima negra,8.00,BELLEZA,grande,true
+720,limas uñas colores,18.00,BELLEZA,grande,true
+719,limas uñas gris,10.00,BELLEZA,grande,true
+730,limita negra,6.00,BELLEZA,grande,true
+708,locion arabe,220.00,BELLEZA,grande,true
+707,locion arme,280.00,BELLEZA,grande,true
+732,loción mini,62.00,BELLEZA,grande,true
+733,malla cabello,5.00,BELLEZA,chica,true
+704,mascarilla,10.00,BELLEZA,grande,true
+703,mascarilla p/nariz,5.00,BELLEZA,grande,true
+716,mini lima colores,7.00,BELLEZA,grande,true
+752,minicepillo colores,15.00,BELLEZA,grande,true
+655,minirasuradora,87.00,BELLEZA,grande,true
+734,parche p/dolor,30.00,BELLEZA,grande,true
+749,parche p/talon,95.00,BELLEZA,grande,true
+709,parches p/barros transparente,25.00,BELLEZA,grande,true
+717,parches p/pies,20.00,BELLEZA,grande,true
+758,pegamento uñas,15.00,BELLEZA,grande,true
+741,peineta piedra,17.00,BELLEZA,grande,true
+729,perfume bolsillo,28.00,BELLEZA,chica,true
+713,perfume niño,90.00,BELLEZA,grande,true
+706,perfume patineta,180.00,BELLEZA,grande,true
+753,perfume stich,35.00,BELLEZA,grande,true
+711,perfume/loción,140.00,BELLEZA,grande,true
+750,porta brocha,135.00,BELLEZA,grande,true
+721,porta incienzo,39.00,BELLEZA,chica,true
+727,primer,23.00,BELLEZA,chica,true
+748,primer p/uñas,27.00,BELLEZA,chica,true
+725,rodillo jade,30.00,BELLEZA,grande,true
+702,set manicure c/estuche,50.00,BELLEZA,grande,true
+723,set perfume bolsillo,51.00,BELLEZA,grande,true
+756,tenezas,250.00,BELLEZA,grande,false
+728,uñas niña cute,39.00,BELLEZA,grande,true
+45,,215.00,BISUTERIA,,true
+72,aceite p/cuticula,18.00,BISUTERIA,grande,true
+13,adorno arbol,23.00,BISUTERIA,grande,true
+75,amplificador,265.00,BISUTERIA,grande,true
+1,anillo 1,10.00,BISUTERIA,grande,true
+65,anillo 2,5.00,BISUTERIA,grande,true
+14,arbol 150gs/hd,900.00,BISUTERIA,grande,true
+76,arbol 180 hd/gs,1350.00,BISUTERIA,grande,true
+19,arbol 180hs,1500.00,BISUTERIA,grande,true
+30,arbol 210 hd/gs,1700.00,BISUTERIA,grande,true
+51,arbol 240 hd,2300.00,BISUTERIA,grande,true
+77,arbol 240 hs,2500.00,BISUTERIA,grande,true
+29,arete bici/caracol,25.00,BISUTERIA,grande,true
+53,arete ch,10.00,BISUTERIA,grande,true
+67,arete largo,92.00,BISUTERIA,grande,true
+58,arracada bolita,65.00,BISUTERIA,grande,true
+68,arracada colores,10.00,BISUTERIA,grande,true
+35,arracada delgada,55.00,BISUTERIA,grande,true
+78,arracada gde,75.00,BISUTERIA,grande,true
+55,arracada gde plata,30.00,BISUTERIA,grande,true
+34,arracada pesada,89.00,BISUTERIA,grande,true
+24,arracada piedra,63.00,BISUTERIA,grande,true
+32,arracada plata,59.00,BISUTERIA,grande,true
+66,arracada surtida,28.00,BISUTERIA,grande,true
+54,arracadas,22.00,BISUTERIA,grande,true
+82,bocina bca,150.00,BISUTERIA,grande,true
+50,cable auxiliar rojo,41.00,BISUTERIA,grande,true
+80,caja bisuteria,18.00,BISUTERIA,grande,true
+17,cajita feliz,75.00,BISUTERIA,grande,true
+15,camino elegante,325.00,BISUTERIA,grande,true
+43,candil despertador,44.00,BISUTERIA,grande,true
+26,cepillo cafe,39.00,BISUTERIA,grande,true
+49,cepillo mini,10.00,BISUTERIA,grande,true
+47,cepillo niña,29.00,BISUTERIA,grande,true
+38,collar letras,53.00,BISUTERIA,grande,true
+2,collar patrio,20.00,BISUTERIA,grande,true
+85,collar perla/mariposa,150.00,BISUTERIA,grande,true
+84,collar rueda,92.00,BISUTERIA,grande,true
+56,correa retractil ch,135.00,BISUTERIA,grande,true
+40,cosmetiquera surtida,145.00,BISUTERIA,grande,true
+16,cubierto bambu sencillo,25.00,BISUTERIA,grande,true
+20,despertador chicharra,98.00,BISUTERIA,grande,true
+59,fedula pies,65.00,BISUTERIA,grande,true
+83,gargantilla gruesa,26.00,BISUTERIA,grande,true
+11,jgo. Collar colores,115.00,BISUTERIA,grande,true
+7,jgo. Collar letras,36.00,BISUTERIA,grande,true
+8,jgo. Collar sencillo,28.00,BISUTERIA,grande,true
+3,locion costal,190.00,BISUTERIA,grande,true
+73,mano negra,31.00,BISUTERIA,grande,true
+27,matamosca,12.00,BISUTERIA,grande,true
+25,mouse,147.00,BISUTERIA,grande,true
+86,moño elegante,49.00,BISUTERIA,grande,true
+87,muñeco paton ch,203.00,BISUTERIA,grande,true
+44,muñequera/tobillera/codera,55.00,BISUTERIA,grande,true
+23,paq araña,45.00,BISUTERIA,grande,true
+9,parche barro sobre,20.00,BISUTERIA,grande,true
+88,pegatinas,21.00,BISUTERIA,grande,true
+33,perfume morado,360.00,BISUTERIA,grande,true
+57,pezonera,29.00,BISUTERIA,grande,true
+48,pulsera laminada,70.00,BISUTERIA,grande,true
+31,pulsera piedra,119.00,BISUTERIA,grande,true
+70,pulsera presion,18.00,BISUTERIA,grande,true
+39,pulsera sencilla,20.00,BISUTERIA,grande,true
+4,pulseras,97.00,BISUTERIA,grande,true
+36,pulseras cuero/sencilla,26.00,BISUTERIA,grande,true
+12,rodillera electrica,345.00,BISUTERIA,grande,true
+74,rodillera gris,197.00,BISUTERIA,grande,true
+79,sandalia dama,175.00,BISUTERIA,grande,true
+89,sandalia hombre,180.00,BISUTERIA,grande,true
+28,sandalia niños,145.00,BISUTERIA,grande,true
+21,serie 100,81.00,BISUTERIA,grande,true
+5,serie 200,110.00,BISUTERIA,grande,true
+61,serie 300,159.00,BISUTERIA,grande,true
+37,serie bola,175.00,BISUTERIA,grande,true
+42,serie bola bca,264.00,BISUTERIA,grande,true
+60,serie estrella,165.00,BISUTERIA,grande,true
+10,set manicure rojo,150.00,BISUTERIA,grande,true
+22,set manicure swet,85.00,BISUTERIA,grande,true
+64,set tijera degrafilar,75.00,BISUTERIA,grande,true
+46,soporte espalda,198.00,BISUTERIA,grande,true
+81,tarjetero negro,49.00,BISUTERIA,grande,true
+6,termo cerveza,135.00,BISUTERIA,grande,true
+52,termo lululeman,265.00,BISUTERIA,grande,true
+71,tip caja,99.00,BISUTERIA,grande,true
+62,vaso stich,145.00,BISUTERIA,grande,true
+90,vela c/luz,150.00,BISUTERIA,grande,true
+41,vela gde,89.00,BISUTERIA,grande,true
+69,vela mano,17.00,BISUTERIA,chica,true
+63,vela transparente,15.00,BISUTERIA,chica,true
+18,ventilador ch,52.00,BISUTERIA,grande,true
+604,,61.00,BOLSA,,true
+609,,65.00,BOLSA,,true
+615,,335.00,BOLSA,,true
+618,,75.00,BOLSA,,true
+608,,90.00,BOLSA,,true
+613,bolsa juvenil,155.00,BOLSA,grande,true
+602,bolsa kity,203.00,BOLSA,grande,true
+619,bolsa peluda,85.00,BOLSA,grande,true
+605,bolsa snoopy,165.00,BOLSA,grande,true
+606,bolsita kleping,81.00,BOLSA,grande,true
+614,cartera doble cierre,95.00,BOLSA,grande,true
+600,cartera hombre,125.00,BOLSA,grande,true
+616,cartera mini,51.00,BOLSA,grande,true
+617,cartera un cierre,81.00,BOLSA,grande,true
+607,cosmetiquera transparente,45.00,BOLSA,grande,true
+610,llavero fut,20.00,BOLSA,chica,true
+601,mochila deportiva,375.00,BOLSA,grande,true
+611,mochila lisa,230.00,BOLSA,grande,true
+603,monedero metalico,20.00,BOLSA,grande,true
+612,prendedor ropa,40.00,BOLSA,grande,true
+90032,,98.00,COCINA/HOGAR,,true
+948,,225.00,COCINA/HOGAR,,true
+988,,225.00,COCINA/HOGAR,,true
+9008,,399.00,COCINA/HOGAR,,true
+956,,75.00,COCINA/HOGAR,,true
+961,Alexa,499.00,COCINA/HOGAR,grande,true
+993,aceitera ch,41.00,COCINA/HOGAR,grande,true
+90030,aceitera extra,75.00,COCINA/HOGAR,grande,true
+916,afilador cuchillo,48.00,COCINA/HOGAR,grande,true
+910,alajero,95.00,COCINA/HOGAR,grande,true
+90035,alajero cajonera,205.00,COCINA/HOGAR,grande,true
+9004,alajero gde,120.00,COCINA/HOGAR,grande,true
+924,alajero labubu,53.00,COCINA/HOGAR,grande,true
+944,alajero plastico,55.00,COCINA/HOGAR,grande,true
+90033,alajero rectangular,135.00,COCINA/HOGAR,grande,true
+9007,alajero redondo,70.00,COCINA/HOGAR,grande,true
+921,alfileres,8.00,COCINA/HOGAR,chica,true
+943,antifaz negro,195.00,COCINA/HOGAR,grande,true
+984,audifono 1ora,250.00,COCINA/HOGAR,grande,true
+962,audifono 1ora diadema,440.00,COCINA/HOGAR,grande,true
+946,audifono disney,185.00,COCINA/HOGAR,grande,true
+90045,audifono kawai,272.00,COCINA/HOGAR,grande,true
+917,audifono noise,220.00,COCINA/HOGAR,grande,true
+978,audifono p9,150.00,COCINA/HOGAR,grande,true
+90024,audifono smart,175.00,COCINA/HOGAR,grande,true
+934,audifono transparente,385.00,COCINA/HOGAR,grande,true
+939,barril disney,180.00,COCINA/HOGAR,grande,true
+900,bascula negra,265.00,COCINA/HOGAR,grande,true
+908,bascula p/bolsillo,110.00,COCINA/HOGAR,grande,true
+903,bascula p/cocina,130.00,COCINA/HOGAR,grande,true
+994,batidor,45.00,COCINA/HOGAR,grande,true
+90031,batidor bco,62.00,COCINA/HOGAR,grande,true
+90065,batidor doble,170.00,COCINA/HOGAR,grande,true
+940,bocina bici,118.00,COCINA/HOGAR,grande,true
+957,bocina c/lampara,272.00,COCINA/HOGAR,grande,true
+90021,bocina ch,118.00,COCINA/HOGAR,grande,true
+410,bocina doble,550.00,COCINA/HOGAR,grande,true
+90016,bocina fx,199.00,COCINA/HOGAR,grande,true
+973,bocina gde c/micro,190.00,COCINA/HOGAR,grande,true
+990,bocina radio,160.00,COCINA/HOGAR,grande,true
+90060,bocina raya,105.00,COCINA/HOGAR,grande,true
+90023,bocina retro,525.00,COCINA/HOGAR,grande,true
+930,bocinita,145.00,COCINA/HOGAR,grande,true
+906,bola masajeador,119.00,COCINA/HOGAR,grande,true
+960,bola perro,119.00,COCINA/HOGAR,grande,true
+90012,bote botella,205.00,COCINA/HOGAR,grande,true
+936,box lunch,140.00,COCINA/HOGAR,grande,true
+409,cable auxiliar,19.00,COCINA/HOGAR,grande,true
+983,cable naranja,65.00,COCINA/HOGAR,grande,true
+90047,cable tipo c,39.00,COCINA/HOGAR,grande,true
+90063,cable v8 colores,20.00,COCINA/HOGAR,grande,true
+90039,caja cable,95.00,COCINA/HOGAR,grande,true
+9002,caja cuadro 1 ora,62.00,COCINA/HOGAR,grande,true
+90057,calzon faja,195.00,COCINA/HOGAR,grande,true
+90017,cargador p/coche,95.00,COCINA/HOGAR,grande,true
+90048,cargador verde,92.00,COCINA/HOGAR,grande,true
+90036,codera gris,105.00,COCINA/HOGAR,grande,true
+927,colchon perro mini,100.00,COCINA/HOGAR,grande,true
+901,cortador verduras,245.00,COCINA/HOGAR,grande,true
+933,cortauñas infantil,15.00,COCINA/HOGAR,chica,true
+905,cubiertos bambu,65.00,COCINA/HOGAR,grande,true
+90015,cubreboca,5.00,COCINA/HOGAR,grande,true
+90051,depilador ceja,105.00,COCINA/HOGAR,grande,true
+90041,desague estrella,40.00,COCINA/HOGAR,grande,true
+972,despertador basquet,168.00,COCINA/HOGAR,grande,true
+90042,despertador digital,195.00,COCINA/HOGAR,grande,true
+90038,despertador figuras,132.00,COCINA/HOGAR,grande,true
+9006,destapador,15.00,COCINA/HOGAR,chica,true
+923,difusor,389.00,COCINA/HOGAR,grande,true
+901A,dispensador 1ora,215.00,COCINA/HOGAR,grande,true
+902,dispensador clasico,110.00,COCINA/HOGAR,grande,true
+9003,dispensador moderno,145.00,COCINA/HOGAR,grande,true
+986,dispensador niños,125.00,COCINA/HOGAR,grande,true
+966,encendedor,8.00,COCINA/HOGAR,chica,true
+954,encendedor electrico,95.00,COCINA/HOGAR,grande,true
+969,especiero gde,375.00,COCINA/HOGAR,grande,true
+925,espejo c/luz,159.00,COCINA/HOGAR,grande,true
+90074,espejo c/luz vanity,110.00,COCINA/HOGAR,grande,true
+947,espejo niña,12.00,COCINA/HOGAR,chica,true
+989,espejo num 6,45.00,COCINA/HOGAR,grande,true
+963,espejo num 7,55.00,COCINA/HOGAR,grande,true
+964,espejo num 8,65.00,COCINA/HOGAR,grande,true
+970,espejo varios,69.00,COCINA/HOGAR,grande,true
+90049,ext 5mt bca,51.00,COCINA/HOGAR,grande,true
+937,extension 3mt,70.00,COCINA/HOGAR,grande,true
+995,extension 5mt,80.00,COCINA/HOGAR,grande,true
+979,gancho bebe,110.00,COCINA/HOGAR,grande,true
+90022,guante fitnes,121.00,COCINA/HOGAR,grande,true
+90056,jarra,301.00,COCINA/HOGAR,grande,true
+90011,jgo desarmador,49.00,COCINA/HOGAR,grande,true
+90054,juguete perro fosfo,72.00,COCINA/HOGAR,grande,true
+90052,juguete perro hamburguesa,92.00,COCINA/HOGAR,grande,true
+90020,lampara bca,205.00,COCINA/HOGAR,grande,true
+929,lampara cadena,185.00,COCINA/HOGAR,grande,true
+412,lampara caracol/conejo,105.00,COCINA/HOGAR,grande,true
+932,lampara de mano,65.00,COCINA/HOGAR,grande,true
+90034,lampara mano buy,45.00,COCINA/HOGAR,grande,true
+941,lampara touch fx,157.00,COCINA/HOGAR,grande,true
+904,lampara uñas,239.00,COCINA/HOGAR,grande,true
+912,lamparas,160.00,COCINA/HOGAR,grande,true
+982,licuadora max,165.00,COCINA/HOGAR,grande,true
+997,lupa,56.00,COCINA/HOGAR,grande,true
+913,luz bolsillo c/destapador,50.00,COCINA/HOGAR,grande,true
+996,luz p/cabeza,108.00,COCINA/HOGAR,grande,true
+90069,manos libre 1ora,65.00,COCINA/HOGAR,grande,true
+90027,manos libres,31.00,COCINA/HOGAR,grande,true
+952,maquina colico,275.00,COCINA/HOGAR,grande,true
+90068,maquina mini dona,265.00,COCINA/HOGAR,grande,true
+920,masajeador araña colores,55.00,COCINA/HOGAR,grande,true
+959,masajeador bola negro,300.00,COCINA/HOGAR,grande,true
+434,micro buy,315.00,COCINA/HOGAR,grande,true
+90067,micro negro,220.00,COCINA/HOGAR,grande,true
+985,microfono,195.00,COCINA/HOGAR,grande,true
+90040,mini masajeador,65.00,COCINA/HOGAR,grande,true
+998,mini rasuradora redonda,165.00,COCINA/HOGAR,grande,true
+945,multicontacto,175.00,COCINA/HOGAR,grande,true
+90059,muñequera gris,72.00,COCINA/HOGAR,grande,true
+951,organizador negro,149.00,COCINA/HOGAR,grande,true
+90070,organizador papeleria,130.00,COCINA/HOGAR,grande,true
+90044,oximetro,149.00,COCINA/HOGAR,grande,true
+968,palillo dental,12.00,COCINA/HOGAR,grande,true
+950,paquete tenedor rojo,48.00,COCINA/HOGAR,grande,true
+9009,paquete tenedor verde,65.00,COCINA/HOGAR,grande,true
+90046,parche bajar peso carton,25.00,COCINA/HOGAR,grande,true
+90029,parche dormir,36.00,COCINA/HOGAR,grande,true
+919,parche verde,42.00,COCINA/HOGAR,grande,true
+918,pelador,10.00,COCINA/HOGAR,chica,true
+90043,perfilador digital,155.00,COCINA/HOGAR,grande,true
+949,pila p/iphone,310.00,COCINA/HOGAR,grande,true
+953,pila s/cable,295.00,COCINA/HOGAR,grande,true
+90019,plantilla cuero,35.00,COCINA/HOGAR,grande,true
+90064,plantilla rigida,85.00,COCINA/HOGAR,grande,true
+90058,popotes,10.00,COCINA/HOGAR,chica,true
+911,portaretrato conejo,190.00,COCINA/HOGAR,grande,true
+987,portaretrato gde,172.00,COCINA/HOGAR,grande,true
+350,portaretrato pared,157.00,COCINA/HOGAR,grande,true
+976,portaretratro happy,125.00,COCINA/HOGAR,grande,true
+9001,protector cara,55.00,COCINA/HOGAR,grande,true
+967,quita pelos,123.00,COCINA/HOGAR,grande,true
+90018,quita pelusa electrico,95.00,COCINA/HOGAR,grande,true
+90053,quitapelusa electrico gde,245.00,COCINA/HOGAR,grande,true
+977,rasuradora mascota,250.00,COCINA/HOGAR,grande,true
+519,rasuradora negra,215.00,COCINA/HOGAR,grande,true
+90010,reloj pared,305.00,COCINA/HOGAR,grande,true
+90073,saleros,12.00,COCINA/HOGAR,chica,true
+928,secadora ch,149.00,COCINA/HOGAR,grande,true
+407,set manicure med,125.00,COCINA/HOGAR,grande,true
+926,soporte celular moto,75.00,COCINA/HOGAR,grande,true
+90050,soporte coche retro,120.00,COCINA/HOGAR,grande,true
+980,soporte muñeca,31.00,COCINA/HOGAR,grande,true
+981,soporte pesado,65.00,COCINA/HOGAR,grande,true
+915,soporte rueda,79.00,COCINA/HOGAR,grande,true
+90055,taza navidad sencilla,135.00,COCINA/HOGAR,grande,true
+991,taza tornasol,175.00,COCINA/HOGAR,grande,true
+958,tazas,155.00,COCINA/HOGAR,grande,true
+909,termo digital,100.00,COCINA/HOGAR,grande,true
+402,termo donald,139.00,COCINA/HOGAR,grande,true
+9005,termo gordo,350.00,COCINA/HOGAR,grande,true
+942,termo kity,270.00,COCINA/HOGAR,grande,true
+971,termo micky,129.00,COCINA/HOGAR,grande,true
+90066,termo niños,90.00,COCINA/HOGAR,grande,true
+935,termo owala,290.00,COCINA/HOGAR,grande,true
+90062,termo vacum,170.00,COCINA/HOGAR,grande,true
+90072,utensilio silicon,110.00,COCINA/HOGAR,grande,true
+907,vanity doble,180.00,COCINA/HOGAR,grande,true
+922,vanity gde,235.00,COCINA/HOGAR,grande,true
+90071,vanity sencillo,150.00,COCINA/HOGAR,grande,true
+90014,vaso cabecita,115.00,COCINA/HOGAR,grande,true
+90013,vaso metal,150.00,COCINA/HOGAR,grande,true
+90037,vaso personaje,125.00,COCINA/HOGAR,grande,true
+938,vaso sanrio,130.00,COCINA/HOGAR,grande,true
+975,vaso snopy,197.00,COCINA/HOGAR,grande,true
+90061,ventilador mano gde,91.00,COCINA/HOGAR,grande,true
+931,vick,17.00,COCINA/HOGAR,chica,true
+955,waflera,235.00,COCINA/HOGAR,grande,true
+656,yeti c/agarradera,210.00,COCINA/HOGAR,grande,true
+788,yeti c/asa,195.00,COCINA/HOGAR,grande,true
+974,yeti ch,201.00,COCINA/HOGAR,grande,true
+992,yeti gde,235.00,COCINA/HOGAR,grande,true
+90028,yety c/agarradera gde,240.00,COCINA/HOGAR,grande,true
+2123,,26.00,COSMETICOS,,true
+2054,,23.00,COSMETICOS,,true
+2035,,34.00,COSMETICOS,,true
+2052,,19.00,COSMETICOS,,true
+2108,,20.00,COSMETICOS,,true
+2148,,21.00,COSMETICOS,,true
+2046,,34.00,COSMETICOS,,true
+142,aplicador sombra bote,19.00,COSMETICOS,chica,true
+2126,balsamo aguacate,18.00,COSMETICOS,chica,true
+2018,balsamo fresa,15.00,COSMETICOS,chica,true
+2104,balsamo lapiz,12.00,COSMETICOS,chica,true
+2023,barniz,15.00,COSMETICOS,chica,true
+2133,barniz ch,10.00,COSMETICOS,chica,true
+2061,barra desmaquillante,19.00,COSMETICOS,chica,true
+2051,base de maquillaje,40.00,COSMETICOS,chica,true
+138,base maquillae tubo,29.00,COSMETICOS,chica,true
+2127,base maquillaje gotero,20.00,COSMETICOS,chica,true
+2049,base/top,49.00,COSMETICOS,chica,true
+2103,bigote,10.00,COSMETICOS,chica,true
+2022,blush c/esponja,38.00,COSMETICOS,chica,true
+2063,bolsa esponja,24.00,COSMETICOS,grande,true
+2083,brillo,5.00,COSMETICOS,grande,true
+2032,brillo hello kitty,21.00,COSMETICOS,chica,true
+2059,brocha colores,41.00,COSMETICOS,grande,true
+2138,brocha conejo/costal,65.00,COSMETICOS,chica,true
+2064,brocha costal,69.00,COSMETICOS,grande,true
+2153,brocha favor,35.00,COSMETICOS,grande,true
+2017,brocha pez,17.00,COSMETICOS,grande,true
+2042,brocha rosa,31.00,COSMETICOS,grande,true
+2076,brochas caja,52.00,COSMETICOS,grande,true
+2086,ceja pelo a pelo,21.00,COSMETICOS,chica,true
+2081,cepillo rimel individual,3.00,COSMETICOS,grande,true
+653,cera p/cabello,16.00,COSMETICOS,chica,true
+652,cera p/cejas,18.00,COSMETICOS,chica,true
+2129,contorno capibara,15.00,COSMETICOS,chica,true
+2106,contorno de 6,32.00,COSMETICOS,grande,true
+2010,contorno facial,21.00,COSMETICOS,chica,true
+2026,contorno favor,28.00,COSMETICOS,chica,true
+2111,contorno prosa,69.00,COSMETICOS,chica,true
+2073,contour,50.00,COSMETICOS,grande,true
+2025,corbata patrio,19.00,COSMETICOS,grande,true
+2134,corrector bisu,38.00,COSMETICOS,chica,true
+2024,corrector c/esponja,29.00,COSMETICOS,chica,true
+2142,corrector c/esponja gde,39.00,COSMETICOS,chica,true
+2137,corrector grueso,24.00,COSMETICOS,chica,true
+2121,corrector indeleble,18.00,COSMETICOS,chica,true
+651,corrector tubo,16.00,COSMETICOS,chica,true
+2147,corrector vidrio,30.00,COSMETICOS,chica,true
+2038,corrector/iluminador,22.00,COSMETICOS,chica,true
+2115,corta tip,27.00,COSMETICOS,grande,true
+2069,cosmetiquera kity,79.00,COSMETICOS,grande,true
+2114,cosmetiquera pachona,135.00,COSMETICOS,grande,true
+2057,crema,25.00,COSMETICOS,chica,true
+2092,crema fresa,39.00,COSMETICOS,chica,true
+140,crema fresa gde,45.00,COSMETICOS,grande,true
+2036,crema micky,18.00,COSMETICOS,chica,true
+2071,decoracion uñas,40.00,COSMETICOS,chica,true
+2107,delineador fosfo,19.00,COSMETICOS,chica,true
+2140,delineador grueso ojos,17.00,COSMETICOS,chica,true
+2098,delineador prosa,41.00,COSMETICOS,chica,true
+2068,depilador ceja plastico,65.00,COSMETICOS,chica,true
+2099,desmaquillante prosa,58.00,COSMETICOS,chica,true
+2048,engrosador labios,22.00,COSMETICOS,chica,true
+2090,envase,29.00,COSMETICOS,chica,true
+2016,esmalte gelish,28.00,COSMETICOS,chica,true
+2000,esmaltes,20.00,COSMETICOS,chica,true
+2109,espejito,25.00,COSMETICOS,grande,true
+2100,espejo kity alto/peine,132.00,COSMETICOS,grande,true
+2118,espejo kity mano,85.00,COSMETICOS,grande,true
+2040,espejo sencillo,31.00,COSMETICOS,grande,true
+139,esponja colores,21.00,COSMETICOS,grande,true
+2117,esponja favor,23.00,COSMETICOS,grande,true
+2005,esponja tela swet,37.00,COSMETICOS,grande,true
+2135,estola halloween,15.00,COSMETICOS,grande,true
+2152,fijador,25.00,COSMETICOS,grande,true
+2087,gel p/ceja,15.00,COSMETICOS,chica,true
+2145,gelish gde,36.00,COSMETICOS,chica,true
+2128,gliter kity,21.00,COSMETICOS,chica,true
+2060,gliter rolon,21.00,COSMETICOS,chica,true
+2091,glos dulce,31.00,COSMETICOS,chica,true
+2078,gloss,9.00,COSMETICOS,chica,true
+2131,halloween muñeco,35.00,COSMETICOS,chica,true
+2143,huevito c/aplicador,16.00,COSMETICOS,chica,true
+2079,huevo cactus,17.00,COSMETICOS,grande,true
+2062,huevo esponja,31.00,COSMETICOS,grande,true
+2120,huevo tela,18.00,COSMETICOS,grande,true
+2009,huevo tela swet,39.00,COSMETICOS,grande,true
+2075,iluminador botella,15.00,COSMETICOS,chica,true
+141,iluminador c/bomba,45.00,COSMETICOS,chica,true
+2002,iluminador líquido,27.00,COSMETICOS,chica,false
+2110,iluminador redondo,18.00,COSMETICOS,chica,true
+2066,iluminador saniye,39.00,COSMETICOS,chica,true
+2015,indeleble,18.00,COSMETICOS,chica,true
+2007,indeleble bisu,60.00,COSMETICOS,chica,true
+2116,indeleble doble,25.00,COSMETICOS,chica,true
+2065,kit esponja,32.00,COSMETICOS,grande,true
+2029,labial bolsa,29.00,COSMETICOS,chica,true
+2080,labial chocolate,27.00,COSMETICOS,chica,true
+2132,labial foco,18.00,COSMETICOS,chica,true
+2055,labial lip,24.00,COSMETICOS,chica,true
+2044,labial llavero,30.00,COSMETICOS,chica,true
+2045,labial magico,10.00,COSMETICOS,chica,true
+2105,labial peludo,40.00,COSMETICOS,chica,true
+2019,labial tubo,19.00,COSMETICOS,chica,true
+2149,labial yoyo,31.00,COSMETICOS,chica,true
+2053,lapiz negro,12.00,COSMETICOS,chica,true
+2154,libro sombra,195.00,COSMETICOS,grande,true
+837,llavero glos,49.00,COSMETICOS,chica,true
+2004,lápiz ceja c/cepillo,18.00,COSMETICOS,chica,true
+2014,lápiz delineador apple,17.00,COSMETICOS,chica,true
+2146,mano llavero,45.00,COSMETICOS,chica,true
+2030,manzana normal,15.00,COSMETICOS,chica,true
+2095,maquillaje colageno,40.00,COSMETICOS,chica,true
+2155,mascarilla volumen,41.00,COSMETICOS,chica,true
+2050,mini delineador,11.00,COSMETICOS,chica,true
+2034,mini indeleble,11.00,COSMETICOS,chica,true
+2130,paleta james,115.00,COSMETICOS,grande,true
+2074,paleta nude,58.00,COSMETICOS,chica,true
+2041,paleta queen morada,185.00,COSMETICOS,grande,false
+2037,paleta queen pelo bco,135.00,COSMETICOS,grande,false
+2067,paleta vestido largo,120.00,COSMETICOS,grande,false
+2012,papel arroz,25.00,COSMETICOS,grande,true
+2093,parche barro transparente,25.00,COSMETICOS,grande,true
+2047,peineta patrio,42.00,COSMETICOS,grande,true
+2122,perfume kity,25.00,COSMETICOS,grande,true
+2082,perfume pluma,15.00,COSMETICOS,chica,true
+2039,pestaña uno a uno,25.00,COSMETICOS,grande,true
+2158,pinceles uñas,110.00,COSMETICOS,grande,true
+2043,polvo banana,29.00,COSMETICOS,chica,true
+2072,polvo banana ch,20.00,COSMETICOS,grande,true
+2084,polvo compacto,23.00,COSMETICOS,chica,true
+2085,polvo de arroz,28.00,COSMETICOS,chica,true
+2021,polvo hadas morado,28.00,COSMETICOS,chica,true
+2124,polvo push,21.00,COSMETICOS,chica,true
+2033,polvo saniye,49.00,COSMETICOS,chica,true
+2089,pomada labios,10.00,COSMETICOS,grande,true
+2119,pulpo,15.00,COSMETICOS,grande,true
+2159,puntero,41.00,COSMETICOS,chica,true
+2157,removedor gel,52.00,COSMETICOS,chica,true
+2094,rimel c/aplicador individual,5.00,COSMETICOS,grande,true
+2008,rimel colores,15.00,COSMETICOS,chica,true
+650,rimel prosa,41.00,COSMETICOS,chica,true
+2070,rimel transparente,15.00,COSMETICOS,chica,true
+2027,rubber,23.00,COSMETICOS,chica,true
+2136,rubor,19.00,COSMETICOS,chica,true
+2113,rubor varios,33.00,COSMETICOS,chica,true
+2125,sacapuntas p/lapiz,8.00,COSMETICOS,grande,true
+2102,set skin,121.00,COSMETICOS,grande,true
+2031,sombra cafe,36.00,COSMETICOS,chica,true
+654,sombra cafe gde,52.00,COSMETICOS,chica,true
+2150,sombra ceja,18.00,COSMETICOS,chica,true
+2058,sombra cute,51.00,COSMETICOS,grande,true
+2151,sombra favor,45.00,COSMETICOS,grande,true
+2141,sombra glitter,30.00,COSMETICOS,chica,true
+2077,sombra kuromi,65.00,COSMETICOS,grande,true
+2003,sombra studio,75.00,COSMETICOS,grande,true
+2139,tatuaje haloween,15.00,COSMETICOS,grande,true
+2156,tijera cuticula,13.00,COSMETICOS,grande,true
+2112,tintero paleta,22.00,COSMETICOS,chica,true
+2096,tip almendrado,21.00,COSMETICOS,grande,true
+2097,tip rosa,70.00,COSMETICOS,grande,true
+2088,trenza patrio,42.00,COSMETICOS,grande,true
+2013,tubo ch,12.00,COSMETICOS,chica,true
+2001,tubo gde,28.00,COSMETICOS,chica,true
+2056,yelly blush,27.00,COSMETICOS,chica,true
+443,,300.00,FIESTA,,true
+432,,35.00,FIESTA,,true
+442,abanico pride,52.00,FIESTA,grande,true
+422,acetona,15.00,FIESTA,chica,true
+438,adorno papel,41.00,FIESTA,grande,true
+450,arco globos,125.00,FIESTA,grande,true
+456,arreglo celofan,30.00,FIESTA,grande,true
+461,banda cumple,19.00,FIESTA,grande,true
+420,banda pride,25.00,FIESTA,grande,true
+460,banderin fiesta,15.00,FIESTA,grande,true
+459,banderin metalico,20.00,FIESTA,grande,true
+439,bocina 1ora,375.00,FIESTA,grande,true
+455,bola navidad gde,95.00,FIESTA,grande,true
+417,bolsa botella,25.00,FIESTA,grande,true
+404,bolsa chica,20.00,FIESTA,grande,true
+401,bolsa gde.,35.00,FIESTA,grande,true
+403,bolsa mediana,25.00,FIESTA,grande,true
+449,bolsa mini regalo,10.00,FIESTA,grande,true
+400,box lunch c/vaso,182.00,FIESTA,grande,true
+411,caja ch navidad,35.00,FIESTA,grande,true
+447,caja madera,60.00,FIESTA,grande,true
+444,caja med navidad,45.00,FIESTA,grande,true
+428,caja roja,175.00,FIESTA,grande,true
+429,cajonera colores,159.00,FIESTA,grande,true
+415,calavera puerta,145.00,FIESTA,grande,true
+424,cinta patria,25.00,FIESTA,grande,true
+413,collar gato,27.00,FIESTA,chica,true
+431,corazón c/patitas,90.00,FIESTA,grande,true
+445,cubierto micky,35.00,FIESTA,grande,true
+452,despertador digital bco,249.00,FIESTA,grande,true
+433,diadema diablo/malefica,62.00,FIESTA,grande,true
+446,estola navidad,15.00,FIESTA,grande,true
+425,estola pride,65.00,FIESTA,grande,true
+435,globo figuras,45.00,FIESTA,grande,true
+451,gorro frio,85.00,FIESTA,grande,true
+464,guia flor,99.00,FIESTA,grande,true
+437,juanete,72.00,FIESTA,grande,true
+462,lente c/luz,21.00,FIESTA,grande,true
+414,mascara calabaza,115.00,FIESTA,grande,true
+405,moño envoltura gde,10.00,FIESTA,grande,true
+426,moño regalo ch,5.00,FIESTA,grande,true
+454,owala snopy,330.00,FIESTA,grande,true
+465,pantalla haloween,35.00,FIESTA,grande,true
+406,papel envoltura,13.00,FIESTA,grande,true
+430,parche bajar peso,45.00,FIESTA,grande,true
+419,parche pies rojo,52.00,FIESTA,grande,true
+423,peluca patria,115.00,FIESTA,grande,true
+457,pupilente naranja,45.00,FIESTA,chica,true
+448,ramo arreglo,60.00,FIESTA,grande,true
+436,rasuradora,285.00,FIESTA,grande,true
+440,set manicure negro,175.00,FIESTA,grande,true
+441,sombrero pirata,87.00,FIESTA,grande,true
+416,tarjeta,5.00,FIESTA,chica,true
+463,telaraña bca,18.00,FIESTA,grande,true
+427,termo snopy,247.00,FIESTA,grande,true
+421,vela chispa,12.00,FIESTA,chica,true
+408,vela oval,21.00,FIESTA,chica,true
+453,vela vaso,39.00,FIESTA,grande,true
+1128,,45.00,JUGUETES,,true
+1150,acuarela gde,45.00,JUGUETES,grande,true
+1103,adorno campana ch,17.00,JUGUETES,grande,true
+1092,adorno campana/rueda,23.00,JUGUETES,grande,true
+1029,ajedrez gde,95.00,JUGUETES,grande,true
+1001,alcancia kuromi,152.00,JUGUETES,grande,true
+1010,alcancia metalica,103.00,JUGUETES,grande,true
+1137,alcancia varios,121.00,JUGUETES,grande,true
+1047,arenero,99.00,JUGUETES,grande,true
+1105,arete patrio,15.00,JUGUETES,grande,true
+1074,avion,62.00,JUGUETES,grande,true
+1065,balas hidrogel,10.00,JUGUETES,chica,true
+1085,bandera,25.00,JUGUETES,grande,true
+1154,bici ch,115.00,JUGUETES,chica,true
+1157,bloque didactico,140.00,JUGUETES,grande,true
+1159,bloque fomi,280.00,JUGUETES,grande,true
+1155,bocho,157.00,JUGUETES,chica,true
+1077,burbujas chicas,15.00,JUGUETES,chica,true
+1078,burbujas gdes,18.00,JUGUETES,chica,true
+1053,burbujita,10.00,JUGUETES,chica,true
+1032,cachabola,39.00,JUGUETES,grande,true
+1048,cactus,145.00,JUGUETES,grande,true
+1045,camara burbujas,105.00,JUGUETES,grande,true
+1116,camper,453.00,JUGUETES,grande,true
+1026,carro construccion,1150.00,JUGUETES,grande,true
+1007,carro ligth,899.00,JUGUETES,grande,true
+1152,carro roll,903.00,JUGUETES,grande,true
+1094,carro stunt,1018.00,JUGUETES,grande,true
+1012,carro tanque,1530.00,JUGUETES,grande,true
+1031,castillo,280.00,JUGUETES,grande,true
+1027,cepillo cerda negra gde,32.00,JUGUETES,chica,true
+1104,cepillo facial electrico,85.00,JUGUETES,grande,true
+1143,coche cuerda,40.00,JUGUETES,chica,true
+1005,coche transformer,39.00,JUGUETES,grande,true
+1079,cotonete,12.00,JUGUETES,chica,true
+1146,cuadro ch,51.00,JUGUETES,grande,true
+1135,cuadro cuadrado,91.00,JUGUETES,grande,true
+1011,cuadro doble,125.00,JUGUETES,grande,true
+1093,cuadro mini,41.00,JUGUETES,grande,true
+1049,cuadro oleo extra,98.00,JUGUETES,grande,true
+1055,cuadro oleo gde,87.00,JUGUETES,grande,true
+1067,cuadro oleo med,64.00,JUGUETES,grande,true
+1107,cubierto bote,67.00,JUGUETES,grande,true
+1124,cubo rubik colores,50.00,JUGUETES,grande,true
+1148,diadema diablito,35.00,JUGUETES,grande,true
+1046,diadema patrio,27.00,JUGUETES,chica,true
+1134,domino,70.00,JUGUETES,grande,true
+1064,domino metal,130.00,JUGUETES,grande,true
+1088,dumpling,68.00,JUGUETES,grande,true
+1058,dumpling ch,35.00,JUGUETES,grande,true
+1119,espejo cinamon,85.00,JUGUETES,grande,true
+1013,flotis ch,39.00,JUGUETES,grande,true
+1003,flotis gde,59.00,JUGUETES,grande,true
+1123,fomi bebe,20.00,JUGUETES,grande,true
+1036,friccion,50.00,JUGUETES,chica,true
+1057,friccion auto,65.00,JUGUETES,chica,true
+1111,friccion bombero,79.00,JUGUETES,chica,true
+1084,friccion terrenaitor,85.00,JUGUETES,chica,true
+1112,gatling,1210.00,JUGUETES,grande,true
+1147,gel ball,1832.00,JUGUETES,grande,true
+1089,gis patrio,10.00,JUGUETES,chica,true
+1086,gorila,39.00,JUGUETES,grande,true
+1020,gorila gde,45.00,JUGUETES,grande,true
+1063,gorilita,35.00,JUGUETES,grande,true
+1106,gorra natacion,120.00,JUGUETES,grande,true
+1073,guia halloween,25.00,JUGUETES,chica,true
+1141,gusano de 3,20.00,JUGUETES,chica,true
+1038,gusano figuras,15.00,JUGUETES,chica,true
+1037,gusano gde,28.00,JUGUETES,chica,true
+1097,jenga,59.00,JUGUETES,grande,true
+1156,jenga gde,130.00,JUGUETES,grande,true
+1061,jgo agua pulpo,45.00,JUGUETES,grande,true
+1129,jgo billar,100.00,JUGUETES,grande,true
+1090,jgo catarina,105.00,JUGUETES,grande,true
+1052,jgo maquina,85.00,JUGUETES,grande,true
+1114,jgo montesori,98.00,JUGUETES,grande,true
+1025,jgo pez labubu,72.00,JUGUETES,grande,true
+1015,jgo tetris,47.00,JUGUETES,grande,true
+1016,jgo torre,79.00,JUGUETES,grande,true
+1043,jgo uno,41.00,JUGUETES,grande,true
+1132,juego didactico,120.00,JUGUETES,grande,true
+1034,juego ludo,96.00,JUGUETES,grande,true
+1122,juguete luminoso,54.00,JUGUETES,chica,true
+1145,juguete perro cascabel,41.00,JUGUETES,grande,true
+1051,juguete perro tela,75.00,JUGUETES,grande,true
+1131,lampara astro,110.00,JUGUETES,grande,true
+1108,lancha,160.00,JUGUETES,grande,true
+1039,lapizote,45.00,JUGUETES,grande,true
+1117,laser,25.00,JUGUETES,chica,true
+1024,lata esfera/tranparente,89.00,JUGUETES,grande,true
+1019,lata navidad,129.00,JUGUETES,grande,true
+1056,lego chico,31.00,JUGUETES,chica,true
+1091,lego gde,264.00,JUGUETES,grande,true
+1109,lego med,72.00,JUGUETES,grande,true
+1136,lego pequeño,23.00,JUGUETES,grande,true
+1018,levanta bubi,39.00,JUGUETES,grande,true
+1083,linterna,199.00,JUGUETES,grande,true
+1054,llavero baloncito,10.00,JUGUETES,chica,true
+1082,llavero labubu,80.00,JUGUETES,chica,true
+1066,llavero tierno,95.00,JUGUETES,chica,true
+90026,maquina de coser,350.00,JUGUETES,grande,true
+1115,marimba,62.00,JUGUETES,grande,true
+1040,mini burbuja,5.00,JUGUETES,chica,true
+1149,mini set arte,120.00,JUGUETES,grande,true
+1138,moana,725.00,JUGUETES,grande,true
+1075,moño patrio gde,25.00,JUGUETES,chica,true
+1008,muñeca happy,498.00,JUGUETES,grande,true
+1118,neon tubo,15.00,JUGUETES,chica,true
+1110,pandero,85.00,JUGUETES,grande,true
+1068,pandero ch,46.00,JUGUETES,grande,true
+1009,paquete araña,61.00,JUGUETES,grande,true
+1126,patin,201.00,JUGUETES,grande,true
+510,pegatina fosfo,46.00,JUGUETES,grande,true
+1142,peine perro,59.00,JUGUETES,grande,true
+1042,pelota inteligente,55.00,JUGUETES,grande,true
+1041,piano labubu,77.00,JUGUETES,grande,true
+1125,pista track,572.00,JUGUETES,grande,true
+1100,pistola agua space,269.00,JUGUETES,grande,true
+1028,pistola m4a1,949.00,JUGUETES,grande,true
+1017,pizarron figuras,98.00,JUGUETES,grande,true
+1099,pizarron magico ch,71.00,JUGUETES,grande,true
+1102,pizarron magico med,61.00,JUGUETES,grande,true
+1069,pizarron magico mini,51.00,JUGUETES,grande,true
+1076,pizarron transparente ch,75.00,JUGUETES,grande,true
+1130,pizarron transparente gde,135.00,JUGUETES,grande,true
+1050,plato kity,31.00,JUGUETES,grande,true
+1121,popit,115.00,JUGUETES,grande,true
+1022,punchis,110.00,JUGUETES,grande,true
+1113,reloj niño,53.00,JUGUETES,chica,true
+1006,rodillera negra,122.00,JUGUETES,grande,true
+1101,rompecabeza 3D,53.00,JUGUETES,grande,true
+1035,rompecabeza abstracto,31.00,JUGUETES,grande,true
+1120,rompecabeza c/pluma,105.00,JUGUETES,grande,true
+1023,rompecabeza ch,15.00,JUGUETES,grande,true
+1158,rompecabeza fomi,90.00,JUGUETES,grande,true
+1044,rompecabeza gato,22.00,JUGUETES,grande,true
+1160,rompecabeza gato gde,27.00,JUGUETES,grande,true
+1030,rompecabeza gato mini,17.00,JUGUETES,grande,true
+1127,salvavidas c/techo,175.00,JUGUETES,grande,true
+1151,salvavidas cuello,122.00,JUGUETES,grande,true
+458,sangre suero,30.00,JUGUETES,chica,true
+1144,sellos,5.00,JUGUETES,chica,true
+1021,set arte doble,450.00,JUGUETES,grande,true
+1081,set peine,199.00,JUGUETES,grande,true
+1072,slaime ch,13.00,JUGUETES,chica,true
+1033,slaime extra,50.00,JUGUETES,grande,true
+1070,slaime gde,38.00,JUGUETES,grande,true
+1071,slaime med,25.00,JUGUETES,grande,true
+1080,soporte coche,80.00,JUGUETES,grande,true
+1139,soporte moto c/sombrilla,130.00,JUGUETES,grande,true
+1096,squishy,59.00,JUGUETES,grande,true
+1060,talonera piel,95.00,JUGUETES,grande,true
+1153,tazon kity,55.00,JUGUETES,grande,true
+1133,telaraña,12.00,JUGUETES,grande,true
+1095,termo c/taza,170.00,JUGUETES,grande,true
+1014,tijera p/degrafilar,115.00,JUGUETES,grande,true
+1004,tira nochebuena,62.00,JUGUETES,grande,true
+1098,tirante espalda,183.00,JUGUETES,grande,true
+1140,trailer maletin,415.00,JUGUETES,grande,true
+1059,trompeta,38.00,JUGUETES,grande,true
+1000,tubo gliter,20.00,JUGUETES,chica,true
+1002,yoyo,22.00,JUGUETES,chica,true
+1087,yoyo metal,32.00,JUGUETES,chica,true
+632,,100.00,PAPELERIA,,true
+626,Libretita italiana,10.00,PAPELERIA,chica,true
+306,abaco,75.00,PAPELERIA,grande,true
+312,abanico disney,43.00,PAPELERIA,grande,true
+318,acuarela,36.00,PAPELERIA,grande,true
+371,agenda blanda,59.00,PAPELERIA,grande,true
+372,agenda dura,85.00,PAPELERIA,grande,true
+321,arbol dorado,350.00,PAPELERIA,grande,true
+337,barajas,29.00,PAPELERIA,grande,true
+309,bicolor delgado,5.00,PAPELERIA,chica,true
+329,bola navidad ch,48.00,PAPELERIA,chica,true
+644,botita joy,41.00,PAPELERIA,grande,true
+316,caja amarilla,120.00,PAPELERIA,grande,true
+335,calculadora chica,30.00,PAPELERIA,grande,true
+366,calculadora cientifica,105.00,PAPELERIA,grande,true
+349,calculadora dexin,135.00,PAPELERIA,grande,true
+320,calculadora pastel,99.00,PAPELERIA,grande,true
+326,calculadora pastel gde,125.00,PAPELERIA,grande,true
+362,camino sencillo,152.00,PAPELERIA,grande,true
+364,carrete escarcha,198.00,PAPELERIA,grande,true
+647,cartuchera sencilla,37.00,PAPELERIA,grande,true
+370,cinta aislar,10.00,PAPELERIA,chica,true
+641,cinta doble cara ch,29.00,PAPELERIA,chica,true
+646,cinta doble cara gde,51.00,PAPELERIA,grande,true
+628,clip,3.00,PAPELERIA,grande,true
+625,colores,20.00,PAPELERIA,grande,true
+330,colores norma,72.00,PAPELERIA,grande,true
+342,corrector espalda,120.00,PAPELERIA,grande,true
+629,cuaderno negro,79.00,PAPELERIA,grande,true
+322,cuaderno profesional,38.00,PAPELERIA,grande,true
+357,diadema haloween,19.00,PAPELERIA,grande,true
+639,diadema muertos,65.00,PAPELERIA,grande,true
+332,diurex,8.00,PAPELERIA,chica,true
+355,espejo num 5,35.00,PAPELERIA,grande,true
+637,exacto,20.00,PAPELERIA,grande,true
+356,goma,10.00,PAPELERIA,chica,true
+627,grapadora,65.00,PAPELERIA,grande,true
+340,juego de geometria,99.00,PAPELERIA,grande,true
+331,juguete perro pez/biberon,49.00,PAPELERIA,grande,true
+635,juguete perro zapato,65.00,PAPELERIA,grande,true
+313,lampara triangulo,85.00,PAPELERIA,grande,true
+310,lapiz,5.00,PAPELERIA,chica,true
+324,libreta c/pluma,15.00,PAPELERIA,chica,true
+317,libreta italiana,35.00,PAPELERIA,grande,true
+358,libreta niña,105.00,PAPELERIA,grande,true
+311,libro p/colorear,10.00,PAPELERIA,grande,true
+338,ligas gym,68.00,PAPELERIA,grande,true
+360,mandalas,15.00,PAPELERIA,grande,true
+359,marcador individual,15.00,PAPELERIA,chica,true
+640,marcatexto fantasy,39.00,PAPELERIA,grande,true
+630,marcatexto pastel,55.00,PAPELERIA,grande,true
+363,mascara media,147.00,PAPELERIA,grande,true
+352,mesa p/cama,245.00,PAPELERIA,grande,true
+365,mesa p/niños,220.00,PAPELERIA,grande,true
+638,mono nieve gde,63.00,PAPELERIA,grande,true
+307,moñito envoltura,5.00,PAPELERIA,grande,true
+4006,papel china,3.00,PAPELERIA,grande,true
+314,paq peine negro,50.00,PAPELERIA,grande,true
+328,paq plumon colores,42.00,PAPELERIA,grande,true
+369,paquete fiesta,165.00,PAPELERIA,grande,true
+367,parche tos/garganta,52.00,PAPELERIA,grande,true
+631,pastillero,15.00,PAPELERIA,grande,true
+339,pegatina patria,21.00,PAPELERIA,grande,true
+334,peine pastel,25.00,PAPELERIA,grande,true
+301,pila recargable,159.00,PAPELERIA,grande,true
+302,pistola silicon,85.00,PAPELERIA,grande,true
+315,pluma gel,15.00,PAPELERIA,chica,true
+341,plumas,10.00,PAPELERIA,chica,true
+348,plumon 100,310.00,PAPELERIA,grande,true
+361,plumon 12,50.00,PAPELERIA,grande,true
+343,plumon 120,405.00,PAPELERIA,grande,true
+345,plumon 80,271.00,PAPELERIA,grande,true
+645,plumon de 48,210.00,PAPELERIA,grande,true
+333,plumon negro,6.00,PAPELERIA,chica,true
+351,plumon pintarron,45.00,PAPELERIA,grande,true
+304,plumones 24pzas,95.00,PAPELERIA,grande,true
+319,plumones 60,225.00,PAPELERIA,grande,true
+308,plumones c/36,140.00,PAPELERIA,grande,true
+336,postit fosfo,41.00,PAPELERIA,chica,true
+323,postit pastel,51.00,PAPELERIA,grande,true
+300,postit tira,15.00,PAPELERIA,grande,true
+327,rodillera simple,69.00,PAPELERIA,grande,true
+354,rompecabeza,45.00,PAPELERIA,grande,true
+305,rompecabeza fruta,28.00,PAPELERIA,grande,true
+636,rompecabeza sencillo,20.00,PAPELERIA,grande,true
+353,santa costal,49.00,PAPELERIA,grande,true
+368,seguro gde,15.00,PAPELERIA,chica,true
+346,seguros,10.00,PAPELERIA,chica,true
+303,set c/regla,90.00,PAPELERIA,grande,true
+347,stanley,290.00,PAPELERIA,grande,true
+344,stanley c/agarradera,280.00,PAPELERIA,grande,true
+325,teclado ch,315.00,PAPELERIA,grande,true
+643,tijera,25.00,PAPELERIA,grande,true
+642,tijera niños,15.00,PAPELERIA,grande,true
+3003,,265.00,RELOJES,,true
+3001,,215.00,RELOJES,,true
+3005,,179.00,RELOJES,,true
+3002,,147.00,RELOJES,,true
+3012,antifaz pluma,68.00,RELOJES,grande,true
+3009,calabaza gde,85.00,RELOJES,grande,true
+3014,corrector duo,23.00,RELOJES,chica,true
+3011,lente neon,19.00,RELOJES,grande,true
+3010,mascara scream,25.00,RELOJES,grande,true
+3015,moño envoltura ch raya,10.00,RELOJES,grande,true
+3016,moño envoltura gde raya,15.00,RELOJES,grande,true
+3007,perfume pasion,170.00,RELOJES,grande,true
+3013,portacelular agua,25.00,RELOJES,grande,true
+3000,reloj chavos,85.00,RELOJES,grande,true
+3006,reloj dama cuadrado,210.00,RELOJES,grande,true
+3008,reloj hombre c/pulsera,255.00,RELOJES,grande,true
+89913,,45.00,Sin Categoría,,false
+89918,,27.00,Sin Categoría,,true
+877,,45.00,Sin Categoría,,true
+89914,abanico nice,79.00,Sin Categoría,grande,true
+8999,adorno caramelo,27.00,Sin Categoría,chica,true
+881,adorno sencillo,19.00,Sin Categoría,chica,true
+835,alicata perro,75.00,Sin Categoría,grande,true
+853,antifaz conejo,35.00,Sin Categoría,grande,true
+884,antifaz dorado,10.00,Sin Categoría,chica,true
+89922,aromatizante,120.00,Sin Categoría,grande,true
+854,bocina coche,475.00,Sin Categoría,grande,true
+89924,bola transparente ch,90.00,Sin Categoría,grande,true
+879,bola transparente gde,150.00,Sin Categoría,grande,true
+845,bolsa tela,52.00,Sin Categoría,grande,true
+872,caja 14 de feb,62.00,Sin Categoría,grande,true
+894,caja corrugada,37.00,Sin Categoría,grande,true
+834,caja cuadrito,73.00,Sin Categoría,grande,true
+8991,cajas c/chocolate,29.00,Sin Categoría,grande,true
+868,calabaza escoba,48.00,Sin Categoría,chica,true
+89928,canasta navidad,120.00,Sin Categoría,grande,true
+865,canasta telaraña,35.00,Sin Categoría,grande,true
+89927,candil gde navidad,37.00,Sin Categoría,grande,true
+887,candil halowen,30.00,Sin Categoría,chica,true
+8996,carrete luces,210.00,Sin Categoría,grande,true
+815,cascada circulo,285.00,Sin Categoría,grande,true
+895,cepillo perro azul gde,81.00,Sin Categoría,grande,true
+866,codera,55.00,Sin Categoría,grande,true
+897,cojin corazon ch,100.00,Sin Categoría,grande,true
+4001,cojin cuadrado,150.00,Sin Categoría,grande,true
+89912,cojin navideño,118.00,Sin Categoría,grande,true
+886,colchon p/perro ch,150.00,Sin Categoría,grande,true
+899,colchon perro gde,300.00,Sin Categoría,grande,true
+861,collar perro,55.00,Sin Categoría,grande,true
+827,corbata haloween,26.00,Sin Categoría,chica,true
+860,correa retractil gde,185.00,Sin Categoría,grande,true
+89921,diadema diablo,18.00,Sin Categoría,grande,true
+844,diadema gruesa,39.00,Sin Categoría,grande,true
+89931,escarcha arbol,29.00,Sin Categoría,grande,true
+89930,escarcha figuras,67.00,Sin Categoría,chica,true
+889,esfera suelta,31.00,Sin Categoría,grande,true
+875,espejo casa,90.00,Sin Categoría,grande,true
+8994,fantasma/calabaza,13.00,Sin Categoría,chica,true
+89925,figura navidad,115.00,Sin Categoría,grande,true
+869,gorro navidad,35.00,Sin Categoría,grande,true
+89915,gorro navidad,20.00,Sin Categoría,grande,false
+819,iman refri,25.00,Sin Categoría,chica,true
+824,impermeable adulto,75.00,Sin Categoría,grande,true
+808,impermeable niño,47.00,Sin Categoría,grande,true
+871,klenex,12.00,Sin Categoría,chica,true
+878,llavero,30.00,Sin Categoría,chica,true
+890,llavero snoopy,105.00,Sin Categoría,grande,true
+838,luz de hada,12.00,Sin Categoría,chica,true
+885,luz de noche,20.00,Sin Categoría,grande,true
+843,luz neon,185.00,Sin Categoría,grande,true
+892,mallas haloween,39.00,Sin Categoría,grande,true
+876,manita,15.00,Sin Categoría,chica,true
+4000,mano c/bolsa,102.00,Sin Categoría,grande,true
+89923,masajeador cabeza,15.00,Sin Categoría,chica,true
+822,mascara,50.00,Sin Categoría,grande,true
+4002,mascara batman,89.00,Sin Categoría,grande,true
+8993,mascara c/luz,115.00,Sin Categoría,grande,true
+4003,mascara catrina,52.00,Sin Categoría,grande,true
+89919,mascara diablo,135.00,Sin Categoría,grande,true
+873,morrales,73.00,Sin Categoría,grande,true
+830,moño punto,31.00,Sin Categoría,chica,true
+89916,muñeco nieve luz,30.00,Sin Categoría,chica,false
+89917,nieve ch,76.00,Sin Categoría,grande,true
+807,nieve gde,152.00,Sin Categoría,grande,true
+816,oreja duende,45.00,Sin Categoría,grande,true
+874,ositas,19.00,Sin Categoría,chica,true
+821,paleta chocolate,21.00,Sin Categoría,chica,true
+1062,paleta corazon ch,10.00,Sin Categoría,chica,true
+823,paleta corazon gde,15.00,Sin Categoría,chica,true
+832,palillos,6.00,Sin Categoría,chica,true
+89911,perfume jabon,97.00,Sin Categoría,grande,true
+841,pestaña haloween,16.00,Sin Categoría,chica,true
+4005,pilas,10.00,Sin Categoría,chica,true
+888,pintura neon,89.00,Sin Categoría,grande,true
+883,portacredencial transparente,16.00,Sin Categoría,chica,true
+891,portaretrato bco/grueso,195.00,Sin Categoría,grande,true
+882,repuesto rodillo quita,95.00,Sin Categoría,grande,true
+89932,rodillera verde,100.00,Sin Categoría,grande,true
+818,rosa c/chocolate,45.00,Sin Categoría,chica,true
+8997,rosas plastico,15.00,Sin Categoría,chica,true
+846,salvavidas animales,94.00,Sin Categoría,grande,true
+814,salvavidas num 50,40.00,Sin Categoría,grande,true
+813,salvavidas num 60,65.00,Sin Categoría,grande,true
+812,salvavidas num 70,75.00,Sin Categoría,grande,true
+811,salvavidas num 80,85.00,Sin Categoría,grande,true
+810,salvavidas num 90,95.00,Sin Categoría,grande,true
+826,sangre,15.00,Sin Categoría,chica,true
+89910,serie 100 luces,85.00,Sin Categoría,grande,false
+809,serie calavera,82.00,Sin Categoría,grande,true
+820,serie cascada estrella,275.00,Sin Categoría,grande,true
+4004,serie estrellota,399.00,Sin Categoría,grande,true
+4007,set manicure extra,340.00,Sin Categoría,grande,true
+3004,sombrilla bolsillo,148.00,Sin Categoría,grande,true
+857,sombrilla cabeza,51.00,Sin Categoría,grande,true
+825,sombrilla infantil,80.00,Sin Categoría,grande,true
+839,soporte astronauta,61.00,Sin Categoría,grande,true
+828,soporte mano negra,55.00,Sin Categoría,grande,true
+870,talon frio caliente,163.00,Sin Categoría,grande,true
+817,talonera gel,65.00,Sin Categoría,grande,true
+8995,tarjetero,40.00,Sin Categoría,grande,true
+89926,taza navidad,30.00,Sin Categoría,grande,true
+880,termo owala bote,301.00,Sin Categoría,grande,true
+858,termo owala c/agarradera,370.00,Sin Categoría,grande,true
+8992,tijera p/perro,71.00,Sin Categoría,grande,true
+896,toalla humeda,15.00,Sin Categoría,chica,true
+898,toldo p/moto,340.00,Sin Categoría,grande,true
+89920,triptico,40.00,Sin Categoría,,false
+867,vela amarilla,15.00,Sin Categoría,chica,true
+893,vela araña/calabaza,21.00,Sin Categoría,chica,true
+842,vela haloween ch,12.00,Sin Categoría,chica,true
+89929,vela navidad lata,39.00,Sin Categoría,chica,true
+840,vela tornasol,26.00,Sin Categoría,chica,true
+859,,78.00,TELAS,,true
+800,arbol 150hs,950.00,TELAS,grande,true
+829,bata dama,130.00,TELAS,grande,true
+806,bolsa termica,35.00,TELAS,grande,true
+848,cachucha,110.00,TELAS,grande,true
+849,cadena calavera,235.00,TELAS,grande,true
+803,cangurera,105.00,TELAS,grande,true
+833,carrete 184,199.00,TELAS,grande,true
+862,cojin cuello,215.00,TELAS,grande,true
+831,colchon perro redondo,220.00,TELAS,grande,true
+850,corbata,41.00,TELAS,grande,true
+805,escoba bruja,63.00,TELAS,grande,true
+863,guante fosfo/negro,29.00,TELAS,grande,true
+851,kit charleston,137.00,TELAS,grande,true
+836,lente loco,30.00,TELAS,grande,true
+855,malla termica,181.00,TELAS,grande,true
+847,mascara conejo tornasol,40.00,TELAS,grande,true
+864,media negra,105.00,TELAS,grande,true
+804,pantufla,199.00,TELAS,grande,true
+801,peluca,72.00,TELAS,grande,true
+852,sombrero bruja,47.00,TELAS,grande,true
+802,visera,79.00,TELAS,grande,true

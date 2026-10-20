@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>body{margin:0;background:#E9E4DC}*{box-sizing:border-box}a{color:#B83A1D}a:hover{color:#111}</style>
+</helmet>
+<div style="padding:64px;display:flex;flex-direction:column;gap:56px;font-family:'Onest',sans-serif;color:#111;background:#E9E4DC;min-width:max-content">
+  <div style="display:flex;align-items:center;gap:20px">
+    <img src="assets/logo.png" alt="" style="height:96px;mix-blend-mode:multiply">
+    <div>
+      <div style="font-family:'Anton',sans-serif;font-size:44px;letter-spacing:.5px;line-height:1">ETIQUETAS · DE TOCHO MOROCHO</div>
+      <div style="font-size:18px;color:#5A534A;margin-top:6px">Todas las pantallas son interactivas: escanea (escribe un código y Enter), cambia cantidades, crea productos.</div>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:56px;align-items:flex-start">
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div style="font-size:20px;font-weight:700">Imprimir · escritorio <span style="color:#5A534A;font-weight:500">— diseño principal, 1366 px</span></div>
+      <div style="position:relative;width:1366px;height:860px;border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.15)">
+        <dc-import name="EtiquetasApp" pantalla="imprimir" movil="{{ false }}" enfocar="{{ true }}" style="position:absolute;inset:0" hint-size="1366px,860px"></dc-import>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div style="font-size:20px;font-weight:700">Imprimir · celular</div>
+      <div style="position:relative;width:390px;height:844px;border-radius:36px;overflow:hidden;border:10px solid #111;box-shadow:0 20px 60px rgba(0,0,0,.15)">
+        <dc-import name="EtiquetasApp" pantalla="imprimir" movil="{{ true }}" enfocar="{{ false }}" style="position:absolute;inset:0" hint-size="370px,824px"></dc-import>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div style="font-size:20px;font-weight:700">Celular · lista vacía</div>
+      <div style="position:relative;width:390px;height:844px;border-radius:36px;overflow:hidden;border:10px solid #111;box-shadow:0 20px 60px rgba(0,0,0,.15)">
+        <dc-import name="EtiquetasApp" pantalla="imprimir" movil="{{ true }}" lista-vacia="{{ true }}" enfocar="{{ false }}" style="position:absolute;inset:0" hint-size="370px,824px"></dc-import>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:56px;align-items:flex-start">
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div style="font-size:20px;font-weight:700">Producto nuevo <span style="color:#5A534A;font-weight:500">— se abre al escanear un código que no existe</span></div>
+      <div style="position:relative;width:1366px;height:860px;border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.15)">
+        <dc-import name="EtiquetasApp" pantalla="imprimir" movil="{{ false }}" modal-nuevo="{{ true }}" enfocar="{{ false }}" style="position:absolute;inset:0" hint-size="1366px,860px"></dc-import>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div style="font-size:20px;font-weight:700">Imprimir · lista vacía</div>
+      <div style="position:relative;width:1366px;height:860px;border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.15)">
+        <dc-import name="EtiquetasApp" pantalla="imprimir" movil="{{ false }}" lista-vacia="{{ true }}" enfocar="{{ false }}" style="position:absolute;inset:0" hint-size="1366px,860px"></dc-import>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:56px;align-items:flex-start">
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div style="font-size:20px;font-weight:700">Catálogo</div>
+      <div style="position:relative;width:1366px;height:860px;border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.15)">
+        <dc-import name="EtiquetasApp" pantalla="catalogo" movil="{{ false }}" enfocar="{{ false }}" style="position:absolute;inset:0" hint-size="1366px,860px"></dc-import>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div style="font-size:20px;font-weight:700">Sincronizar con Multicomercio <span style="color:#5A534A;font-weight:500">— resumen antes de aplicar</span></div>
+      <div style="position:relative;width:1366px;height:860px;border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.15)">
+        <dc-import name="EtiquetasApp" pantalla="sync" sync-paso="resumen" movil="{{ false }}" enfocar="{{ false }}" style="position:absolute;inset:0" hint-size="1366px,860px"></dc-import>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:56px;align-items:flex-start">
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div style="font-size:20px;font-weight:700">Login</div>
+      <div style="position:relative;width:1366px;height:860px;border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.15)">
+        <dc-import name="EtiquetasApp" pantalla="login" movil="{{ false }}" enfocar="{{ false }}" style="position:absolute;inset:0" hint-size="1366px,860px"></dc-import>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

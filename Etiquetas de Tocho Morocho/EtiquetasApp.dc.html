@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Onest:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;height:100%;background:#FAF7F2}
+*{box-sizing:border-box}
+a{color:#B83A1D}
+a:hover{color:#111}
+input::placeholder{color:#9A9286}
+@keyframes tmPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.8)}}
+@keyframes tmToast{from{opacity:0;transform:translate(-50%,12px)}to{opacity:1;transform:translate(-50%,0)}}
+</style>
+</helmet>
+<div ref="{{ rootRef }}" style="position:absolute;inset:0;display:flex;flex-direction:column;background:#FAF7F2;color:#111;font-family:'Onest',system-ui,sans-serif;overflow:hidden">
+
+<sc-if value="{{ isLogin }}" hint-placeholder-val="{{ false }}">
+  <div style="flex:1;overflow:auto;display:flex;align-items:center;justify-content:center;padding:32px 20px">
+    <div style="width:100%;max-width:440px;display:flex;flex-direction:column;align-items:center;gap:28px">
+      <img src="assets/logo.png" alt="De Tocho Morocho" style="width:240px;max-width:70%;mix-blend-mode:multiply">
+      <div style="width:100%;background:#fff;border:1px solid #E7E1D7;border-radius:22px;padding:32px;display:flex;flex-direction:column;gap:18px;box-shadow:0 12px 40px rgba(17,17,17,.06)">
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <div style="font-family:'Anton',sans-serif;font-size:30px;letter-spacing:.5px;line-height:1.1">ENTRAR A ETIQUETAS</div>
+          <div style="font-size:16px;color:#6A6359">Solo para el equipo de la tienda.</div>
+        </div>
+        <sc-if value="{{ loginSent }}" hint-placeholder-val="{{ false }}">
+          <div style="background:#FAF7F2;border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:10px">
+            <div style="font-size:19px;font-weight:700">Revisa tu correo</div>
+            <div style="font-size:16px;line-height:1.45;color:#3A3530">Te mandamos un enlace a <b>{{ loginEmailShown }}</b>. Ábrelo en esta computadora y entras directo.</div>
+            <div style="display:flex;gap:16px;flex-wrap:wrap;padding-top:4px">
+              <button onClick="{{ loginGo }}" style="border:none;background:none;padding:0;font:600 16px 'Onest';color:#B83A1D;cursor:pointer;text-decoration:underline">Ya lo abrí, continuar</button>
+              <button onClick="{{ loginResend }}" style="border:none;background:none;padding:0;font:500 16px 'Onest';color:#6A6359;cursor:pointer;text-decoration:underline">Mandarlo otra vez</button>
+            </div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ loginForm }}" hint-placeholder-val="{{ true }}">
+          <label style="display:flex;flex-direction:column;gap:8px">
+            <span style="font-size:15px;font-weight:600">Correo</span>
+            <input type="email" value="{{ loginEmail }}" onChange="{{ setLoginEmail }}" placeholder="tucorreo@gmail.com" style="height:58px;border:2px solid #D9D2C6;border-radius:14px;padding:0 18px;font:500 19px 'Onest';color:#111;outline:none;background:#fff" style-focus="border-color:#111">
+          </label>
+          <sc-if value="{{ loginPassMode }}" hint-placeholder-val="{{ false }}">
+            <label style="display:flex;flex-direction:column;gap:8px">
+              <span style="font-size:15px;font-weight:600">Contraseña</span>
+              <input type="password" value="{{ loginPass }}" onChange="{{ setLoginPass }}" onKeyDown="{{ loginKey }}" style="height:58px;border:2px solid #D9D2C6;border-radius:14px;padding:0 18px;font:500 19px 'Onest';outline:none;background:#fff" style-focus="border-color:#111">
+            </label>
+          </sc-if>
+          <button onClick="{{ loginSubmit }}" style="height:60px;border:none;border-radius:14px;background:#E5502F;color:#fff;font:700 19px 'Onest';cursor:pointer" style-hover="background:#CF4425">{{ loginCta }}</button>
+          <button onClick="{{ loginToggle }}" style="border:none;background:none;padding:0;font:500 16px 'Onest';color:#6A6359;cursor:pointer;text-decoration:underline;align-self:center">{{ loginAlt }}</button>
+        </sc-if>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ isApp }}" hint-placeholder-val="{{ true }}">
+  <sc-if value="{{ desk }}" hint-placeholder-val="{{ true }}">
+    <div style="height:76px;flex:none;display:flex;align-items:center;gap:22px;padding:0 28px;background:#fff;border-bottom:1px solid #E7E1D7">
+      <div style="display:flex;align-items:center;gap:12px">
+        <img src="assets/wordmark.png" alt="De Tocho Morocho" style="height:38px;mix-blend-mode:multiply">
+        <div style="font-family:'Anton',sans-serif;font-size:15px;letter-spacing:1.2px;color:#fff;background:#111;padding:5px 9px 4px;border-radius:5px">ETIQUETAS</div>
+      </div>
+      <div style="display:flex;gap:6px;margin-left:12px">
+        <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="3">
+          <button onClick="{{ t.go }}" style="height:50px;padding:0 20px;border-radius:999px;border:none;background:{{ t.bg }};color:{{ t.fg }};font:600 17px 'Onest';display:flex;align-items:center;gap:9px;cursor:pointer">{{ t.label }}<sc-if value="{{ t.hasBadge }}" hint-placeholder-val="{{ false }}"><span style="min-width:26px;height:26px;padding:0 8px;border-radius:13px;background:{{ t.badgeBg }};color:{{ t.badgeFg }};font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center">{{ t.badge }}</span></sc-if></button>
+        </sc-for>
+      </div>
+      <div style="flex:1"></div>
+      <button onClick="{{ logout }}" style="height:44px;padding:0 16px;border-radius:12px;border:1px solid #E7E1D7;background:#fff;font:500 16px 'Onest';color:#3A3530;cursor:pointer" style-hover="background:#FAF7F2">Salir</button>
+    </div>
+  </sc-if>
+  <sc-if value="{{ m }}" hint-placeholder-val="{{ false }}">
+    <div style="flex:none;background:#fff;border-bottom:1px solid #E7E1D7;padding:12px 16px 10px;display:flex;flex-direction:column;gap:10px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <img src="assets/wordmark.png" alt="De Tocho Morocho" style="height:28px;mix-blend-mode:multiply">
+        <div style="font-family:'Anton',sans-serif;font-size:12px;letter-spacing:1px;color:#fff;background:#111;padding:4px 7px 3px;border-radius:4px">ETIQUETAS</div>
+        <div style="flex:1"></div>
+        <button onClick="{{ logout }}" style="height:40px;padding:0 12px;border-radius:10px;border:1px solid #E7E1D7;background:#fff;font:500 15px 'Onest';color:#3A3530">Salir</button>
+      </div>
+      <div style="display:flex;gap:4px">
+        <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="3">
+          <button onClick="{{ t.go }}" style="flex:1;height:44px;padding:0 6px;border-radius:999px;border:none;background:{{ t.bg }};color:{{ t.fg }};font:600 15px 'Onest';display:flex;align-items:center;justify-content:center;gap:6px">{{ t.label }}<sc-if value="{{ t.hasBadge }}" hint-placeholder-val="{{ false }}"><span style="min-width:22px;height:22px;padding:0 6px;border-radius:11px;background:{{ t.badgeBg }};color:{{ t.badgeFg }};font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center">{{ t.badge }}</span></sc-if></button>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- IMPRIMIR -->
+  <sc-if value="{{ isPrint }}" hint-placeholder-val="{{ true }}">
+    <div style="flex:1;min-height:0;display:flex">
+      <div style="flex:1;min-width:0;overflow-y:auto;overflow-x:hidden;padding:{{ pad }};display:flex;flex-direction:column;gap:18px">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap">
+          <h1 style="margin:0;font-family:'Anton',sans-serif;font-weight:400;font-size:{{ h1 }};letter-spacing:.5px;line-height:1">IMPRIMIR ETIQUETAS</h1>
+          <div style="display:flex;align-items:center;gap:8px;font-size:15px;font-weight:600;color:{{ scanFg }}">{{ scanDot }}{{ scanText }}</div>
+        </div>
+        <div style="position:relative;z-index:5">
+          <div style="position:absolute;left:22px;top:0;bottom:0;display:flex;align-items:center;color:#111;pointer-events:none">{{ icScan }}</div>
+          <input ref="{{ inputRef }}" value="{{ q }}" onChange="{{ setQ }}" onKeyDown="{{ onKey }}" onFocus="{{ onFocus }}" onBlur="{{ onBlur }}" placeholder="Escanea o escribe código o nombre" autocomplete="off" style="width:100%;height:{{ searchH }};border:3px solid {{ searchBorder }};border-radius:18px;padding:0 20px 0 64px;font:600 {{ searchFont }} 'Onest';color:#111;background:#fff;outline:none;box-shadow:{{ searchShadow }}">
+          <sc-if value="{{ showSugs }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute;left:0;right:0;top:calc(100% + 8px);background:#fff;border:1px solid #E7E1D7;border-radius:16px;box-shadow:0 18px 48px rgba(17,17,17,.14);overflow:hidden;padding:6px">
+              <sc-for list="{{ sugs }}" as="s" hint-placeholder-count="0">
+                <div onMouseDown="{{ s.pick }}" style="display:flex;align-items:center;gap:14px;padding:12px 14px;border-radius:12px;background:{{ s.bg }};cursor:pointer">
+                  <div style="flex:1;min-width:0">
+                    <div style="font-size:18px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ s.name }}</div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#6A6359">{{ s.code }}</div>
+                  </div>
+                  <div style="font-size:18px;font-weight:700">{{ s.price }}</div>
+                  <div style="font-size:13px;font-weight:700;padding:5px 10px;border-radius:999px;background:{{ s.chipBg }};color:{{ s.chipFg }}">{{ s.size }}</div>
+                </div>
+              </sc-for>
+              <sc-if value="{{ noSugs }}" hint-placeholder-val="{{ false }}">
+                <div onMouseDown="{{ createFromQ }}" style="display:flex;align-items:center;gap:12px;padding:14px;border-radius:12px;background:#FAF7F2;cursor:pointer">
+                  <div style="flex:1;font-size:17px;color:#3A3530">No encontramos <b>“{{ q }}”</b></div>
+                  <div style="font-size:16px;font-weight:700;color:#B83A1D">Crear producto nuevo →</div>
+                </div>
+              </sc-if>
+            </div>
+          </sc-if>
+        </div>
+        <div style="font-size:15px;color:#6A6359;margin-top:-6px">Con el escáner se agrega solo. Si escribes, elige de la lista o presiona Enter.</div>
+
+        <sc-if value="{{ hasRows }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:6px">
+            <div style="font-size:17px;font-weight:700">En esta impresión <span style="color:#6A6359;font-weight:500">· {{ rowCount }}</span></div>
+            <sc-if value="{{ m }}" hint-placeholder-val="{{ false }}">
+              <button onClick="{{ askClear }}" style="border:none;background:none;font:600 15px 'Onest';color:#6A6359;text-decoration:underline;padding:8px 0">Vaciar lista</button>
+            </sc-if>
+          </div>
+          <sc-if value="{{ m }}" hint-placeholder-val="{{ false }}">
+            <sc-if value="{{ confirmClear }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;align-items:center;gap:10px;background:#111;color:#fff;border-radius:14px;padding:12px 14px">
+                <div style="flex:1;font-size:16px;font-weight:600">¿Quitar todo de la lista?</div>
+                <button onClick="{{ cancelClear }}" style="height:44px;padding:0 14px;border-radius:10px;border:1px solid #555;background:none;color:#fff;font:600 15px 'Onest'">No</button>
+                <button onClick="{{ doClear }}" style="height:44px;padding:0 14px;border-radius:10px;border:none;background:#E5502F;color:#fff;font:700 15px 'Onest'">Sí, vaciar</button>
+              </div>
+            </sc-if>
+          </sc-if>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <sc-for list="{{ rows }}" as="r" hint-placeholder-count="6">
+              <sc-if value="{{ desk }}" hint-placeholder-val="{{ true }}">
+                <div style="display:grid;grid-template-columns:minmax(0,1fr) 110px 172px 172px 48px;align-items:center;gap:16px;padding:14px 14px 14px 20px;background:{{ r.bg }};border:1px solid {{ r.border }};border-radius:16px;transition:background .8s">
+                  <div style="min-width:0;display:flex;flex-direction:column;gap:3px">
+                    <div style="font-size:18px;font-weight:600;line-height:1.25">{{ r.name }}</div>
+                    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                      <span style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#6A6359">{{ r.code }}</span>
+                      <sc-if value="{{ r.pend }}" hint-placeholder-val="{{ false }}"><span style="font-size:12px;font-weight:700;color:#B83A1D;background:#FCE9E2;padding:3px 8px;border-radius:6px">Pendiente en Multicomercio</span></sc-if>
+                    </div>
+                  </div>
+                  <div style="font-size:20px;font-weight:700;text-align:right">{{ r.price }}</div>
+                  <div>
+                    <sc-if value="{{ r.hasSize }}" hint-placeholder-val="{{ true }}">
+                      <button onClick="{{ r.toggle }}" title="Toca para cambiar el tamaño" style="height:40px;padding:0 14px;border-radius:999px;border:2px solid #111;background:{{ r.chipBg }};color:{{ r.chipFg }};font:700 15px 'Onest';cursor:pointer;display:flex;align-items:center;gap:8px">{{ r.size }}<span style="font-size:13px;font-weight:500;opacity:.75">{{ r.sizeMm }}</span></button>
+                    </sc-if>
+                    <sc-if value="{{ r.noSize }}" hint-placeholder-val="{{ false }}">
+                      <div style="display:flex;flex-direction:column;gap:5px">
+                        <div style="font-size:13px;font-weight:700;color:#B83A1D">Elige tamaño</div>
+                        <div style="display:flex;gap:6px">
+                          <button onClick="{{ r.setG }}" style="height:36px;padding:0 10px;border-radius:10px;border:2px solid #E5502F;background:#fff;font:700 14px 'Onest';color:#111;cursor:pointer" style-hover="background:#FCE9E2">Grande</button>
+                          <button onClick="{{ r.setC }}" style="height:36px;padding:0 10px;border-radius:10px;border:2px solid #E5502F;background:#fff;font:700 14px 'Onest';color:#111;cursor:pointer" style-hover="background:#FCE9E2">Chica</button>
+                        </div>
+                      </div>
+                    </sc-if>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:6px">
+                    <button onClick="{{ r.dec }}" aria-label="Menos" style="width:48px;height:48px;border-radius:12px;border:1px solid #D9D2C6;background:#fff;font:500 26px 'Onest';line-height:1;cursor:pointer;color:#111" style-hover="background:#FAF7F2">−</button>
+                    <input value="{{ r.qty }}" onChange="{{ r.setQty }}" onBlur="{{ r.fixQty }}" inputmode="numeric" style="width:58px;height:48px;border-radius:12px;border:2px solid #111;text-align:center;font:700 20px 'Onest';color:#111;outline:none;background:#fff">
+                    <button onClick="{{ r.inc }}" aria-label="Más" style="width:48px;height:48px;border-radius:12px;border:1px solid #D9D2C6;background:#fff;font:500 26px 'Onest';line-height:1;cursor:pointer;color:#111" style-hover="background:#FAF7F2">+</button>
+                  </div>
+                  <button onClick="{{ r.remove }}" aria-label="Quitar" title="Quitar" style="width:48px;height:48px;border-radius:12px;border:none;background:transparent;color:#6A6359;cursor:pointer;display:flex;align-items:center;justify-content:center" style-hover="background:#FCE9E2;color:#B83A1D">{{ icX }}</button>
+                </div>
+              </sc-if>
+              <sc-if value="{{ m }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;flex-direction:column;gap:10px;padding:14px;background:{{ r.bg }};border:1px solid {{ r.border }};border-radius:16px;transition:background .8s">
+                  <div style="display:flex;gap:10px;align-items:flex-start">
+                    <div style="flex:1;min-width:0">
+                      <div style="font-size:17px;font-weight:600;line-height:1.25">{{ r.name }}</div>
+                      <div style="display:flex;gap:8px;align-items:center;margin-top:3px;flex-wrap:wrap"><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#6A6359">{{ r.code }}</span><span style="font-size:16px;font-weight:700">{{ r.price }}</span></div>
+                    </div>
+                    <button onClick="{{ r.remove }}" aria-label="Quitar" style="width:44px;height:44px;margin:-6px -6px 0 0;border-radius:12px;border:none;background:transparent;color:#6A6359;display:flex;align-items:center;justify-content:center">{{ icX }}</button>
+                  </div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+                    <sc-if value="{{ r.hasSize }}" hint-placeholder-val="{{ true }}">
+                      <button onClick="{{ r.toggle }}" style="height:44px;padding:0 14px;border-radius:999px;border:2px solid #111;background:{{ r.chipBg }};color:{{ r.chipFg }};font:700 15px 'Onest'">{{ r.size }}</button>
+                    </sc-if>
+                    <sc-if value="{{ r.noSize }}" hint-placeholder-val="{{ false }}">
+                      <div style="display:flex;gap:6px">
+                        <button onClick="{{ r.setG }}" style="height:44px;padding:0 10px;border-radius:10px;border:2px solid #E5502F;background:#fff;font:700 14px 'Onest';color:#111">Grande</button>
+                        <button onClick="{{ r.setC }}" style="height:44px;padding:0 10px;border-radius:10px;border:2px solid #E5502F;background:#fff;font:700 14px 'Onest';color:#111">Chica</button>
+                      </div>
+                    </sc-if>
+                    <div style="display:flex;align-items:center;gap:4px">
+                      <button onClick="{{ r.dec }}" style="width:44px;height:44px;border-radius:12px;border:1px solid #D9D2C6;background:#fff;font:500 24px 'Onest';color:#111">−</button>
+                      <input value="{{ r.qty }}" onChange="{{ r.setQty }}" onBlur="{{ r.fixQty }}" inputmode="numeric" style="width:50px;height:44px;border-radius:12px;border:2px solid #111;text-align:center;font:700 18px 'Onest';outline:none">
+                      <button onClick="{{ r.inc }}" style="width:44px;height:44px;border-radius:12px;border:1px solid #D9D2C6;background:#fff;font:500 24px 'Onest';color:#111">+</button>
+                    </div>
+                  </div>
+                  <sc-if value="{{ r.noSize }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px;font-weight:700;color:#B83A1D;margin-top:-4px">Elige tamaño para poder imprimirlo</div></sc-if>
+                </div>
+              </sc-if>
+            </sc-for>
+          </div>
+          <sc-if value="{{ m }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size:13px;color:#6A6359;display:flex;gap:8px;align-items:center;padding:4px 2px 8px">{{ icPrinter }}Zebra: grande 38 × 25 mm · chica 90 × 13 mm</div>
+          </sc-if>
+        </sc-if>
+
+        <sc-if value="{{ empty }}" hint-placeholder-val="{{ false }}">
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:14px;padding:40px 16px;min-height:300px">
+            <img src="assets/panda.png" alt="" style="width:{{ pandaW }};mix-blend-mode:multiply">
+            <div style="font-size:26px;font-weight:700;letter-spacing:-.3px;text-wrap:balance">Escanea un producto para empezar</div>
+            <div style="font-size:17px;color:#6A6359;max-width:420px;line-height:1.45;text-wrap:pretty">Apunta la pistola al código de barras. También puedes escribir el nombre o el código arriba.</div>
+          </div>
+        </sc-if>
+      </div>
+
+      <sc-if value="{{ desk }}" hint-placeholder-val="{{ true }}">
+        <div style="width:404px;flex:none;background:#fff;border-left:1px solid #E7E1D7;overflow:auto;padding:28px 28px 24px;display:flex;flex-direction:column;gap:16px">
+          <div style="font-family:'Anton',sans-serif;font-size:22px;letter-spacing:.6px">ESTA IMPRESIÓN</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px;border-radius:16px;background:#FAF7F2">
+              <div><div style="font-size:18px;font-weight:700">Grandes</div><div style="font-size:13px;color:#6A6359">38 × 25 mm</div></div>
+              <div style="text-align:right"><span style="font-size:36px;font-weight:800;letter-spacing:-1px">{{ sumG }}</span> <span style="font-size:16px;color:#3A3530">etiquetas</span></div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px;border-radius:16px;background:#FAF7F2">
+              <div><div style="font-size:18px;font-weight:700">Chicas</div><div style="font-size:13px;color:#6A6359">27 × 13 mm · 3 por hilera</div></div>
+              <div style="text-align:right"><div><span style="font-size:36px;font-weight:800;letter-spacing:-1px">{{ sumC }}</span> <span style="font-size:16px;color:#3A3530">etiquetas</span></div><div style="font-size:15px;font-weight:700;color:#B83A1D">= {{ rowsTxt }}</div></div>
+            </div>
+          </div>
+          <sc-if value="{{ hasUnsized }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:14px;background:#FCE9E2;color:#7A2410;font-size:15px;line-height:1.4"><span style="flex:none;color:#B83A1D;margin-top:1px">{{ icAlert }}</span><span><b>{{ unsizedTxt }}</b> Elige Grande o Chica para que salga en el PDF.</span></div>
+          </sc-if>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <button onClick="{{ dlG }}" disabled="{{ noG }}" style="height:62px;border:none;border-radius:16px;background:#E5502F;color:#fff;font:700 19px 'Onest';display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;opacity:{{ gOp }}" style-hover="background:#CF4425">{{ icDown }}Descargar PDF grandes</button>
+            <button onClick="{{ dlC }}" disabled="{{ noC }}" style="height:62px;border:none;border-radius:16px;background:#E5502F;color:#fff;font:700 19px 'Onest';display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;opacity:{{ cOp }}" style-hover="background:#CF4425">{{ icDown }}Descargar PDF chicas</button>
+            <sc-if value="{{ showClearBtn }}" hint-placeholder-val="{{ true }}">
+              <button onClick="{{ askClear }}" style="height:48px;border:1px solid #D9D2C6;border-radius:14px;background:#fff;color:#3A3530;font:600 16px 'Onest';cursor:pointer" style-hover="background:#FAF7F2">Vaciar lista</button>
+            </sc-if>
+            <sc-if value="{{ confirmClear }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;align-items:center;gap:8px;background:#111;color:#fff;border-radius:14px;padding:10px 10px 10px 16px">
+                <div style="flex:1;font-size:16px;font-weight:600">¿Quitar todo?</div>
+                <button onClick="{{ cancelClear }}" style="height:42px;padding:0 14px;border-radius:10px;border:1px solid #555;background:none;color:#fff;font:600 15px 'Onest';cursor:pointer">No</button>
+                <button onClick="{{ doClear }}" style="height:42px;padding:0 14px;border-radius:10px;border:none;background:#E5502F;color:#fff;font:700 15px 'Onest';cursor:pointer">Sí, vaciar</button>
+              </div>
+            </sc-if>
+          </div>
+          <div style="height:1px;background:#E7E1D7;margin:4px 0"></div>
+          <div style="font-size:14px;font-weight:700;color:#6A6359;letter-spacing:.4px">ASÍ SALEN</div>
+          <div style="background:#EFEBE4;border-radius:14px;padding:18px 14px;display:flex;flex-direction:column;align-items:center;gap:16px">
+            <sc-if value="{{ hasBig }}" hint-placeholder-val="{{ true }}">
+              <div style="width:228px;height:150px;background:#fff;border-radius:4px;box-shadow:0 1px 2px rgba(0,0,0,.12);padding:9px 11px 6px;display:flex;flex-direction:column;color:#000;font-family:'Onest',sans-serif">
+                <div style="font-size:12px;font-weight:600;line-height:1.15;height:28px;overflow:hidden">{{ big.name }}</div>
+                <div style="font-size:36px;font-weight:800;letter-spacing:-1.2px;line-height:1;margin-top:2px">{{ big.price }}</div>
+                <div style="flex:1;min-height:0;margin-top:7px;padding:0 4px">{{ big.bc }}</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;text-align:center;letter-spacing:1.5px;margin-top:2px">{{ big.code }}</div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ hasSmall }}" hint-placeholder-val="{{ true }}">
+              <div style="width:324px;height:47px;display:grid;grid-template-columns:repeat(3,1fr);gap:5px">
+                <sc-for list="{{ smallRow }}" as="l" hint-placeholder-count="3">
+                  <div style="background:{{ l.bg }};border-radius:3px;box-shadow:{{ l.shadow }};padding:3px 6px 2px;display:flex;flex-direction:column;color:#000;min-width:0">
+                    <div style="font-size:14px;font-weight:800;line-height:1;letter-spacing:-.4px">{{ l.price }}</div>
+                    <div style="flex:1;min-height:0;margin-top:2px">{{ l.bc }}</div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:7px;text-align:center;line-height:1.2">{{ l.code }}</div>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+            <sc-if value="{{ noPreview }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:15px;color:#6A6359;padding:20px 0">Aquí verás tus etiquetas.</div>
+            </sc-if>
+          </div>
+          <div style="flex:1"></div>
+          <div style="display:flex;gap:10px;align-items:flex-start;font-size:14px;color:#6A6359;line-height:1.45;border-top:1px solid #E7E1D7;padding-top:14px"><span style="flex:none;margin-top:1px">{{ icPrinter }}</span><span><b style="color:#3A3530">Configura la Zebra:</b> grande 38 × 25 mm · chica 90 × 13 mm (hilera de 3)</span></div>
+        </div>
+      </sc-if>
+    </div>
+    <sc-if value="{{ m }}" hint-placeholder-val="{{ false }}">
+      <div style="flex:none;background:#fff;border-top:1px solid #E7E1D7;padding:12px 16px 16px;display:flex;flex-direction:column;gap:10px;box-shadow:0 -8px 24px rgba(17,17,17,.06)">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:15px"><span><b style="font-size:20px">{{ sumG }}</b> grandes</span><span><b style="font-size:20px">{{ sumC }}</b> chicas <span style="color:#B83A1D;font-weight:700">= {{ rowsTxt }}</span></span></div>
+        <sc-if value="{{ hasUnsized }}" hint-placeholder-val="{{ false }}"><div style="font-size:14px;color:#7A2410;background:#FCE9E2;border-radius:10px;padding:8px 10px"><b>{{ unsizedTxt }}</b> Elige su tamaño.</div></sc-if>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <button onClick="{{ dlG }}" disabled="{{ noG }}" style="height:54px;border:none;border-radius:14px;background:#E5502F;color:#fff;font:700 16px 'Onest';display:flex;align-items:center;justify-content:center;gap:6px;opacity:{{ gOp }}">{{ icDown }}PDF grandes</button>
+          <button onClick="{{ dlC }}" disabled="{{ noC }}" style="height:54px;border:none;border-radius:14px;background:#E5502F;color:#fff;font:700 16px 'Onest';display:flex;align-items:center;justify-content:center;gap:6px;opacity:{{ cOp }}">{{ icDown }}PDF chicas</button>
+        </div>
+      </div>
+    </sc-if>
+  </sc-if>
+
+  <!-- CATÁLOGO -->
+  <sc-if value="{{ isCat }}" hint-placeholder-val="{{ false }}">
+    <div style="flex:1;min-height:0;overflow:auto;padding:{{ pad }};display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap">
+        <h1 style="margin:0;font-family:'Anton',sans-serif;font-weight:400;font-size:{{ h1 }};letter-spacing:.5px;line-height:1">CATÁLOGO</h1>
+        <div style="font-size:16px;color:#6A6359">{{ catTotal }}</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px;background:#fff;border:1px solid #E7E1D7;border-radius:18px;padding:16px">
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <div style="position:relative;flex:1 1 300px">
+            <div style="position:absolute;left:16px;top:0;bottom:0;display:flex;align-items:center;color:#6A6359;pointer-events:none">{{ icSearch }}</div>
+            <input value="{{ cq }}" onChange="{{ setCq }}" placeholder="Buscar por nombre o código" style="width:100%;height:54px;border:2px solid #D9D2C6;border-radius:14px;padding:0 16px 0 50px;font:500 18px 'Onest';outline:none;background:#fff;color:#111" style-focus="border-color:#111">
+          </div>
+          <select value="{{ ccat }}" onChange="{{ setCcat }}" style="flex:0 1 220px;height:54px;border:2px solid #D9D2C6;border-radius:14px;padding:0 14px;font:500 17px 'Onest';background:#fff;color:#111">
+            <sc-for list="{{ catOpts }}" as="o" hint-placeholder-count="8"><option value="{{ o.v }}">{{ o.label }}</option></sc-for>
+          </select>
+        </div>
+        <div style="display:flex;gap:10px 18px;flex-wrap:wrap;align-items:center">
+          <div style="display:flex;gap:4px;background:#F3EFE8;border-radius:999px;padding:4px">
+            <sc-for list="{{ sizeFilters }}" as="f" hint-placeholder-count="4">
+              <button onClick="{{ f.go }}" style="height:40px;padding:0 14px;border-radius:999px;border:none;background:{{ f.bg }};color:{{ f.fg }};font:600 15px 'Onest';cursor:pointer;box-shadow:{{ f.sh }}">{{ f.label }}</button>
+            </sc-for>
+          </div>
+          <div style="display:flex;gap:4px;background:#F3EFE8;border-radius:999px;padding:4px">
+            <sc-for list="{{ estFilters }}" as="f" hint-placeholder-count="3">
+              <button onClick="{{ f.go }}" style="height:40px;padding:0 14px;border-radius:999px;border:none;background:{{ f.bg }};color:{{ f.fg }};font:600 15px 'Onest';cursor:pointer;box-shadow:{{ f.sh }}">{{ f.label }}</button>
+            </sc-for>
+          </div>
+          <button onClick="{{ togglePend }}" style="height:48px;padding:0 16px;border-radius:999px;border:2px solid {{ pendBorder }};background:{{ pendBg }};color:#111;font:600 15px 'Onest';cursor:pointer;display:flex;align-items:center;gap:8px"><span style="width:20px;height:20px;border-radius:6px;border:2px solid {{ pendBorder }};background:{{ pendBox }};color:#fff;display:flex;align-items:center;justify-content:center">{{ pendCheck }}</span>{{ pendLabel }}</button>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <sc-for list="{{ catRows }}" as="r" hint-placeholder-count="8">
+          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;padding:12px 14px 12px 18px;background:#fff;border:1px solid #E7E1D7;border-radius:16px;opacity:{{ r.op }}">
+            <div style="flex:1 1 300px;min-width:0;display:flex;flex-direction:column;gap:2px">
+              <input value="{{ r.name }}" onChange="{{ r.setName }}" onBlur="{{ r.saved }}" style="width:100%;height:42px;border:2px solid transparent;border-radius:10px;padding:0 8px;margin-left:-10px;font:600 18px 'Onest';color:#111;background:transparent;outline:none" style-hover="border-color:#E7E1D7" style-focus="border-color:#111;background:#fff">
+              <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#6A6359">{{ r.code }}</span>
+                <span style="font-size:13px;color:#6A6359">· {{ r.cat }}</span>
+                <sc-if value="{{ r.pend }}" hint-placeholder-val="{{ false }}"><span style="font-size:12px;font-weight:700;color:#B83A1D;background:#FCE9E2;padding:3px 8px;border-radius:6px">Pendiente en Multicomercio</span></sc-if>
+                <sc-if value="{{ r.inactive }}" hint-placeholder-val="{{ false }}"><span style="font-size:12px;font-weight:700;color:#3A3530;background:#ECE7DF;padding:3px 8px;border-radius:6px">Inactivo</span></sc-if>
+                <sc-if value="{{ r.noSize }}" hint-placeholder-val="{{ false }}"><span style="font-size:12px;font-weight:700;color:#B83A1D;background:#FCE9E2;padding:3px 8px;border-radius:6px">Sin tamaño</span></sc-if>
+              </div>
+            </div>
+            <div style="position:relative;flex:0 0 120px">
+              <span style="position:absolute;left:12px;top:0;bottom:0;display:flex;align-items:center;font:600 18px 'Onest';color:#6A6359">$</span>
+              <input value="{{ r.price }}" onChange="{{ r.setPrice }}" onBlur="{{ r.saved }}" inputmode="decimal" style="width:100%;height:48px;border:2px solid #E7E1D7;border-radius:12px;padding:0 10px 0 28px;font:700 18px 'Onest';color:#111;outline:none;background:#fff" style-focus="border-color:#111">
+            </div>
+            <div style="display:flex;gap:4px;background:#F3EFE8;border-radius:12px;padding:4px">
+              <button onClick="{{ r.setG }}" style="height:40px;padding:0 14px;border-radius:9px;border:none;background:{{ r.gBg }};color:{{ r.gFg }};font:700 15px 'Onest';cursor:pointer">Grande</button>
+              <button onClick="{{ r.setC }}" style="height:40px;padding:0 14px;border-radius:9px;border:none;background:{{ r.cBg }};color:{{ r.cFg }};font:700 15px 'Onest';cursor:pointer">Chica</button>
+            </div>
+            <button onClick="{{ r.add }}" style="height:48px;min-width:200px;padding:0 16px;border-radius:12px;border:2px solid {{ r.addBorder }};background:{{ r.addBg }};color:{{ r.addFg }};font:700 16px 'Onest';cursor:pointer">{{ r.addLabel }}</button>
+          </div>
+        </sc-for>
+        <sc-if value="{{ catEmpty }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:48px 16px;text-align:center">
+            <img src="assets/panda.png" alt="" style="width:120px;mix-blend-mode:multiply;opacity:.9">
+            <div style="font-size:20px;font-weight:700">No hay productos con esos filtros</div>
+            <button onClick="{{ resetFilters }}" style="border:none;background:none;font:600 16px 'Onest';color:#B83A1D;text-decoration:underline;cursor:pointer">Quitar filtros</button>
+          </div>
+        </sc-if>
+        <div style="font-size:15px;color:#6A6359;text-align:center;padding:10px 0 4px">{{ catFoot }}</div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- SINCRONIZAR -->
+  <sc-if value="{{ isSync }}" hint-placeholder-val="{{ false }}">
+    <div style="flex:1;min-height:0;overflow:auto;padding:{{ pad }};display:flex;flex-direction:column;gap:18px">
+      <h1 style="margin:0;font-family:'Anton',sans-serif;font-weight:400;font-size:{{ h1 }};letter-spacing:.5px;line-height:1">SINCRONIZAR CON MULTICOMERCIO</h1>
+      <div style="display:flex;flex-wrap:wrap;gap:18px;align-items:flex-start">
+        <div style="flex:2 1 520px;min-width:0;background:#fff;border:1px solid #E7E1D7;border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:18px">
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <div style="font-size:21px;font-weight:700">Actualizar precios, nombres y activos</div>
+            <div style="font-size:15px;color:#6A6359">Última vez: 12 de octubre, 6:15 p. m.</div>
+          </div>
+
+          <sc-if value="{{ syncSubir }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <div style="flex:1 1 220px;display:flex;gap:12px;align-items:flex-start;font-size:16px;line-height:1.4"><span style="flex:none;width:30px;height:30px;border-radius:15px;background:#111;color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center">1</span><span>En Multicomercio, exporta <b>Productos</b> a Excel.</span></div>
+              <div style="flex:1 1 220px;display:flex;gap:12px;align-items:flex-start;font-size:16px;line-height:1.4"><span style="flex:none;width:30px;height:30px;border-radius:15px;background:#111;color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center">2</span><span>Súbelo aquí y revisa los cambios antes de aplicarlos.</span></div>
+            </div>
+            <button onClick="{{ pickFile }}" style="border:2px dashed #CFC7BA;border-radius:18px;background:#FAF7F2;padding:40px 20px;display:flex;flex-direction:column;align-items:center;gap:12px;cursor:pointer;font-family:'Onest'" style-hover="border-color:#E5502F;background:#FCF3EF">
+              <span style="width:60px;height:60px;border-radius:30px;background:#111;color:#fff;display:flex;align-items:center;justify-content:center">{{ icUp }}</span>
+              <span style="font-family:'Anton',sans-serif;font-size:24px;letter-spacing:.5px;color:#111">SUBE EL EXCEL DE MULTICOMERCIO</span>
+              <span style="font-size:16px;color:#6A6359">Arrástralo aquí o toca para buscarlo · archivo .xlsx</span>
+            </button>
+          </sc-if>
+
+          <sc-if value="{{ syncResumen }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:#FAF7F2;border-radius:14px;padding:12px 16px">
+              <span style="flex:none;width:36px;height:36px;border-radius:8px;background:#1F6E43;color:#fff;font:700 13px 'Onest';display:flex;align-items:center;justify-content:center">XLS</span>
+              <div style="flex:1;min-width:0"><div style="font-size:16px;font-weight:600;overflow:hidden;text-overflow:ellipsis">productos_multicomercio_19oct.xlsx</div><div style="font-size:14px;color:#6A6359">1,216 productos leídos</div></div>
+              <button onClick="{{ syncReset }}" style="border:none;background:none;font:600 15px 'Onest';color:#6A6359;text-decoration:underline;cursor:pointer">Cambiar archivo</button>
+            </div>
+            <div style="font-size:17px;font-weight:600">Esto va a cambiar:</div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px">
+              <sc-for list="{{ syncTiles }}" as="t" hint-placeholder-count="3">
+                <button onClick="{{ t.go }}" style="text-align:left;padding:16px 18px;border-radius:16px;border:2px solid {{ t.border }};background:{{ t.bg }};cursor:pointer;display:flex;flex-direction:column;gap:2px;font-family:'Onest';color:#111">
+                  <span style="font-family:'Anton',sans-serif;font-size:44px;line-height:1">{{ t.num }}</span>
+                  <span style="font-size:16px;font-weight:600">{{ t.label }}</span>
+                </button>
+              </sc-for>
+            </div>
+            <div style="border:1px solid #E7E1D7;border-radius:14px;max-height:260px;overflow:auto">
+              <sc-for list="{{ syncDetail }}" as="d" hint-placeholder-count="5">
+                <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid #F0EBE3;flex-wrap:wrap">
+                  <div style="flex:1 1 220px;min-width:0"><div style="font-size:16px;font-weight:600">{{ d.name }}</div><div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#6A6359">{{ d.code }}</div></div>
+                  <div style="font-size:16px;font-weight:600;color:#3A3530">{{ d.info }}</div>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <button onClick="{{ applySync }}" style="height:58px;padding:0 28px;border:none;border-radius:14px;background:#E5502F;color:#fff;font:700 18px 'Onest';cursor:pointer" style-hover="background:#CF4425">Aplicar cambios</button>
+              <button onClick="{{ syncReset }}" style="height:58px;padding:0 22px;border:1px solid #D9D2C6;border-radius:14px;background:#fff;color:#3A3530;font:600 17px 'Onest';cursor:pointer">Cancelar</button>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ syncListo }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap;background:#FAF7F2;border-radius:16px;padding:22px">
+              <span style="flex:none;width:56px;height:56px;border-radius:28px;background:#111;color:#fff;display:flex;align-items:center;justify-content:center">{{ icCheck }}</span>
+              <div style="flex:1 1 260px;display:flex;flex-direction:column;gap:6px">
+                <div style="font-family:'Anton',sans-serif;font-size:24px;letter-spacing:.4px">LISTO, CATÁLOGO ACTUALIZADO</div>
+                <div style="font-size:16px;line-height:1.45;color:#3A3530">12 precios, 3 nuevos y 2 desactivados. Los 3 nuevos no tienen tamaño de etiqueta todavía.</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <button onClick="{{ goUnsized }}" style="height:54px;padding:0 22px;border:none;border-radius:14px;background:#111;color:#fff;font:700 17px 'Onest';cursor:pointer">Asignar tamaño a los nuevos</button>
+              <button onClick="{{ syncReset }}" style="height:54px;padding:0 20px;border:1px solid #D9D2C6;border-radius:14px;background:#fff;color:#3A3530;font:600 16px 'Onest';cursor:pointer">Subir otro archivo</button>
+            </div>
+          </sc-if>
+        </div>
+
+        <div style="flex:1 1 320px;min-width:0;background:#fff;border:1px solid #E7E1D7;border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+            <div style="font-size:21px;font-weight:700">Pendientes de dar de alta</div>
+            <span style="min-width:32px;height:32px;padding:0 10px;border-radius:16px;background:#E5502F;color:#fff;font-weight:700;font-size:16px;display:flex;align-items:center;justify-content:center">{{ pendCount }}</span>
+          </div>
+          <div style="font-size:15px;color:#6A6359;line-height:1.45">Productos que creaste aquí y aún no existen en Multicomercio. Se quitan solos cuando aparecen en el Excel.</div>
+          <div style="display:flex;flex-direction:column">
+            <sc-for list="{{ pendRows }}" as="p" hint-placeholder-count="2">
+              <div style="display:flex;align-items:center;gap:10px;padding:12px 0;border-top:1px solid #F0EBE3">
+                <div style="flex:1;min-width:0"><div style="font-size:16px;font-weight:600">{{ p.name }}</div><div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#6A6359">{{ p.code }}</div></div>
+                <div style="font-size:16px;font-weight:700">{{ p.price }}</div>
+              </div>
+            </sc-for>
+            <sc-if value="{{ noPend }}" hint-placeholder-val="{{ false }}"><div style="font-size:16px;color:#6A6359;padding:12px 0">No hay pendientes. Todo está dado de alta.</div></sc-if>
+          </div>
+          <button onClick="{{ exportPend }}" disabled="{{ noPend }}" style="height:56px;border:2px solid #111;border-radius:14px;background:#fff;color:#111;font:700 17px 'Onest';display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;opacity:{{ pendOp }}" style-hover="background:#111;color:#fff">{{ icDown }}Exportar pendientes</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</sc-if>
+
+<!-- PRODUCTO NUEVO -->
+<sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:absolute;inset:0;background:rgba(17,17,17,.45);display:flex;align-items:center;justify-content:center;padding:{{ ovPad }};z-index:20">
+    <div style="width:100%;max-width:980px;max-height:100%;height:{{ boxH }};background:#fff;border-radius:{{ boxR }};display:flex;flex-direction:column;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.25)">
+      <div style="flex:none;display:flex;align-items:flex-start;gap:12px;padding:22px 24px 16px;border-bottom:1px solid #E7E1D7">
+        <div style="flex:1;display:flex;flex-direction:column;gap:4px">
+          <div style="font-family:'Anton',sans-serif;font-size:28px;letter-spacing:.5px;line-height:1.1">PRODUCTO NUEVO</div>
+          <div style="font-size:16px;color:#6A6359">{{ modalSub }}</div>
+        </div>
+        <button onClick="{{ closeModal }}" aria-label="Cerrar" style="width:44px;height:44px;border-radius:12px;border:none;background:#F3EFE8;color:#111;display:flex;align-items:center;justify-content:center;cursor:pointer">{{ icX }}</button>
+      </div>
+      <div style="flex:1;min-height:0;overflow:auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr))">
+        <div style="padding:20px 24px;display:flex;flex-direction:column;gap:18px">
+          <label style="display:flex;flex-direction:column;gap:7px">
+            <span style="font-size:15px;font-weight:700">Código de barras</span>
+            <input value="{{ mo.code }}" onChange="{{ mo.setCode }}" inputmode="numeric" placeholder="Solo números" style="height:56px;border:2px solid {{ mo.codeBorder }};border-radius:14px;padding:0 16px;font:600 20px 'IBM Plex Mono',monospace;letter-spacing:1px;outline:none;color:#111;background:#fff">
+            <sc-if value="{{ mo.badChars }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:15px;color:#7A2410;background:#FCE9E2;border-radius:10px;padding:10px 12px"><span style="flex:1 1 200px">{{ mo.badTxt }}</span><button onClick="{{ mo.fixCode }}" style="height:38px;padding:0 12px;border-radius:9px;border:none;background:#111;color:#fff;font:700 14px 'Onest';cursor:pointer">Dejar solo números</button></div>
+            </sc-if>
+            <sc-if value="{{ mo.dup }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:15px;color:#7A2410;background:#FCE9E2;border-radius:10px;padding:10px 12px"><span style="flex:1 1 200px">Este código ya existe: <b>{{ mo.dupName }}</b></span><button onClick="{{ mo.addDup }}" style="height:38px;padding:0 12px;border-radius:9px;border:none;background:#111;color:#fff;font:700 14px 'Onest';cursor:pointer">Agregar ese a la lista</button></div>
+            </sc-if>
+            <sc-if value="{{ mo.codeMissing }}" hint-placeholder-val="{{ false }}"><span style="font-size:14px;font-weight:600;color:#B83A1D">Falta el código</span></sc-if>
+          </label>
+          <label style="display:flex;flex-direction:column;gap:7px">
+            <span style="font-size:15px;font-weight:700">Nombre</span>
+            <input value="{{ mo.name }}" onChange="{{ mo.setName }}" placeholder="Como quieres que salga en la etiqueta" style="height:56px;border:2px solid {{ mo.nameBorder }};border-radius:14px;padding:0 16px;font:500 18px 'Onest';outline:none;color:#111;background:#fff">
+            <sc-if value="{{ mo.nameMissing }}" hint-placeholder-val="{{ false }}"><span style="font-size:14px;font-weight:600;color:#B83A1D">Falta el nombre</span></sc-if>
+          </label>
+          <label style="display:flex;flex-direction:column;gap:7px;max-width:220px">
+            <span style="font-size:15px;font-weight:700">Precio</span>
+            <div style="position:relative">
+              <span style="position:absolute;left:16px;top:0;bottom:0;display:flex;align-items:center;font:700 20px 'Onest';color:#6A6359">$</span>
+              <input value="{{ mo.price }}" onChange="{{ mo.setPrice }}" inputmode="decimal" placeholder="0.00" style="width:100%;height:56px;border:2px solid {{ mo.priceBorder }};border-radius:14px;padding:0 16px 0 34px;font:700 20px 'Onest';outline:none;color:#111;background:#fff">
+            </div>
+            <sc-if value="{{ mo.priceMissing }}" hint-placeholder-val="{{ false }}"><span style="font-size:14px;font-weight:600;color:#B83A1D">Falta el precio</span></sc-if>
+          </label>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <span style="font-size:15px;font-weight:700">Categoría</span>
+            <div style="display:flex;flex-wrap:wrap;gap:8px">
+              <sc-for list="{{ mo.cats }}" as="c" hint-placeholder-count="7">
+                <button onClick="{{ c.go }}" style="height:44px;padding:0 14px;border-radius:999px;border:2px solid {{ c.border }};background:{{ c.bg }};color:{{ c.fg }};font:600 15px 'Onest';cursor:pointer">{{ c.label }}</button>
+              </sc-for>
+            </div>
+            <sc-if value="{{ mo.catMissing }}" hint-placeholder-val="{{ false }}"><span style="font-size:14px;font-weight:600;color:#B83A1D">Elige una categoría</span></sc-if>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <span style="font-size:15px;font-weight:700">Tamaño de etiqueta</span>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <button onClick="{{ mo.pickG }}" style="text-align:left;padding:14px;border-radius:16px;border:3px solid {{ mo.gBorder }};background:{{ mo.gBg }};cursor:pointer;display:flex;flex-direction:column;gap:10px;font-family:'Onest';color:#111">
+                <div style="height:58px;display:flex;align-items:center">
+                  <div style="width:80px;height:53px;border:2px solid #111;border-radius:4px;background:#fff;padding:5px 6px;display:flex;flex-direction:column;gap:3px">
+                    <div style="height:3px;width:70%;background:#111;border-radius:2px"></div>
+                    <div style="height:9px;width:55%;background:#111;border-radius:2px"></div>
+                    <div style="flex:1;background:repeating-linear-gradient(90deg,#111 0 2px,#fff 2px 3px,#111 3px 4px,#fff 4px 6px)"></div>
+                  </div>
+                </div>
+                <div><div style="font-size:18px;font-weight:700">Grande</div><div style="font-size:13px;color:#6A6359;line-height:1.35">38 × 25 mm · nombre, precio y código</div></div>
+              </button>
+              <button onClick="{{ mo.pickC }}" style="text-align:left;padding:14px;border-radius:16px;border:3px solid {{ mo.cBorder }};background:{{ mo.cBg }};cursor:pointer;display:flex;flex-direction:column;gap:10px;font-family:'Onest';color:#111">
+                <div style="height:58px;display:flex;align-items:center;gap:3px">
+                  <div style="width:38px;height:19px;border:2px solid #111;border-radius:3px;background:#fff;padding:2px 3px;display:flex;flex-direction:column;gap:2px"><div style="height:4px;width:60%;background:#111"></div><div style="flex:1;background:repeating-linear-gradient(90deg,#111 0 1px,#fff 1px 2px,#111 2px 3px,#fff 3px 5px)"></div></div>
+                  <div style="width:38px;height:19px;border:2px solid #111;border-radius:3px;background:#fff;padding:2px 3px;display:flex;flex-direction:column;gap:2px"><div style="height:4px;width:60%;background:#111"></div><div style="flex:1;background:repeating-linear-gradient(90deg,#111 0 1px,#fff 1px 2px,#111 2px 3px,#fff 3px 5px)"></div></div>
+                  <div style="width:38px;height:19px;border:2px solid #111;border-radius:3px;background:#fff;padding:2px 3px;display:flex;flex-direction:column;gap:2px"><div style="height:4px;width:60%;background:#111"></div><div style="flex:1;background:repeating-linear-gradient(90deg,#111 0 1px,#fff 1px 2px,#111 2px 3px,#fff 3px 5px)"></div></div>
+                </div>
+                <div><div style="font-size:18px;font-weight:700">Chica</div><div style="font-size:13px;color:#6A6359;line-height:1.35">27 × 13 mm · precio y código, 3 por hilera</div></div>
+              </button>
+            </div>
+            <sc-if value="{{ mo.sizeMissing }}" hint-placeholder-val="{{ false }}"><span style="font-size:14px;font-weight:600;color:#B83A1D">Elige Grande o Chica</span></sc-if>
+          </div>
+        </div>
+        <div style="background:#F3EFE8;padding:20px 24px;display:flex;flex-direction:column;gap:14px;min-height:280px">
+          <div style="font-size:14px;font-weight:700;color:#6A6359;letter-spacing:.4px">VISTA PREVIA</div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px">
+            <sc-if value="{{ mo.isG }}" hint-placeholder-val="{{ true }}">
+              <div style="width:266px;height:175px;background:#fff;border-radius:5px;box-shadow:0 2px 6px rgba(0,0,0,.12);padding:11px 13px 7px;display:flex;flex-direction:column;color:#000">
+                <div style="font-size:14px;font-weight:600;line-height:1.15;height:32px;overflow:hidden;color:{{ mo.pvNameFg }}">{{ mo.pvName }}</div>
+                <div style="font-size:42px;font-weight:800;letter-spacing:-1.4px;line-height:1;margin-top:3px">{{ mo.pvPrice }}</div>
+                <div style="flex:1;min-height:0;margin-top:8px;padding:0 6px">{{ mo.bc }}</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;text-align:center;letter-spacing:1.5px;margin-top:2px">{{ mo.pvCode }}</div>
+              </div>
+              <div style="font-size:14px;color:#3A3530;font-weight:600">38 × 25 mm</div>
+            </sc-if>
+            <sc-if value="{{ mo.isC }}" hint-placeholder-val="{{ false }}">
+              <div style="width:100%;max-width:360px;aspect-ratio:90/13;display:grid;grid-template-columns:repeat(3,1fr);gap:6px">
+                <sc-for list="{{ mo.strip }}" as="l" hint-placeholder-count="3">
+                  <div style="background:#fff;border-radius:3px;box-shadow:0 1px 3px rgba(0,0,0,.12);padding:4px 7px 2px;display:flex;flex-direction:column;color:#000;min-width:0">
+                    <div style="font-size:16px;font-weight:800;line-height:1;letter-spacing:-.4px">{{ l.price }}</div>
+                    <div style="flex:1;min-height:0;margin-top:2px">{{ l.bc }}</div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:8px;text-align:center;line-height:1.2">{{ l.code }}</div>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="font-size:14px;color:#3A3530;font-weight:600">27 × 13 mm · se imprimen 3 por hilera</div>
+            </sc-if>
+            <sc-if value="{{ mo.noSizePv }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:16px;color:#6A6359;text-align:center;max-width:240px">Elige un tamaño para ver cómo sale la etiqueta.</div>
+            </sc-if>
+          </div>
+          <div style="font-size:13px;color:#6A6359;text-align:center">Se imprime en blanco y negro.</div>
+        </div>
+      </div>
+      <div style="flex:none;display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:16px 24px;border-top:1px solid #E7E1D7;background:#fff">
+        <div style="flex:1 1 240px;font-size:14px;color:#6A6359;line-height:1.4">Quedará como <b style="color:#B83A1D">pendiente de dar de alta en Multicomercio</b>.</div>
+        <button onClick="{{ closeModal }}" style="height:56px;padding:0 20px;border:1px solid #D9D2C6;border-radius:14px;background:#fff;color:#3A3530;font:600 17px 'Onest';cursor:pointer">Cancelar</button>
+        <button onClick="{{ saveNew }}" style="height:56px;padding:0 24px;border:none;border-radius:14px;background:#E5502F;color:#fff;font:700 18px 'Onest';cursor:pointer" style-hover="background:#CF4425">Guardar y agregar</button>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
+  <div style="position:absolute;left:50%;bottom:{{ toastBottom }};transform:translateX(-50%);z-index:40;background:#111;color:#fff;border-radius:999px;padding:14px 22px 14px 16px;display:flex;align-items:center;gap:10px;font-size:17px;font-weight:600;box-shadow:0 12px 32px rgba(0,0,0,.25);white-space:nowrap;max-width:92%;animation:tmToast .2s ease-out">
+    <span style="width:28px;height:28px;border-radius:14px;background:#E5502F;display:flex;align-items:center;justify-content:center;flex:none">{{ icCheckSm }}</span>
+    <span style="overflow:hidden;text-overflow:ellipsis">{{ toast }}</span>
+  </div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1366,&quot;height&quot;:860},&quot;pantalla&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;imprimir&quot;,&quot;catalogo&quot;,&quot;sync&quot;,&quot;login&quot;],&quot;default&quot;:&quot;imprimir&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;movil&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;listaVacia&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;modalNuevo&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;syncPaso&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;subir&quot;,&quot;resumen&quot;,&quot;listo&quot;],&quot;default&quot;:&quot;subir&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;enfocar&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+const CATS=['Accesorios','Cosméticos','Bisutería','Juguetes','Papelería','Hogar','Temporada'];
+const SEED=[
+['p1','6971234500127','Pinza para cabello mariposa','Accesorios',25,'Chica'],
+['p2','6923456781023','Labial matte tono rosa viejo','Cosméticos',39,'Chica'],
+['p3','6941122334455','Aretes de aro dorados','Bisutería',59,'Grande'],
+['p4','6955501230098','Peluche capibara 25 cm','Juguetes',189,'Grande'],
+['p5','6977700112233','Cuaderno kawaii panda 100 hojas','Papelería',65,'Grande'],
+['p6','6908877665544','Plumas de gel pastel (6 pzas)','Papelería',49,'Chica'],
+['p7','6912233445566','Taza de cerámica con tapa gatito','Hogar',129,'Grande'],
+['p8','6933344455566','Calabaza decorativa con luz','Temporada',85,null],
+['p9','6966677788899','Mascarilla facial de pepino','Cosméticos',22,'Chica'],
+['p10','6988899900011','Organizador acrílico para maquillaje','Hogar',159,'Grande'],
+['p11','6911100022233','Collar de corazón plateado','Bisutería',75,'Grande'],
+['p12','6922200033344','Ligas satinadas para cabello (3 pzas)','Accesorios',29,'Chica'],
+['p13','6944400055566','Carrito de fricción','Juguetes',55,'Chica'],
+['p14','6999911122233','Vela aromática vainilla','Hogar',69,null],
+['p15','6900011122299','Calcetines navideños','Temporada',45,'Grande',false],
+['p16','100245','Llavero de Stitch','Accesorios',35,'Chica',true,true],
+['p17','6955566677788','Brillo labial aceite de cereza','Cosméticos',45,'Chica'],
+['p18','6977788899900','Set de stickers 3D','Papelería',19,'Chica'],
+['p19','6933322211100','Bolsa tipo tote','Accesorios',249,'Grande'],
+['p20','100246','Abanico de tela floreado','Accesorios',39,'Chica',true,true]
+].map(a=>({id:a[0],code:a[1],name:a[2],cat:a[3],price:a[4],size:a[5],act:a[6]!==false,pend:!!a[7]}));
+const INITIAL=[['p4',6],['p1',12],['p5',10],['p2',9],['p8',3],['p7',4],['p6',9],['p3',4]].map(([id,qty])=>({id,qty}));
+const PRICE_CH=[['p4',189,199],['p7',129,139],['p2',39,42],['p11',75,79],['p19',249,259],['p9',22,25],
+[null,35,39,'Espejo de bolsillo redondo','6910020030040'],[null,79,85,'Cepillo desenredante','6910020030057'],[null,18,20,'Gel antibacterial mini','6910020030064'],
+[null,25,29,'Pulsera de hilo rojo','6910020030071'],[null,45,49,'Lapicera transparente','6910020030088'],[null,30,35,'Peine de bambú','6910020030095']];
+const NEW_P=[['n1','6950001112223','Termo de acero 500 ml','Hogar',149],['n2','6950002223334','Sombra de ojos 9 tonos','Cosméticos',89],['n3','6950003334445','Muñeca de trapo mini','Juguetes',65]];
+const DEACT=[['p13'],[null,'Globo metálico feliz cumpleaños','6910020030101']];
+const LC=['0001101','0011001','0010011','0111101','0100011','0110001','0101111','0111011','0110111','0001011'];
+const ACC='#E5502F',INK='#111',SOFT='#FCE9E2';
+function bars(code){const d=(String(code).replace(/\D/g,'')||'000000000000').slice(0,14);let m='101';const h=Math.ceil(d.length/2);
+for(let i=0;i<d.length;i++){if(i===h)m+='01010';let p=LC[+d[i]];if(i>=h)p=p.replace(/./g,c=>c==='1'?'0':'1');m+=p;}m+='101';
+let s='';for(let i=0;i<m.length;){if(m[i]==='1'){let j=i;while(m[j]==='1')j++;s+='M'+i+' 0h'+(j-i)+'v10h'+(i-j)+'z';i=j;}else i++;}return {d:s,n:m.length};}
+function bc(code){const b=bars(code);return React.createElement('svg',{viewBox:'0 0 '+b.n+' 10',preserveAspectRatio:'none',style:{display:'block',width:'100%',height:'100%'}},React.createElement('path',{d:b.d,fill:'#000'}));}
+function money(n){const v=Number(n);return '$'+(isFinite(v)?v:0).toLocaleString('es-MX',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function norm(s){return String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');}
+function ic(paths,size,sw){return React.createElement('svg',{width:size||24,height:size||24,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:sw||2.2,strokeLinecap:'round',strokeLinejoin:'round',style:{display:'block',flex:'none'}},paths.map((d,i)=>React.createElement('path',{key:i,d})));}
+const IC={scan:['M4 7V5a1 1 0 0 1 1-1h2','M17 4h2a1 1 0 0 1 1 1v2','M20 17v2a1 1 0 0 1-1 1h-2','M7 20H5a1 1 0 0 1-1-1v-2','M8 8v8','M11 8v8','M13.5 8v8','M16 8v8'],
+down:['M12 4v11','M7 10l5 5 5-5','M5 20h14'],up:['M12 20V9','M7 14l5-5 5 5','M5 4h14'],check:['M5 12.5l4.5 4.5L19 7'],x:['M6 6l12 12','M18 6L6 18'],
+alert:['M12 9v4','M12 16.5v.5','M10.3 3.9L2.6 17a2 2 0 0 0 1.7 3h15.4a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z'],
+printer:['M7 9V4h10v5','M7 17H5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2','M7 14h10v6H7z'],search:['M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14z','M20 20l-4-4']};
+
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    const P=props||{};
+    this.rootRef=React.createRef(); this.inputRef=React.createRef();
+    const modal=P.modalNuevo?{code:'7509876543210',name:'Termo de acero 500 ml',price:'149',cat:'Hogar',size:'Grande',tried:false}:null;
+    this.state={screen:P.pantalla||'imprimir',products:SEED.map(p=>({...p})),list:P.listaVacia?[]:INITIAL.map(x=>({...x})),
+      q:'',sel:0,focused:false,toast:null,flash:null,confirmClear:false,w:1366,modal,
+      login:{mode:'enlace',email:'',pass:'',sent:false},
+      f:{q:'',cat:'Todas',size:'Todos',pend:false,est:'Activos'},
+      sync:{step:P.syncPaso||'subir',tab:'precios'}};
+  }
+  componentDidMount(){
+    const el=this.rootRef.current;
+    if(el&&window.ResizeObserver){this.ro=new ResizeObserver(e=>{const w=e[0].contentRect.width;if(Math.abs(w-this.state.w)>2)this.setState({w});});this.ro.observe(el);}
+    const P=this.props||{};
+    if(P.enfocar!==false){
+      this.focusSearch();
+      this.kd=e=>{const a=document.activeElement;if(this.state.screen!=='imprimir'||this.state.modal)return;if(a&&/INPUT|TEXTAREA|SELECT/.test(a.tagName))return;if(e.key.length===1&&!e.metaKey&&!e.ctrlKey)this.focusSearch();};
+      document.addEventListener('keydown',this.kd);
+    }
+  }
+  componentWillUnmount(){this.ro&&this.ro.disconnect();this.kd&&document.removeEventListener('keydown',this.kd);clearTimeout(this.tt);clearTimeout(this.ft);}
+  focusSearch(){setTimeout(()=>{const el=this.inputRef.current;if(el&&this.state.screen==='imprimir'&&!this.state.modal)el.focus({preventScroll:true});},0);}
+  show(msg){clearTimeout(this.tt);this.setState({toast:msg});this.tt=setTimeout(()=>this.setState({toast:null}),1900);}
+  prod(id){return this.state.products.find(p=>p.id===id);}
+  updProd(id,patch){this.setState(s=>({products:s.products.map(p=>p.id===id?{...p,...patch}:p)}));}
+  add(id,n){
+    n=n||1;const p=this.prod(id);
+    this.setState(s=>{const ex=s.list.find(x=>x.id===id);const list=ex?s.list.map(x=>x.id===id?{...x,qty:(parseInt(x.qty)||0)+n}:x):[{id,qty:n},...s.list];return {list,flash:id,q:'',sel:0};});
+    clearTimeout(this.ft);this.ft=setTimeout(()=>this.setState({flash:null}),900);
+    this.show('Agregado: '+(p?p.name:''));
+  }
+  sugs(){
+    const q=this.state.q.trim();if(q.length<2)return [];const nq=norm(q);
+    return this.state.products.filter(p=>p.act&&(norm(p.name).includes(nq)||p.code.startsWith(q))).slice(0,6);
+  }
+  openNew(pre){this.setState({modal:{code:'',name:'',price:'',cat:'',size:null,tried:false,...pre},q:'',sel:0});}
+  enter(){
+    const q=this.state.q.trim();if(!q)return;
+    const ex=this.state.products.find(p=>p.code===q.replace(/\s/g,''));
+    if(ex)return this.add(ex.id);
+    if(/^[\d\s\-.\/]+$/.test(q))return this.openNew({code:q});
+    const s=this.sugs();if(s.length)return this.add(s[Math.min(this.state.sel,s.length-1)].id);
+    this.openNew({name:q});
+  }
+  modalCheck(mo){
+    const code=mo.code.trim();const bad=code.replace(/\d/g,'');const digits=code.replace(/\D/g,'');
+    const dup=!bad&&code?this.state.products.find(p=>p.code===code):null;
+    const pr=parseFloat(String(mo.price).replace(',','.'));
+    const ok={code:!!code&&!bad&&!dup,name:!!mo.name.trim(),price:pr>0,cat:!!mo.cat,size:!!mo.size};
+    return {code,bad,digits,dup,pr,ok,all:Object.values(ok).every(Boolean)};
+  }
+  saveNew(){
+    const mo=this.state.modal;const c=this.modalCheck(mo);
+    if(!c.all){this.setState({modal:{...mo,tried:true}});return;}
+    const id='u'+Date.now();
+    const np={id,code:c.code,name:mo.name.trim(),price:c.pr,cat:mo.cat,size:mo.size,act:true,pend:true};
+    this.setState(s=>({products:[np,...s.products],list:[{id,qty:1},...s.list],modal:null,flash:id}));
+    clearTimeout(this.ft);this.ft=setTimeout(()=>this.setState({flash:null}),900);
+    this.show('Guardado y agregado');this.focusSearch();
+  }
+  setMo(patch){this.setState(s=>({modal:{...s.modal,...patch}}));}
+  go(screen){this.setState({screen,confirmClear:false});if(screen==='imprimir')this.focusSearch();}
+  applySync(){
+    this.setState(s=>{let products=s.products.map(p=>{const ch=PRICE_CH.find(c=>c[0]===p.id);const de=DEACT.find(d=>d[0]===p.id);return {...p,...(ch?{price:ch[2]}:{}),...(de?{act:false}:{})};});
+      NEW_P.forEach(n=>{if(!products.find(p=>p.id===n[0]))products.push({id:n[0],code:n[1],name:n[2],cat:n[3],price:n[4],size:null,act:true,pend:false});});
+      return {products,sync:{...s.sync,step:'listo'}};});
+    this.show('Cambios aplicados');
+  }
+
+  renderVals(){
+    const s=this.state,P=this.props||{};
+    const m=P.movil!=null?!!P.movil:s.w<720;
+    const T=(a,b)=>a?b[0]:b[1];
+    const rowsRaw=s.list.map(it=>({it,p:this.prod(it.id)})).filter(x=>x.p);
+    const qn=x=>parseInt(x.it.qty)||0;
+    const sumG=rowsRaw.filter(x=>x.p.size==='Grande').reduce((a,x)=>a+qn(x),0);
+    const sumC=rowsRaw.filter(x=>x.p.size==='Chica').reduce((a,x)=>a+qn(x),0);
+    const unsized=rowsRaw.filter(x=>!x.p.size).length;
+    const hil=Math.ceil(sumC/3);
+    const rows=rowsRaw.map(({it,p})=>{const id=p.id;const fl=s.flash===id;
+      return {id,name:p.name,code:p.code,price:money(p.price),pend:p.pend,qty:it.qty,size:p.size,hasSize:!!p.size,noSize:!p.size,
+        sizeMm:p.size==='Grande'?'38×25':'27×13',chipBg:p.size==='Grande'?INK:'#fff',chipFg:p.size==='Grande'?'#fff':INK,
+        bg:fl?SOFT:'#fff',border:fl?ACC:(p.size?'#E7E1D7':'#F1B9A8'),
+        toggle:()=>{const ns=p.size==='Grande'?'Chica':'Grande';this.updProd(id,{size:ns});this.show('Cambiado a '+ns);this.focusSearch();},
+        setG:()=>{this.updProd(id,{size:'Grande'});this.show('Guardado');this.focusSearch();},
+        setC:()=>{this.updProd(id,{size:'Chica'});this.show('Guardado');this.focusSearch();},
+        inc:()=>{this.setState(st=>({list:st.list.map(x=>x.id===id?{...x,qty:(parseInt(x.qty)||0)+1}:x)}));this.focusSearch();},
+        dec:()=>{this.setState(st=>({list:st.list.map(x=>x.id===id?{...x,qty:Math.max(1,(parseInt(x.qty)||1)-1)}:x)}));this.focusSearch();},
+        setQty:e=>{const v=e.target.value.replace(/\D/g,'').slice(0,4);this.setState(st=>({list:st.list.map(x=>x.id===id?{...x,qty:v}:x)}));},
+        fixQty:()=>this.setState(st=>({list:st.list.map(x=>x.id===id?{...x,qty:Math.max(1,parseInt(x.qty)||1)}:x)})),
+        remove:()=>{this.setState(st=>({list:st.list.filter(x=>x.id!==id)}));this.show('Quitado');this.focusSearch();}};});
+    const bigP=rowsRaw.find(x=>x.p.size==='Grande');
+    const smalls=[];rowsRaw.filter(x=>x.p.size==='Chica').forEach(x=>{for(let i=0;i<qn(x)&&smalls.length<3;i++)smalls.push(x.p);});
+    const smallRow=[0,1,2].map(i=>{const p=smalls[i];return p?{price:money(p.price),code:p.code,bc:bc(p.code),bg:'#fff',shadow:'0 1px 2px rgba(0,0,0,.12)'}:{price:'',code:'',bc:null,bg:'rgba(255,255,255,.45)',shadow:'none'};});
+    const sg=this.sugs();const qv=s.q.trim();
+    const isDigits=/^[\d\s\-.\/]+$/.test(qv);
+    const sugs=sg.map((p,i)=>({name:p.name,code:p.code,price:money(p.price),size:p.size||'Sin tamaño',chipBg:p.size==='Grande'?INK:(p.size?'#F3EFE8':SOFT),chipFg:p.size==='Grande'?'#fff':(p.size?INK:'#B83A1D'),bg:i===s.sel?'#FAF7F2':'#fff',pick:e=>{e.preventDefault();this.add(p.id);this.focusSearch();}}));
+    const showSugs=s.focused&&qv.length>=2&&(sg.length>0||!isDigits);
+    const pendList=s.products.filter(p=>p.pend);
+    const tabs=[['imprimir','Imprimir',s.list.length],['catalogo','Catálogo',0],['sync','Sincronizar',pendList.length]].map(([k,l,b])=>{const on=s.screen===k;
+      return {label:l,go:()=>this.go(k),bg:on?INK:'transparent',fg:on?'#fff':'#3A3530',hasBadge:b>0,badge:b,badgeBg:on?ACC:(k==='sync'?ACC:'#ECE7DF'),badgeFg:on||k==='sync'?'#fff':INK};});
+    // catalog
+    const f=s.f;const nq=norm(f.q);
+    const filt=s.products.filter(p=>(f.est==='Todos'||(f.est==='Activos'?p.act:!p.act))&&(f.cat==='Todas'||p.cat===f.cat)&&
+      (f.size==='Todos'||(f.size==='Sin tamaño'?!p.size:p.size===f.size))&&(!f.pend||p.pend)&&(!nq||norm(p.name).includes(nq)||p.code.includes(f.q.trim())));
+    const anyFilter=f.q||f.cat!=='Todas'||f.size!=='Todos'||f.pend||f.est!=='Activos';
+    const setF=patch=>this.setState(st=>({f:{...st.f,...patch}}));
+    const seg=(opts,key)=>opts.map(o=>{const on=f[key]===o;return {label:o,go:()=>setF({[key]:o}),bg:on?'#fff':'transparent',fg:on?INK:'#5A534A',sh:on?'0 1px 3px rgba(0,0,0,.12)':'none'};});
+    const total=1194+s.products.length;
+    const catRows=filt.map(p=>{const id=p.id;const inL=s.list.find(x=>x.id===id);
+      return {name:p.name,code:p.code,cat:p.cat,price:String(p.price),pend:p.pend,inactive:!p.act,noSize:!p.size,op:p.act?1:.6,
+        gBg:p.size==='Grande'?INK:'transparent',gFg:p.size==='Grande'?'#fff':'#5A534A',cBg:p.size==='Chica'?INK:'transparent',cFg:p.size==='Chica'?'#fff':'#5A534A',
+        setName:e=>{this.dirty=true;this.updProd(id,{name:e.target.value});},
+        setPrice:e=>{this.dirty=true;this.updProd(id,{price:e.target.value.replace(/[^\d.]/g,'')});},
+        saved:()=>{if(this.dirty){this.dirty=false;this.show('Guardado');}},
+        setG:()=>{this.updProd(id,{size:'Grande'});this.show('Guardado');},
+        setC:()=>{this.updProd(id,{size:'Chica'});this.show('Guardado');},
+        add:()=>this.add(id),
+        addLabel:inL?'En la impresión · '+inL.qty:'Agregar a impresión',addBg:inL?'#fff':INK,addFg:INK===INK&&inL?INK:'#fff',addBorder:INK};});
+    // sync
+    const prodName=id=>{const p=this.prod(id);return p?p.name:'';};const prodCode=id=>{const p=this.prod(id);return p?p.code:'';};
+    const detail={precios:PRICE_CH.map(c=>({name:c[0]?prodName(c[0]):c[3],code:c[0]?prodCode(c[0]):c[4],info:money(c[1])+'  →  '+money(c[2])})),
+      nuevos:NEW_P.map(n=>({name:n[2],code:n[1],info:money(n[4])+' · '+n[3]})),
+      desact:DEACT.map(d=>({name:d[0]?prodName(d[0]):d[1],code:d[0]?prodCode(d[0]):d[2],info:'Ya no está activo'}))};
+    const syncTiles=[['precios',12,'precios cambiados'],['nuevos',3,'productos nuevos'],['desact',2,'desactivados']].map(([k,n,l])=>{const on=s.sync.tab===k;
+      return {num:n,label:l,go:()=>this.setState(st=>({sync:{...st.sync,tab:k}})),border:on?INK:'#E7E1D7',bg:on?'#FAF7F2':'#fff'};});
+    // modal
+    let mo=null;
+    if(s.modal){const M=s.modal;const c=this.modalCheck(M);const t=M.tried;
+      const uniq=[...new Set(c.bad.split(''))].map(ch=>ch===' '?'espacios':'“'+ch+'”').join(', ');
+      const label={price:c.pr>0?money(c.pr):'$0.00',code:c.digits||'0000000000000'};
+      mo={code:M.code,name:M.name,price:M.price,
+        setCode:e=>this.setMo({code:e.target.value}),setName:e=>this.setMo({name:e.target.value}),setPrice:e=>this.setMo({price:e.target.value.replace(/[^\d.,]/g,'')}),
+        badChars:!!c.bad,badTxt:'Solo números. Este código trae '+uniq+'.',fixCode:()=>this.setMo({code:c.digits}),
+        dup:!!c.dup,dupName:c.dup?c.dup.name:'',addDup:()=>{const id=c.dup.id;this.setState({modal:null});this.add(id);this.focusSearch();},
+        codeMissing:t&&!c.code,nameMissing:t&&!c.ok.name,priceMissing:t&&!c.ok.price,catMissing:t&&!c.ok.cat,sizeMissing:t&&!c.ok.size,
+        codeBorder:(c.bad||c.dup||(t&&!c.code))?ACC:'#D9D2C6',nameBorder:t&&!c.ok.name?ACC:'#D9D2C6',priceBorder:t&&!c.ok.price?ACC:'#D9D2C6',
+        cats:CATS.map(k=>{const on=M.cat===k;return {label:k,go:()=>this.setMo({cat:k}),bg:on?INK:'#fff',fg:on?'#fff':INK,border:on?INK:'#D9D2C6'};}),
+        pickG:()=>this.setMo({size:'Grande'}),pickC:()=>this.setMo({size:'Chica'}),
+        gBorder:M.size==='Grande'?ACC:'#E7E1D7',gBg:M.size==='Grande'?SOFT:'#fff',cBorder:M.size==='Chica'?ACC:'#E7E1D7',cBg:M.size==='Chica'?SOFT:'#fff',
+        isG:M.size==='Grande',isC:M.size==='Chica',noSizePv:!M.size,
+        pvName:M.name.trim()||'Nombre del producto',pvNameFg:M.name.trim()?'#000':'#A8A196',pvPrice:label.price,pvCode:label.code,bc:bc(label.code),
+        strip:[0,1,2].map(()=>({price:label.price,code:label.code,bc:bc(label.code)}))};
+    }
+    const L=s.login;
+    return {
+      rootRef:this.rootRef,inputRef:this.inputRef,m,desk:!m,
+      isLogin:s.screen==='login',isApp:s.screen!=='login',isPrint:s.screen==='imprimir',isCat:s.screen==='catalogo',isSync:s.screen==='sync',
+      pad:m?'16px':'28px 32px',h1:m?'30px':'44px',searchH:m?'62px':'78px',searchFont:m?'19px':'24px',pandaW:m?'150px':'200px',
+      tabs,logout:()=>this.setState({screen:'login',login:{mode:'enlace',email:'',pass:'',sent:false}}),
+      // login
+      loginSent:L.sent,loginForm:!L.sent,loginEmail:L.email,loginEmailShown:L.email||'tu correo',loginPass:L.pass,loginPassMode:L.mode==='pass',
+      setLoginEmail:e=>this.setState({login:{...L,email:e.target.value}}),setLoginPass:e=>this.setState({login:{...L,pass:e.target.value}}),
+      loginCta:L.mode==='pass'?'Entrar':'Mandarme el enlace',loginAlt:L.mode==='pass'?'Mejor mándenme un enlace al correo':'Prefiero usar contraseña',
+      loginToggle:()=>this.setState({login:{...L,mode:L.mode==='pass'?'enlace':'pass'}}),
+      loginSubmit:()=>{if(L.mode==='pass')this.go('imprimir');else this.setState({login:{...L,sent:true}});},
+      loginKey:e=>{if(e.key==='Enter')this.go('imprimir');},loginGo:()=>this.go('imprimir'),loginResend:()=>this.show('Enlace enviado otra vez'),
+      // print
+      q:s.q,setQ:e=>this.setState({q:e.target.value,sel:0}),
+      onKey:e=>{if(e.key==='Enter'){e.preventDefault();this.enter();}else if(e.key==='ArrowDown'){e.preventDefault();this.setState({sel:Math.min(s.sel+1,Math.max(0,sg.length-1))});}else if(e.key==='ArrowUp'){e.preventDefault();this.setState({sel:Math.max(0,s.sel-1)});}else if(e.key==='Escape')this.setState({q:''});},
+      onFocus:()=>this.setState({focused:true}),onBlur:()=>this.setState({focused:false}),
+      searchBorder:s.focused?ACC:INK,searchShadow:s.focused?'0 0 0 6px rgba(229,80,47,.15)':'none',
+      scanDot:React.createElement('span',{style:{width:10,height:10,borderRadius:5,background:s.focused?'#1E8E4E':'#B8B0A3',animation:s.focused?'tmPulse 1.6s ease-in-out infinite':'none',display:'inline-block'}}),
+      scanText:s.focused?'Listo para escanear':'Toca el buscador para escanear',scanFg:s.focused?'#1E6B3E':'#6A6359',
+      sugs,showSugs,noSugs:sg.length===0&&!isDigits,createFromQ:e=>{e.preventDefault();this.openNew({name:qv});},
+      rows,hasRows:rows.length>0,empty:rows.length===0,rowCount:rows.length===1?'1 producto':rows.length+' productos',
+      sumG,sumC,rowsTxt:hil===1?'1 hilera':hil+' hileras',hasUnsized:unsized>0,unsizedTxt:unsized===1?'1 producto sin tamaño.':unsized+' productos sin tamaño.',
+      noG:sumG===0,noC:sumC===0,gOp:sumG?1:.35,cOp:sumC?1:.35,
+      dlG:()=>{this.show('Descargando PDF · '+sumG+' grandes');this.focusSearch();},dlC:()=>{this.show('Descargando PDF · '+hil+' hileras chicas');this.focusSearch();},
+      confirmClear:s.confirmClear,showClearBtn:!s.confirmClear&&rows.length>0,askClear:()=>this.setState({confirmClear:true}),cancelClear:()=>{this.setState({confirmClear:false});this.focusSearch();},
+      doClear:()=>{this.setState({list:[],confirmClear:false});this.show('Lista vacía');this.focusSearch();},
+      hasBig:!!bigP,big:bigP?{name:bigP.p.name,price:money(bigP.p.price),code:bigP.p.code,bc:bc(bigP.p.code)}:{},
+      hasSmall:smalls.length>0,smallRow,noPreview:!bigP&&!smalls.length,
+      // catalog
+      cq:f.q,setCq:e=>setF({q:e.target.value}),ccat:f.cat,setCcat:e=>setF({cat:e.target.value}),
+      catOpts:[{v:'Todas',label:'Todas las categorías'},...CATS.map(c=>({v:c,label:c}))],
+      sizeFilters:seg(['Todos','Grande','Chica','Sin tamaño'],'size'),estFilters:seg(['Activos','Inactivos','Todos'],'est'),
+      togglePend:()=>setF({pend:!f.pend}),pendBorder:f.pend?ACC:'#D9D2C6',pendBg:f.pend?SOFT:'#fff',pendBox:f.pend?ACC:'#fff',pendCheck:f.pend?ic(IC.check,14,3):null,
+      pendCount:pendList.length,pendLabel:'Pendientes en Multicomercio ('+pendList.length+')',catTotal:total.toLocaleString('es-MX')+' productos',catRows,catEmpty:filt.length===0,
+      catFoot:anyFilter?(filt.length===1?'1 resultado':filt.length+' resultados'):'Mostrando los primeros '+filt.length+' de '+total.toLocaleString('es-MX')+'. Usa el buscador para encontrar cualquier producto.',
+      resetFilters:()=>this.setState({f:{q:'',cat:'Todas',size:'Todos',pend:false,est:'Activos'}}),
+      // sync
+      syncSubir:s.sync.step==='subir',syncResumen:s.sync.step==='resumen',syncListo:s.sync.step==='listo',
+      pickFile:()=>this.setState(st=>({sync:{...st.sync,step:'resumen'}})),syncReset:()=>this.setState(st=>({sync:{...st.sync,step:'subir'}})),
+      syncTiles,syncDetail:detail[s.sync.tab],applySync:()=>this.applySync(),
+      goUnsized:()=>this.setState({screen:'catalogo',f:{q:'',cat:'Todas',size:'Sin tamaño',pend:false,est:'Activos'}}),
+      pendRows:pendList.map(p=>({name:p.name,code:p.code,price:money(p.price)})),noPend:pendList.length===0,pendOp:pendList.length?1:.35,
+      exportPend:()=>this.show('Descargando pendientes_multicomercio.xlsx'),
+      // modal
+      modalOpen:!!mo,mo:mo||{},modalSub:s.modal?(s.modal.code?'No encontramos el código '+s.modal.code+'. Dalo de alta para imprimir su etiqueta.':'Dalo de alta para imprimir su etiqueta.'):'',
+      closeModal:()=>{this.setState({modal:null});this.focusSearch();},saveNew:()=>this.saveNew(),
+      ovPad:m?'0':'28px',boxH:m?'100%':'auto',boxR:m?'0':'22px',
+      hasToast:!!s.toast,toast:s.toast,toastBottom:m&&s.screen==='imprimir'?'150px':'28px',
+      icScan:ic(IC.scan,28,2),icX:ic(IC.x,22),icDown:ic(IC.down,22,2.4),icUp:ic(IC.up,28),icCheck:ic(IC.check,30,3),icCheckSm:ic(IC.check,16,3),
+      icAlert:ic(IC.alert,20),icPrinter:ic(IC.printer,18,2),icSearch:ic(IC.search,22)
+    };
+  }
+}
+</script>
+</body>
+</html>
