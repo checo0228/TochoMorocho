@@ -4,7 +4,7 @@ Respuestas de Sergio. Claude Code: si una respuesta está vacía, usar la opció
 
 ## Cuentas y despliegue
 1. ¿Qué correo de la tienda se usa para Supabase y Vercel? ¿Ya están creadas las cuentas?
-   R: Ya están creadas. Supabase: correo personal de Sergio. Vercel: cuenta de Draft.
+   R: Ya están creadas. Supabase y Vercel van en las cuentas personales de Sergio. Vercel se pensó en la cuenta de Draft, pero no puede ver un repo personal del que solo es colaborador.
 2. ¿Dominio propio o basta `tochomorocho.vercel.app`? (default: vercel.app)
    R: Default: dominio de Vercel.
 ## Uso diario

@@ -20,7 +20,7 @@ Se hace una sola vez. Las claves **nunca** se escriben en el repo ni en el chat:
 
 Para cambiar un PIN después, vuelve a ponerlo en `.env.local`, corre `npm run usuarios:crear` y bórralo otra vez.
 
-## 3. Vercel (cuenta de Draft)
+## 3. Vercel (cuenta personal de Sergio, entrando con GitHub checo0228)
 1. **Add New → Project → Import** el repo `checo0228/TochoMorocho`. La primera vez Vercel pide permiso para leer el repo de GitHub.
 2. Framework: Next.js. No hay que cambiar nada más.
 3. **Environment Variables**: agregar estas 3 en Production y Preview:

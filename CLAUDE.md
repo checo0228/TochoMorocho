@@ -1,6 +1,6 @@
 # Etiquetas De Tocho Morocho
 
-App web interna para generar etiquetas de precio con código de barras de la tienda **De Tocho Morocho** (importadora, León, Gto.). La usan la dueña (no técnica), su hijo Sergio y las empleadas, en la PC del mostrador (Windows + Chrome) y en el celular. Proyecto de la tienda: Supabase va en la cuenta personal de Sergio y Vercel en la cuenta de Draft, con el dominio `*.vercel.app`.
+App web interna para generar etiquetas de precio con código de barras de la tienda **De Tocho Morocho** (importadora, León, Gto.). La usan la dueña (no técnica), su hijo Sergio y las empleadas, en la PC del mostrador (Windows + Chrome) y en el celular. Proyecto de la tienda: Supabase y Vercel (Hobby, conectado a GitHub `checo0228/TochoMorocho`, despliegue automático en cada push a `main`) van en las cuentas personales de Sergio, con el dominio `*.vercel.app`. Nada vive en Draft Studio.
 
 Hoy las etiquetas se generan a mano con scripts de Python a partir de exportaciones de Multicomercio. La app reemplaza ese proceso: la dueña debe poder hacerlo sola.
 
