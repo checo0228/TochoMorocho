@@ -10,11 +10,14 @@ Hoy las etiquetas se generan a mano con scripts de Python a partir de exportacio
 - Generador de referencia probado en la impresora: `docs/referencia/etiquetas_ref.py` (+ PDFs de muestra). **La app debe producir PDFs equivalentes.**
 - Archivos reales de Multicomercio para pruebas: `data/muestras/`.
 - Fase 1 hecha: base Next.js + Supabase, login con PIN y tests. Despliegue: `docs/DESPLIEGUE.md`.
+- Fase 2 hecha: pantalla Imprimir (escaneo con pistola y cámara, lista compartida en vivo, PDFs grande/chica, partes de 300 páginas). Los PDFs salen **idénticos píxel por píxel a 203 dpi** a los de `etiquetas_ref.py` (`tests/pdf.test.ts`).
 
 ## Stack
 - Next.js (App Router, TypeScript), desplegado en Vercel.
 - Supabase: Postgres + Auth. **Acceso por PIN de 6 números** con 2 roles en `app_metadata.rol`: `admin` (todo) y `empleada` (solo Imprimir: no ve catálogo, sincronizar ni historial, y no edita). El PIN se valida en `/api/pin` (bcrypt en Postgres, límite de intentos) y abre una sesión larga. RLS por rol: `es_admin()` / `es_equipo()`.
-- PDFs generados **en el navegador** (jsPDF + bwip-js o JsBarcode). Nada de PDFs en servidor.
+- PDFs generados **en el navegador** con jsPDF (`lib/etiquetas/pdf.ts`). Nada de PDFs en servidor. La vista previa en pantalla usa la misma composición (`componerEtiqueta`).
+  - Code128: port propio de reportlab (`lib/etiquetas/code128.ts`), porque JsBarcode y bwip-js eligen otros juegos de caracteres (B/C) y dibujan otras barras. Está verificado contra reportlab con 3,011 códigos (`tests/fixtures/code128_reportlab.json`, generado con `scripts/fixture-code128.py`).
+  - Anchos de texto con las métricas Adobe de Helvetica (`lib/etiquetas/metricas-helvetica.ts`). Las de jsPDF están redondeadas y descuadraban el centrado hasta 0.06 mm.
 - Lectura de Excel en el navegador (SheetJS `xlsx` 0.20.3 desde cdn.sheetjs.com).
 - Celular: escaneo con la cámara (BarcodeDetector) además de la pistola.
 - UI en español de México, pensada para una persona no técnica: botones grandes, pocos pasos, mensajes claros.

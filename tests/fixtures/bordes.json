@@ -1,0 +1,74 @@
+[
+ {
+  "nombre": "a",
+  "precio": 1,
+  "codigo": "1",
+  "cantidad": 1
+ },
+ {
+  "nombre": "ab",
+  "precio": 22,
+  "codigo": "12",
+  "cantidad": 1
+ },
+ {
+  "nombre": "abc",
+  "precio": 333,
+  "codigo": "123",
+  "cantidad": 1
+ },
+ {
+  "nombre": "abcd",
+  "precio": 4444,
+  "codigo": "1234",
+  "cantidad": 1
+ },
+ {
+  "nombre": "cinco digitos",
+  "precio": 55555.5,
+  "codigo": "12345",
+  "cantidad": 1
+ },
+ {
+  "nombre": "alfanumerico",
+  "precio": 62.9999,
+  "codigo": "901A",
+  "cantidad": 1
+ },
+ {
+  "nombre": "nombre de veintinueve letras",
+  "precio": 29,
+  "codigo": "8994",
+  "cantidad": 1
+ },
+ {
+  "nombre": "nombre larguisimo que no cabe ni a cuatro y medio puntos",
+  "precio": 1000,
+  "codigo": "1160",
+  "cantidad": 1
+ },
+ {
+  "nombre": "",
+  "precio": 999.99,
+  "codigo": "7",
+  "cantidad": 1
+ },
+ {
+  "nombre": ".",
+  "precio": 1234567.89,
+  "codigo": "90034",
+  "cantidad": 1
+ },
+ {
+  "nombre": "muñeco navideño cañón",
+  "precio": 149.5,
+  "codigo": "604",
+  "cantidad": 1
+ },
+ {
+  "nombre": "ÁÉÍÓÚ áéíóú ü Ñ",
+  "precio": 10,
+  "codigo": "1168",
+  "cantidad": 1
+ }
+]

@@ -49,6 +49,7 @@ beforeAll(async () => {
   db = await PGlite.create({ extensions: { pgcrypto } });
   await db.exec(SUPABASE_MINIMO);
   await db.exec(readFileSync("supabase/migrations/20261118000000_inicial.sql", "utf8"));
+  await db.exec(readFileSync("supabase/migrations/20261119000000_lista_impresion.sql", "utf8"));
   await db.exec(readFileSync("supabase/seed.sql", "utf8"));
   await db.exec(`
     insert into auth.users (id, email) values
@@ -130,6 +131,22 @@ describe("RLS", () => {
 
   it("nadie del equipo ve los PINs", async () => {
     const r = await como<{ n: number }>("authenticated", admin, `select count(*)::int n from pines`);
+    expect(r.rows[0].n).toBe(0);
+  });
+});
+
+describe("lista de impresión (fase 2)", () => {
+  it("agregar_a_lista suma de forma atómica y respeta RLS", async () => {
+    await como("authenticated", admin, `select public.vaciar_lista()`);
+    const a = await como<{ n: number }>("authenticated", empleada, `select public.agregar_a_lista('802', 1) n`);
+    const b = await como<{ n: number }>("authenticated", admin, `select public.agregar_a_lista('802', 4) n`);
+    expect([a.rows[0].n, b.rows[0].n]).toEqual([1, 5]);
+    await expect(como("authenticated", sinRol, `select public.agregar_a_lista('802', 1)`)).rejects.toThrow(/row-level security/);
+    await expect(como("anon", null, `select public.agregar_a_lista('802', 1)`)).rejects.toThrow(/permission denied/);
+  });
+  it("vaciar_lista borra todo (empleada también puede)", async () => {
+    await como("authenticated", empleada, `select public.vaciar_lista()`);
+    const r = await db.query<{ n: number }>(`select count(*)::int n from lista_impresion`);
     expect(r.rows[0].n).toBe(0);
   });
 });
