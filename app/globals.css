@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+/* Tokens del diseño (design/EtiquetasApp.dc.html) */
+@theme {
+  --color-fondo: #faf7f2;
+  --color-tinta: #111111;
+  --color-acento: #e5502f;
+  --color-acento-hover: #cf4425;
+  --color-enlace: #b83a1d;
+  --color-suave: #fce9e2;
+  --color-borde: #e7e1d7;
+  --color-borde-input: #d9d2c6;
+  --color-texto-2: #3a3530;
+  --color-apagado: #6a6359;
+  --color-apagado-2: #5a534a;
+  --color-placeholder: #9a9286;
+  --color-chip: #ece7df;
+
+  --font-titulo: var(--font-anton), "Anton", sans-serif;
+  --font-sans: var(--font-onest), "Onest", system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), "IBM Plex Mono", ui-monospace, monospace;
+}
+
+html,
+body {
+  background: var(--color-fondo);
+  color: var(--color-tinta);
+}
+
+input::placeholder {
+  color: var(--color-placeholder);
+}
+
+a {
+  color: var(--color-enlace);
+}
+a:hover {
+  color: var(--color-tinta);
+}
+
+.titulo {
+  font-family: var(--font-titulo);
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  line-height: 1;
+}
+
+@keyframes tm-pulso {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(0.8);
+  }
+}
+@keyframes tm-sacudir {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20%,
+  60% {
+    transform: translateX(-8px);
+  }
+  40%,
+  80% {
+    transform: translateX(8px);
+  }
+}
+.sacudir {
+  animation: tm-sacudir 0.35s ease;
+}

@@ -1,0 +1,10 @@
+node_modules/
+.next/
+.env*
+!.env.example
+.vercel/
+*.log
+next-env.d.ts
+*.tsbuildinfo
+tests/salida/
+supabase/.temp/
