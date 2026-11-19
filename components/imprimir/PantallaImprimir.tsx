@@ -6,6 +6,7 @@ import Icono from "@/components/Icono";
 import Buscador from "./Buscador";
 import RenglonImpresion from "./RenglonImpresion";
 import EscanerCamara from "./EscanerCamara";
+import ModalProductoNuevo from "@/components/producto/ModalProductoNuevo";
 import { AyudaZebra, BarraResumenCelular, ConfirmarVaciarCelular, PanelResumenEscritorio, type Resumen } from "./PanelResumen";
 import { supabaseNavegador } from "@/lib/supabase/client";
 import { agregarALista, asignarTamano, cargarLista, cargarProductos, fijarCantidad, registrarImpresion, vaciarLista } from "@/lib/datos";
@@ -22,6 +23,7 @@ interface Props {
   rol: Rol;
   productosIniciales: Producto[];
   listaInicial: RenglonLista[];
+  categorias: string[];
 }
 
 type Aviso = { tipo: "noExiste" | "codigo"; codigo: string; texto: string } | null;
@@ -29,7 +31,7 @@ type Partes = { diseno: DisenoEtiqueta; partes: Etiqueta[][]; hechas: Set<number
 
 const DISENOS: Record<Tamano, DisenoEtiqueta> = { grande: GRANDE, chica: CHICA };
 
-export default function PantallaImprimir({ rol, productosIniciales, listaInicial }: Props) {
+export default function PantallaImprimir({ rol, productosIniciales, listaInicial, categorias }: Props) {
   const sb = supabaseNavegador();
   const esAdmin = rol === "admin";
   const [productos, setProductos] = useState(productosIniciales);
@@ -41,6 +43,8 @@ export default function PantallaImprimir({ rol, productosIniciales, listaInicial
   const [aviso, setAviso] = useState<Aviso>(null);
   const [generando, setGenerando] = useState<Tamano | null>(null);
   const [partes, setPartes] = useState<Partes>(null);
+  /** Código para "Producto nuevo" (null = cerrado). */
+  const [nuevo, setNuevo] = useState<string | null>(null);
   const entrada = useRef<HTMLInputElement>(null);
   const timerToast = useRef<ReturnType<typeof setTimeout>>(undefined);
   const timerResaltado = useRef<ReturnType<typeof setTimeout>>(undefined);
@@ -175,7 +179,7 @@ export default function PantallaImprimir({ rol, productosIniciales, listaInicial
           tipo: "noExiste",
           codigo: r.codigo,
           texto: esAdmin
-            ? "Dalo de alta en Multicomercio y luego sincroniza el Excel. (Crear productos aquí llega en la fase 3.)"
+            ? "Puedes darlo de alta aquí para imprimir ya; queda pendiente para Multicomercio."
             : "Avisa a la encargada para que lo dé de alta.",
         });
       }
@@ -356,6 +360,17 @@ export default function PantallaImprimir({ rol, productosIniciales, listaInicial
                   )}
                 </div>
                 {aviso.texto}
+                {aviso.tipo === "noExiste" && esAdmin && (
+                  <div className="mt-3">
+                    <button
+                      type="button"
+                      onClick={() => setNuevo(aviso.codigo)}
+                      className="h-12 rounded-[14px] bg-acento px-5 text-base font-bold text-white hover:bg-acento-hover"
+                    >
+                      Crear producto nuevo
+                    </button>
+                  </div>
+                )}
               </div>
               <button type="button" onClick={() => setAviso(null)} aria-label="Cerrar aviso" className="flex size-10 items-center justify-center rounded-xl hover:bg-white/60">
                 <Icono nombre="cerrar" tam={20} />
@@ -419,6 +434,33 @@ export default function PantallaImprimir({ rol, productosIniciales, listaInicial
           }}
           onCerrar={() => {
             setPartes(null);
+            reenfocar();
+          }}
+        />
+      )}
+
+      {nuevo !== null && (
+        <ModalProductoNuevo
+          codigoInicial={nuevo}
+          categorias={categorias}
+          existe={(c) => buscarCodigo(indice, c)}
+          onCerrar={() => {
+            setNuevo(null);
+            reenfocar();
+          }}
+          onCreado={(p) => {
+            setProductos((ps) => [...ps.filter((x) => x.codigo !== p.codigo), p]);
+            setLista((l) => [{ codigo: p.codigo, cantidad: 1, created_at: new Date().toISOString() }, ...l.filter((r) => r.codigo !== p.codigo)]);
+            setNuevo(null);
+            setAviso(null);
+            resaltar(p.codigo);
+            avisar(`Creado y agregado: ${p.nombre}`);
+            void recargarLista();
+            reenfocar();
+          }}
+          onAgregarExistente={(p) => {
+            setNuevo(null);
+            void agregar(p);
             reenfocar();
           }}
         />

@@ -60,3 +60,49 @@ export async function registrarImpresion(
   const { error } = await sb.from("impresiones").insert({ clase, formato_id: formatoId, total_etiquetas: total, detalle });
   if (error) console.error("registrarImpresion", error); // no bloquea la impresión
 }
+
+export async function cargarCategorias(sb: SupabaseClient): Promise<string[]> {
+  const { data, error } = await sb.from("categorias").select("nombre").order("nombre");
+  if (error) throw error;
+  return (data as { nombre: string }[]).map((c) => c.nombre);
+}
+
+/** Varios a la lista en una sola operación. Devuelve cuántos renglones se tocaron. */
+export async function agregarVariosALista(sb: SupabaseClient, items: { codigo: string; cantidad: number }[]): Promise<number> {
+  if (items.length === 0) return 0;
+  const { data, error } = await sb.rpc("agregar_varios_a_lista", { p_items: items });
+  if (error) throw error;
+  return data as number;
+}
+
+/** Solo admin. Crea el producto (pendiente para Multicomercio) y lo agrega a la lista. */
+export async function crearProducto(
+  sb: SupabaseClient,
+  p: { codigo: string; nombre: string; precio: number; categoria: string; tamano: Tamano; etiquetaUnica: boolean; agregar: number },
+): Promise<Producto> {
+  const { data, error } = await sb
+    .rpc("crear_producto", {
+      p_codigo: p.codigo,
+      p_nombre: p.nombre,
+      p_precio: p.precio,
+      p_categoria: p.categoria,
+      p_tamano: p.tamano,
+      p_etiqueta_unica: p.etiquetaUnica,
+      p_agregar: p.agregar,
+    })
+    .single<Producto>();
+  if (error) {
+    if (error.code === "23505") throw new Error("Ese código ya existe.");
+    throw error;
+  }
+  return { ...data, precio: Number(data.precio) };
+}
+
+export type CambiosProducto = Partial<Pick<Producto, "nombre" | "precio" | "tamano" | "etiqueta_unica" | "categoria">>;
+
+/** Solo admin (RLS). */
+export async function actualizarProducto(sb: SupabaseClient, codigo: string, cambios: CambiosProducto) {
+  const { data, error } = await sb.from("productos").update(cambios).eq("codigo", codigo).select("codigo");
+  if (error) throw error;
+  if (!data?.length) throw new Error("No tienes permiso para cambiar este producto.");
+}

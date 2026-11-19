@@ -1,15 +1,12 @@
-import Proximamente from "@/components/Proximamente";
-import { requiereAdmin } from "@/lib/supabase/server";
+import PantallaCatalogo from "@/components/catalogo/PantallaCatalogo";
+import { requiereAdmin, supabaseServidor } from "@/lib/supabase/server";
+import { cargarCategorias, cargarLista, cargarProductos } from "@/lib/datos";
 
 export const metadata = { title: "Catálogo · Etiquetas" };
 
 export default async function Catalogo() {
   await requiereAdmin();
-  return (
-    <Proximamente
-      titulo="CATÁLOGO"
-      fase={3}
-      texto="Buscar productos, filtrar por categoría y tamaño, editar rápido y agregar a la impresión."
-    />
-  );
+  const supabase = await supabaseServidor();
+  const [productos, lista, categorias] = await Promise.all([cargarProductos(supabase), cargarLista(supabase), cargarCategorias(supabase)]);
+  return <PantallaCatalogo productosIniciales={productos} listaInicial={lista} categorias={categorias} />;
 }

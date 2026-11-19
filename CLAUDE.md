@@ -11,6 +11,8 @@ Hoy las etiquetas se generan a mano con scripts de Python a partir de exportacio
 - Archivos reales de Multicomercio para pruebas: `data/muestras/`.
 - Fase 1 hecha: base Next.js + Supabase, login con PIN y tests. Despliegue: `docs/DESPLIEGUE.md`.
 - Fase 2 hecha: pantalla Imprimir (escaneo con pistola y cámara, lista compartida en vivo, PDFs grande/chica, partes de 300 páginas). Los PDFs salen **idénticos píxel por píxel a 203 dpi** a los de `etiquetas_ref.py` (`tests/pdf.test.ts`).
+- Fase 3 hecha: Catálogo (filtros, aviso de sin tamaño, edición rápida, imprimir un grupo) y Producto nuevo (desde Imprimir o Catálogo, con vista previa en vivo).
+- Pendiente de decidir: los 5 códigos que quedaron sin nombre al 17 nov (2055, 2080, 2105, 2155, 2151) siguen sin tamaño; se asignan desde el filtro "Sin tamaño".
 
 ## Stack
 - Next.js (App Router, TypeScript), desplegado en Vercel.
@@ -70,7 +72,7 @@ Otras tablas: `categorias`, `impresiones` (historial de impresiones), `formatos_
 3. **Producto nuevo**: código, nombre, precio, categoría, tamaño, con vista previa en vivo de la etiqueta. Al guardar: se agrega a la lista y queda pendiente para Multicomercio.
 4. **Catálogo**:
    - Búsqueda y filtros: categoría, tamaño, sin tamaño, pendientes, activos.
-   - Edición rápida y "Agregar a impresión".
+   - Edición rápida y "Agregar a impresión". Tamaño y etiqueta única se editan en cualquier producto. **Nombre y precio solo en productos pendientes (creados en la app)**: en los demás manda Multicomercio. Un cambio aquí no llega a caja y, al sincronizar, un nombre distinto se marcaría como código reutilizado.
    - Imprimir por categoría.
 5. **Sincronizar con Multicomercio**:
    - (a) Subir el Excel de productos → resumen de cambios → el usuario aplica y, con un clic, "Agregar a impresión" los que necesitan etiqueta nueva.

@@ -50,6 +50,7 @@ beforeAll(async () => {
   await db.exec(SUPABASE_MINIMO);
   await db.exec(readFileSync("supabase/migrations/20261118000000_inicial.sql", "utf8"));
   await db.exec(readFileSync("supabase/migrations/20261119000000_lista_impresion.sql", "utf8"));
+  await db.exec(readFileSync("supabase/migrations/20261120000000_catalogo.sql", "utf8"));
   await db.exec(readFileSync("supabase/seed.sql", "utf8"));
   await db.exec(`
     insert into auth.users (id, email) values
@@ -148,6 +149,53 @@ describe("lista de impresión (fase 2)", () => {
     await como("authenticated", empleada, `select public.vaciar_lista()`);
     const r = await db.query<{ n: number }>(`select count(*)::int n from lista_impresion`);
     expect(r.rows[0].n).toBe(0);
+  });
+});
+
+describe("catálogo y producto nuevo (fase 3)", () => {
+  it("agregar_varios_a_lista suma repetidos y respeta cantidades", async () => {
+    await como("authenticated", admin, `select public.vaciar_lista()`);
+    const r = await como<{ n: number }>(
+      "authenticated",
+      empleada,
+      `select public.agregar_varios_a_lista('[{"codigo":"869","cantidad":2},{"codigo":"84"},{"codigo":"869","cantidad":1}]') n`,
+    );
+    expect(r.rows[0].n).toBe(2);
+    const l = await db.query<{ codigo: string; cantidad: number }>(`select codigo, cantidad from lista_impresion order by codigo`);
+    expect(l.rows).toEqual([
+      { codigo: "84", cantidad: 1 },
+      { codigo: "869", cantidad: 3 },
+    ]);
+  });
+
+  it("admin crea producto: queda pendiente, crea la categoría nueva, lo agrega a la lista y deja historial", async () => {
+    await como("authenticated", admin, `select public.vaciar_lista()`);
+    const r = await como<{ codigo: string; pendiente_multicomercio: boolean; precio: string }>(
+      "authenticated",
+      admin,
+      `select * from public.crear_producto('77001', 'termo acero 500 ml', 149.999, 'TERMOS', 'grande', false, 3)`,
+    );
+    expect(r.rows[0]).toMatchObject({ codigo: "77001", pendiente_multicomercio: true });
+    expect(Number(r.rows[0].precio)).toBe(150);
+    const c = await db.query<{ origen: string }>(`select origen from categorias where nombre = 'TERMOS'`);
+    expect(c.rows[0].origen).toBe("app");
+    const l = await db.query<{ cantidad: number }>(`select cantidad from lista_impresion where codigo = '77001'`);
+    expect(l.rows[0].cantidad).toBe(3);
+    const h = await db.query<{ origen: string; usuario: string }>(`select origen, usuario from cambios where codigo = '77001' and tipo = 'alta'`);
+    expect(h.rows[0]).toMatchObject({ origen: "manual", usuario: ADMIN });
+  });
+
+  it("no se puede crear con un código que ya existe ni con guion", async () => {
+    await expect(como("authenticated", admin, `select public.crear_producto('869', 'x', 1, null, 'grande')`)).rejects.toThrow(/duplicate|llave duplicada|unique/i);
+    await expect(como("authenticated", admin, `select public.crear_producto('899-18', 'x', 1, null, 'grande')`)).rejects.toThrow(/check/i);
+  });
+
+  it("empleada no puede crear productos (y no queda nada a medias)", async () => {
+    await expect(
+      como("authenticated", empleada, `select public.crear_producto('77002', 'x', 1, 'OTRA', 'grande')`),
+    ).rejects.toThrow(/row-level security/);
+    const c = await db.query<{ n: number }>(`select count(*)::int n from categorias where nombre = 'OTRA'`);
+    expect(c.rows[0].n).toBe(0);
   });
 });
 
