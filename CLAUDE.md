@@ -12,7 +12,8 @@ Hoy las etiquetas se generan a mano con scripts de Python a partir de exportacio
 - Fase 1 hecha: base Next.js + Supabase, login con PIN y tests. Despliegue: `docs/DESPLIEGUE.md`.
 - Fase 2 hecha: pantalla Imprimir (escaneo con pistola y cámara, lista compartida en vivo, PDFs grande/chica, partes de 300 páginas). Los PDFs salen **idénticos píxel por píxel a 203 dpi** a los de `etiquetas_ref.py` (`tests/pdf.test.ts`).
 - Fase 3 hecha: Catálogo (filtros, aviso de sin tamaño, edición rápida, imprimir un grupo) y Producto nuevo (desde Imprimir o Catálogo, con vista previa en vivo).
-- Pendiente de decidir: los 5 códigos que quedaron sin nombre al 17 nov (2055, 2080, 2105, 2155, 2151) siguen sin tamaño; se asignan desde el filtro "Sin tamaño".
+- Pendiente de decidir: los 5 códigos que quedaron sin nombre al 17 nov (2055, 2080, 2105, 2155, 2151) y los 7 sin tamaño de siempre (89920, 89913, 432, 443, 2054, 90034, 90022) siguen sin tamaño; se asignan desde el filtro "Sin tamaño".
+- Para asignar tamaños en lote desde la PC: `npm run tamanos:asignar -- grande=1,2 chica=3` (solo toca los que no tienen tamaño).
 
 ## Stack
 - Next.js (App Router, TypeScript), desplegado en Vercel.
@@ -55,7 +56,7 @@ Hoy las etiquetas se generan a mano con scripts de Python a partir de exportacio
 `lista_impresion` (codigo, cantidad, agregado_por, created_at): la lista sobrevive recargas y la comparte todo el equipo, en vivo entre celular y PC (Realtime).
 `cambios` (historial: codigo, tipo, antes, despues, fecha, origen 'sync'|'manual'): sirve para "qué cambió" y para auditar.
 
-Carga inicial: `data/catalogo.csv` → `supabase/seed.sql` (`npm run db:seed-sql`): 1,168 productos (854 grandes, 268 chicas, 46 sin tamaño, 11 inactivos, 12 etiqueta única). Hay 46 sin tamaño: los 7 de siempre, los 8 nuevos (1161–1168) y 31 códigos reutilizados al 17 nov. **No** incluye costos: la app no los necesita.
+Carga inicial: `data/catalogo.csv` → `supabase/seed.sql` (`npm run db:seed-sql`): 1,168 productos (885 grandes, 269 chicas, 14 sin tamaño, 11 inactivos, 12 etiqueta única). Quedan 14 sin tamaño: los 7 de siempre, los 5 que quedaron sin nombre, y 327 papel navideño y 464 globo suelto (sin etiqueta, a propósito). Tamaños asignados el 18 nov: ver `data/catalogo_2026-11-17_cambios.md`. **No** incluye costos: la app no los necesita.
 
 Otras tablas: `categorias`, `impresiones` (historial de impresiones), `formatos_etiqueta` (los 2 probados más los que se configuren), `pines` e `intentos_pin` (solo servidor).
 

@@ -33,8 +33,8 @@ describe("filtros del catálogo", () => {
     expect(r.every((p) => p.categoria === "FIESTA")).toBe(true);
   });
   it("para imprimir un grupo solo van activos con tamaño", () => {
-    const r = separarParaImprimir(filtrarCatalogo(productos, { ...FILTROS_INICIALES, categoria: "JUGUETES", estado: "todos" }));
+    const r = separarParaImprimir(filtrarCatalogo(productos, { ...FILTROS_INICIALES, categoria: "FIESTA", estado: "todos" }));
     expect(r.imprimibles.every((p) => p.activo && p.tamano)).toBe(true);
-    expect(r.sinTamano).toBeGreaterThan(0); // los 8 nuevos 1161–1168 son juguetes sin tamaño
+    expect(r.sinTamano).toBeGreaterThan(0); // 432 y 443 (FIESTA) siguen sin tamaño
   });
 });

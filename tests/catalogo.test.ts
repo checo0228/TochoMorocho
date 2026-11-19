@@ -8,9 +8,9 @@ const catalogo = leerCatalogoCSV(readFileSync("data/catalogo.csv", "utf8"));
 describe("data/catalogo.csv (carga inicial, al 17 nov 2026)", () => {
   it("tiene los conteos esperados", () => {
     expect(catalogo).toHaveLength(1168);
-    expect(catalogo.filter((f) => f.tamano === "grande")).toHaveLength(854);
-    expect(catalogo.filter((f) => f.tamano === "chica")).toHaveLength(268);
-    expect(catalogo.filter((f) => !f.tamano)).toHaveLength(46);
+    expect(catalogo.filter((f) => f.tamano === "grande")).toHaveLength(885);
+    expect(catalogo.filter((f) => f.tamano === "chica")).toHaveLength(269);
+    expect(catalogo.filter((f) => !f.tamano)).toHaveLength(14);
     expect(catalogo.filter((f) => !f.activo)).toHaveLength(11);
     expect(catalogo.filter((f) => f.etiqueta_unica)).toHaveLength(12);
   });
@@ -20,8 +20,10 @@ describe("data/catalogo.csv (carga inicial, al 17 nov 2026)", () => {
     expect(new Set(catalogo.map((f) => f.codigo)).size).toBe(catalogo.length);
   });
 
-  it("los códigos reutilizados quedaron sin tamaño (859 tren madera → bocina roja)", () => {
-    expect(catalogo.find((f) => f.codigo === "859")).toMatchObject({ nombre: "bocina roja", tamano: null });
+  it("códigos reutilizados con su tamaño nuevo (859 bocina roja grande, 746 estrellota chica)", () => {
+    expect(catalogo.find((f) => f.codigo === "859")).toMatchObject({ nombre: "bocina roja", tamano: "grande" });
+    expect(catalogo.find((f) => f.codigo === "746")).toMatchObject({ nombre: "estrellota", tamano: "chica" });
+    expect(catalogo.find((f) => f.codigo === "327")?.tamano).toBeNull(); // papel navideño: sin etiqueta
   });
 
   it("los productos que siguen igual conservan su tamaño", () => {

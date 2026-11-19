@@ -54,3 +54,10 @@
 ## Ya no vienen en el Excel (0) — marcados inactivos
 
 ## Rechazados (0)
+
+## Tamaños asignados (18 nov 2026, indicación de Sergio)
+- Chica: 746 estrellota.
+- Grande: los 8 nuevos (1161–1168) y los demás códigos reutilizados (859, 865, 840, 362, 1063, 1075, 1158, 1119, 1141, 2063, 654, 2146, 90018, 607, 77, 51, 73, 8, 15, 49, 222, 239, 505).
+- Sin etiqueta (se quedan sin tamaño): 327 papel navideño, 464 globo suelto.
+- Pendientes: los 5 que quedaron sin nombre (2055, 2080, 2105, 2155, 2151) y los 7 sin tamaño de siempre (89920, 89913, 432, 443, 2054, 90034, 90022).
+- Aplicado en producción con `npm run tamanos:asignar` (solo a los que no tenían tamaño).

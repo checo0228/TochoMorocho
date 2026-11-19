@@ -16,7 +16,8 @@
     "catalogo:actualizar": "tsx scripts/actualizar-catalogo.ts",
     "db:seed-sql": "tsx scripts/generar-seed.ts",
     "usuarios:crear": "tsx --env-file=.env.local scripts/crear-usuarios.ts",
-    "postinstall": "node scripts/copiar-wasm.mjs"
+    "postinstall": "node scripts/copiar-wasm.mjs",
+    "tamanos:asignar": "tsx --env-file=.env.local scripts/asignar-tamanos.ts"
   },
   "dependencies": {
     "@supabase/ssr": "0.12.7",
