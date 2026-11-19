@@ -51,6 +51,7 @@ beforeAll(async () => {
   await db.exec(readFileSync("supabase/migrations/20261118000000_inicial.sql", "utf8"));
   await db.exec(readFileSync("supabase/migrations/20261119000000_lista_impresion.sql", "utf8"));
   await db.exec(readFileSync("supabase/migrations/20261120000000_catalogo.sql", "utf8"));
+  await db.exec(readFileSync("supabase/migrations/20261121000000_editar_ocultar.sql", "utf8"));
   await db.exec(readFileSync("supabase/seed.sql", "utf8"));
   await db.exec(`
     insert into auth.users (id, email) values
@@ -196,6 +197,42 @@ describe("catálogo y producto nuevo (fase 3)", () => {
     ).rejects.toThrow(/row-level security/);
     const c = await db.query<{ n: number }>(`select count(*)::int n from categorias where nombre = 'OTRA'`);
     expect(c.rows[0].n).toBe(0);
+  });
+});
+
+describe("editar, ocultar y eliminar", () => {
+  it("el seed guarda lo que dijo Multicomercio (nombre_mc, precio_mc)", async () => {
+    const r = await db.query<{ n: number }>(`select count(*)::int n from productos where not pendiente_multicomercio and (nombre_mc is distinct from nombre or precio_mc is distinct from precio)`);
+    // 869 cambió de precio en una prueba de RLS (15 → 16); su precio_mc sigue siendo 15
+    const p = await db.query<{ precio: string; precio_mc: string }>(`select precio, precio_mc from productos where codigo = '869'`);
+    expect(Number(p.rows[0].precio_mc)).toBe(15);
+    expect(r.rows[0].n).toBe(1);
+  });
+
+  it("ocultar queda en el historial; empleada no puede ocultar", async () => {
+    const e = await como("authenticated", empleada, `update productos set oculto = true where codigo = '327'`);
+    expect(e.affectedRows).toBe(0);
+    await como("authenticated", admin, `update productos set oculto = true where codigo = '327'`);
+    const h = await db.query<{ tipo: string; usuario: string }>(`select tipo, usuario from cambios where codigo = '327' and tipo = 'oculto'`);
+    expect(h.rows[0]).toMatchObject({ tipo: "oculto", usuario: ADMIN });
+  });
+
+  it("admin elimina un pendiente (se va de la lista y queda en el historial)", async () => {
+    await como("authenticated", admin, `select public.crear_producto('77003', 'borrar', 5, null, 'chica', false, 2)`);
+    const d = await como("authenticated", admin, `delete from productos where codigo = '77003'`);
+    expect(d.affectedRows).toBe(1);
+    const l = await db.query<{ n: number }>(`select count(*)::int n from lista_impresion where codigo = '77003'`);
+    expect(l.rows[0].n).toBe(0);
+    const h = await db.query<{ n: number }>(`select count(*)::int n from cambios where codigo = '77003' and tipo = 'eliminado'`);
+    expect(h.rows[0].n).toBe(1);
+  });
+
+  it("nadie puede eliminar productos de Multicomercio; empleada no elimina nada", async () => {
+    const a = await como("authenticated", admin, `delete from productos where codigo = '802'`);
+    expect(a.affectedRows).toBe(0);
+    await como("authenticated", admin, `select public.crear_producto('77004', 'x', 5, null, 'chica', false, 0)`);
+    const e = await como("authenticated", empleada, `delete from productos where codigo = '77004'`);
+    expect(e.affectedRows).toBe(0);
   });
 });
 

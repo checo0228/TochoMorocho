@@ -73,7 +73,10 @@ Otras tablas: `categorias`, `impresiones` (historial de impresiones), `formatos_
 3. **Producto nuevo**: código, nombre, precio, categoría, tamaño, con vista previa en vivo de la etiqueta. Al guardar: se agrega a la lista y queda pendiente para Multicomercio.
 4. **Catálogo**:
    - Búsqueda y filtros: categoría, tamaño, sin tamaño, pendientes, activos.
-   - Edición rápida y "Agregar a impresión". Tamaño y etiqueta única se editan en cualquier producto. **Nombre y precio solo en productos pendientes (creados en la app)**: en los demás manda Multicomercio. Un cambio aquí no llega a caja y, al sincronizar, un nombre distinto se marcaría como código reutilizado.
+   - Edición rápida (tamaño, etiqueta única) y "Agregar a impresión".
+   - **Editar** (ventana): nombre, precio, categoría, tamaño y etiqueta única de cualquier producto. Si viene de Multicomercio, avisa que hay que cambiarlo también allá. Lo que dijo Multicomercio se guarda en `nombre_mc` / `precio_mc` / `categoria_mc`; si difiere de lo de la app sale la etiqueta "Editado en la app". La sincronización (fase 4) compara el Excel contra `*_mc`, no contra lo editado, para no confundirlo con un código reutilizado.
+   - **Ocultar** (productos de Multicomercio): `oculto = true`, solo de la app. No sale en el catálogo (salvo el filtro "Ocultos"), ni en las sugerencias, ni en el aviso de sin tamaño. Si se escanea su código exacto, sí se encuentra. No se borra nunca, porque si se borrara volvería como "nuevo" al sincronizar.
+   - **Eliminar** de verdad: solo productos pendientes (creados en la app, que no existen en Multicomercio). Queda en el historial.
    - Imprimir por categoría.
 5. **Sincronizar con Multicomercio**:
    - (a) Subir el Excel de productos → resumen de cambios → el usuario aplica y, con un clic, "Agregar a impresión" los que necesitan etiqueta nueva.

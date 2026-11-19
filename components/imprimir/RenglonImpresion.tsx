@@ -36,6 +36,7 @@ export default function RenglonImpresion({ producto: p, cantidad, esAdmin, resal
       <span className="font-mono text-[13px] text-apagado md:text-sm">{p.codigo}</span>
       {p.pendiente_multicomercio && <Etiq tono="rojo">Pendiente en Multicomercio</Etiq>}
       {!p.activo && <Etiq tono="rojo">Inactivo</Etiq>}
+      {p.oculto && <Etiq tono="gris">Oculto</Etiq>}
       {p.etiqueta_unica && <Etiq tono="gris">1 etiqueta (exhibición)</Etiq>}
       {noCabe && <Etiq tono="rojo">Código muy largo para {p.tamano}</Etiq>}
     </div>

@@ -22,13 +22,16 @@ const sql = [
   categorias.map((c) => `  (${q(c)}, 'multicomercio')`).join(",\n"),
   "on conflict (nombre) do nothing;",
   "",
-  "insert into public.productos (codigo, nombre, precio, categoria, tamano, activo, etiqueta_unica) values",
+  // nombre_mc / precio_mc / categoria_mc = lo último que dijo Multicomercio (migración 20261121000000)
+  "insert into public.productos (codigo, nombre, precio, categoria, tamano, activo, etiqueta_unica, nombre_mc, precio_mc, categoria_mc) values",
   filas
-    .map(
-      (f) =>
-        `  (${q(f.codigo)}, ${q(f.nombre)}, ${f.precio.toFixed(2)}, ${f.categoria ? q(f.categoria) : "null"}, ` +
-        `${f.tamano ? q(f.tamano) : "null"}, ${f.activo}, ${f.etiqueta_unica})`,
-    )
+    .map((f) => {
+      const cat = f.categoria ? q(f.categoria) : "null";
+      return (
+        `  (${q(f.codigo)}, ${q(f.nombre)}, ${f.precio.toFixed(2)}, ${cat}, ` +
+        `${f.tamano ? q(f.tamano) : "null"}, ${f.activo}, ${f.etiqueta_unica}, ${q(f.nombre)}, ${f.precio.toFixed(2)}, ${cat})`
+      );
+    })
     .join(",\n"),
   "on conflict (codigo) do nothing;",
   "",

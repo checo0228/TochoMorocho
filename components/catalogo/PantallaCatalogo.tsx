@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Icono from "@/components/Icono";
 import RenglonCatalogo from "./RenglonCatalogo";
-import ModalProductoNuevo from "@/components/producto/ModalProductoNuevo";
+import ModalProducto from "@/components/producto/ModalProducto";
 import { Toast, useToast } from "@/components/Toast";
 import { supabaseNavegador } from "@/lib/supabase/client";
 import { actualizarProducto, agregarALista, agregarVariosALista, cargarLista, type CambiosProducto } from "@/lib/datos";
@@ -27,6 +27,7 @@ export default function PantallaCatalogo({ productosIniciales, listaInicial, cat
   const [f, setF] = useState<FiltrosCatalogo>(FILTROS_INICIALES);
   const [limite, setLimite] = useState(PASO);
   const [nuevo, setNuevo] = useState(false);
+  const [editando, setEditando] = useState<Producto | null>(null);
   const [confirmarGrupo, setConfirmarGrupo] = useState(false);
   /** Recién cambiados de tamaño: no desaparecen de la lista hasta cambiar de filtro. */
   const [mantener, setMantener] = useState<Set<string>>(() => new Set());
@@ -36,7 +37,8 @@ export default function PantallaCatalogo({ productosIniciales, listaInicial, cat
   const filtrados = useMemo(() => filtrarCatalogo(productos, f, mantener), [productos, f, mantener]);
   const visibles = filtrados.slice(0, limite);
   const filtro = hayFiltro(f);
-  const sinTamanoActivos = useMemo(() => productos.filter((p) => p.activo && !p.tamano).length, [productos]);
+  const sinTamanoActivos = useMemo(() => productos.filter((p) => p.activo && !p.tamano && !p.oculto).length, [productos]);
+  const ocultos = useMemo(() => productos.filter((p) => p.oculto).length, [productos]);
   const pendientes = useMemo(() => productos.filter((p) => p.pendiente_multicomercio).length, [productos]);
   const grupo = useMemo(() => separarParaImprimir(filtrados), [filtrados]);
 
@@ -193,6 +195,7 @@ export default function PantallaCatalogo({ productosIniciales, listaInicial, cat
             opciones={[
               ["activos", "Activos"],
               ["inactivos", "Inactivos"],
+              ["ocultos", `Ocultos (${ocultos})`],
               ["todos", "Todos"],
             ]}
             valor={f.estado}
@@ -252,7 +255,7 @@ export default function PantallaCatalogo({ productosIniciales, listaInicial, cat
       {visibles.length > 0 ? (
         <ul className="flex flex-col gap-2">
           {visibles.map((p) => (
-            <RenglonCatalogo key={p.codigo} p={p} enLista={lista.get(p.codigo) ?? 0} onCambiar={cambiar} onAgregar={agregar} />
+            <RenglonCatalogo key={p.codigo} p={p} enLista={lista.get(p.codigo) ?? 0} onCambiar={cambiar} onAgregar={agregar} onEditar={setEditando} />
           ))}
         </ul>
       ) : (
@@ -278,7 +281,7 @@ export default function PantallaCatalogo({ productosIniciales, listaInicial, cat
       </div>
 
       {nuevo && (
-        <ModalProductoNuevo
+        <ModalProducto
           categorias={categorias}
           existe={(c) => porCodigo.get(c.toUpperCase())}
           onCerrar={() => setNuevo(false)}
@@ -292,6 +295,30 @@ export default function PantallaCatalogo({ productosIniciales, listaInicial, cat
           onAgregarExistente={(p) => {
             setNuevo(false);
             void agregar(p);
+          }}
+        />
+      )}
+      {editando && (
+        <ModalProducto
+          editar={editando}
+          categorias={categorias}
+          existe={(c) => porCodigo.get(c.toUpperCase())}
+          onCerrar={() => setEditando(null)}
+          onGuardado={(p) => {
+            setProductos((ps) => ps.map((x) => (x.codigo === p.codigo ? p : x)));
+            if (p.categoria && !categorias.includes(p.categoria)) setCategorias((c) => [...c, p.categoria!].sort());
+            avisar(p.oculto !== editando.oculto ? (p.oculto ? `Oculto: ${p.nombre || p.codigo}` : `Visible otra vez: ${p.nombre || p.codigo}`) : "Cambios guardados");
+            setEditando(null);
+          }}
+          onEliminado={(codigo) => {
+            setProductos((ps) => ps.filter((x) => x.codigo !== codigo));
+            setLista((m) => {
+              const c = new Map(m);
+              c.delete(codigo);
+              return c;
+            });
+            avisar("Producto eliminado");
+            setEditando(null);
           }}
         />
       )}

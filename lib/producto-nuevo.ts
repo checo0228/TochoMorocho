@@ -31,17 +31,18 @@ export function leerPrecio(texto: string): number | null {
 /** Deja solo letras y números (lo que sí lee bien el escáner). */
 export const soloAlfanumerico = (c: string) => c.replace(/[^0-9A-Za-z]/g, "");
 
-export function validarProducto(f: FormProducto, existe: (codigo: string) => Producto | undefined): ErroresProducto {
+/** `editando`: el código no se cambia, así que no se revisa si ya existe. */
+export function validarProducto(f: FormProducto, existe: (codigo: string) => Producto | undefined, editando = false): ErroresProducto {
   const e: ErroresProducto = {};
   const r = limpiarCodigo(f.codigo);
   if (!r.ok) e.codigo = r.motivo === "vacio" ? "Falta el código." : MENSAJE_CODIGO[r.motivo];
-  else if (existe(r.codigo)) e.codigo = "Este código ya existe.";
+  else if (!editando && existe(r.codigo)) e.codigo = "Este código ya existe.";
   else if (f.tamano) {
     const d = f.tamano === "grande" ? GRANDE : CHICA;
     if (!cabeCodigo(r.codigo, d.barras.modulos, d.barras.anchoMax))
       e.codigo = `El código es demasiado largo para la etiqueta ${f.tamano}.${f.tamano === "chica" ? " Usa grande." : ""}`;
   }
-  if (!f.nombre.trim()) e.nombre = "Falta el nombre.";
+  if (!f.nombre.trim() && !editando) e.nombre = "Falta el nombre.";
   if (!f.precio.trim()) e.precio = "Falta el precio.";
   else if (leerPrecio(f.precio) === null) e.precio = "Escribe el precio con números, por ejemplo 149.50.";
   if (!f.categoria.trim()) e.categoria = "Elige una categoría.";

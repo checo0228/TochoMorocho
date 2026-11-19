@@ -24,3 +24,9 @@ describe("búsqueda", () => {
   });
   it("sin coincidencias → vacío", () => expect(sugerir(indice, "zzzzqqq")).toEqual([]));
 });
+
+describe("ocultos en la búsqueda", () => {
+  const idx = indexar(productos.map((p) => (p.codigo === "869" ? { ...p, oculto: true } : p)));
+  it("no salen como sugerencia por nombre", () => expect(sugerir(idx, "gorro navidad").some((p) => p.codigo === "869")).toBe(false));
+  it("sí salen si se escanea el código exacto", () => expect(sugerir(idx, "869")[0]?.codigo).toBe("869"));
+});

@@ -34,6 +34,7 @@ export function sugerir(i: IndiceProductos, consulta: string, max = 8): Producto
     const cod = p.codigo.toUpperCase();
     let puntos = -1;
     if (cod === qCodigo) puntos = 100;
+    else if (p.oculto) continue; // los ocultos solo aparecen si se escanea su código exacto
     else if (qCodigo.length >= 2 && cod.startsWith(qCodigo)) puntos = 60;
     else if (nombre && palabras.every((w) => nombre.includes(w))) {
       puntos = nombre.startsWith(q) ? 50 : palabras.some((w) => nombre.split(" ").some((n) => n.startsWith(w))) ? 40 : 30;

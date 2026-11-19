@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Icono from "@/components/Icono";
 import VistaEtiqueta from "@/components/etiquetas/VistaEtiqueta";
 import { supabaseNavegador } from "@/lib/supabase/client";
-import { crearProducto } from "@/lib/datos";
+import { actualizarProducto, crearProducto, eliminarProducto, type CambiosProducto } from "@/lib/datos";
 import { hayErrores, leerPrecio, soloAlfanumerico, validarProducto, type ErroresProducto, type FormProducto } from "@/lib/producto-nuevo";
 import { limpiarCodigo } from "@/lib/codigo";
 import { CHICA, GRANDE } from "@/lib/etiquetas/spec";
@@ -17,16 +17,45 @@ interface Props {
   existe: (codigo: string) => Producto | undefined;
   onCerrar: () => void;
   /** Se creó y ya está en la lista. */
-  onCreado: (p: Producto) => void;
+  onCreado?: (p: Producto) => void;
   /** El código ya existía: agregar ese a la lista. */
-  onAgregarExistente: (p: Producto) => void;
+  onAgregarExistente?: (p: Producto) => void;
+  /** Modo editar: el producto a cambiar (el código no se cambia). */
+  editar?: Producto;
+  /** Se guardaron cambios (incluye ocultar / mostrar). */
+  onGuardado?: (p: Producto) => void;
+  /** Se eliminó (solo pendientes). */
+  onEliminado?: (codigo: string) => void;
 }
 
 const NUEVA = "__nueva__";
 
-export default function ModalProductoNuevo({ codigoInicial = "", categorias, existe, onCerrar, onCreado, onAgregarExistente }: Props) {
+export default function ModalProducto({
+  codigoInicial = "",
+  categorias,
+  existe,
+  onCerrar,
+  onCreado,
+  onAgregarExistente,
+  editar,
+  onGuardado,
+  onEliminado,
+}: Props) {
   const sb = supabaseNavegador();
-  const [f, setF] = useState<FormProducto>({ codigo: codigoInicial, nombre: "", precio: "", categoria: "", tamano: null, etiquetaUnica: false });
+  const deMulticomercio = !!editar && !editar.pendiente_multicomercio;
+  const [f, setF] = useState<FormProducto>(() =>
+    editar
+      ? {
+          codigo: editar.codigo,
+          nombre: editar.nombre,
+          precio: editar.precio.toFixed(2),
+          categoria: editar.categoria ?? "",
+          tamano: editar.tamano,
+          etiquetaUnica: editar.etiqueta_unica,
+        }
+      : { codigo: codigoInicial, nombre: "", precio: "", categoria: "", tamano: null, etiquetaUnica: false },
+  );
+  const [confirmarEliminar, setConfirmarEliminar] = useState(false);
   const [nuevaCat, setNuevaCat] = useState(false);
   const [intentado, setIntentado] = useState(false);
   const [guardando, setGuardando] = useState(false);
@@ -34,15 +63,15 @@ export default function ModalProductoNuevo({ codigoInicial = "", categorias, exi
   const primerCampo = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    primerCampo.current?.focus();
+    if (!editar) primerCampo.current?.focus();
     const esc = (e: KeyboardEvent) => e.key === "Escape" && onCerrar();
     window.addEventListener("keydown", esc);
     return () => window.removeEventListener("keydown", esc);
-  }, [onCerrar]);
+  }, [onCerrar, editar]);
 
-  const errores: ErroresProducto = useMemo(() => validarProducto(f, existe), [f, existe]);
+  const errores: ErroresProducto = useMemo(() => validarProducto(f, existe, !!editar), [f, existe, editar]);
   const codigoLimpio = limpiarCodigo(f.codigo);
-  const duplicado = codigoLimpio.ok ? existe(codigoLimpio.codigo) : undefined;
+  const duplicado = !editar && codigoLimpio.ok ? existe(codigoLimpio.codigo) : undefined;
   const conCaracteresMalos = !codigoLimpio.ok && codigoLimpio.motivo !== "vacio";
   const mostrar = (k: keyof ErroresProducto) => (intentado || (k === "codigo" && f.codigo.length > 0)) && errores[k];
   const set = <K extends keyof FormProducto>(k: K, v: FormProducto[K]) => {
@@ -54,9 +83,47 @@ export default function ModalProductoNuevo({ codigoInicial = "", categorias, exi
   // si el código no cabe, la vista previa muestra "Código muy largo" en su lugar
   const vista = f.tamano ? { codigo: codigoLimpio.ok ? codigoLimpio.codigo : "000000", nombre: f.nombre, precio: precio ?? 0 } : null;
 
+  /** Guarda cambios en modo editar (también para ocultar / mostrar). */
+  const guardarCambios = async (extra: CambiosProducto = {}) => {
+    if (!editar) return;
+    const cambios: CambiosProducto = { ...extra };
+    if (f.nombre.trim() !== editar.nombre) cambios.nombre = f.nombre.trim();
+    if (precio !== null && precio !== editar.precio) cambios.precio = precio;
+    if ((f.categoria.trim() || null) !== (editar.categoria ?? null)) cambios.categoria = f.categoria.trim() || null;
+    if (f.tamano && f.tamano !== editar.tamano) cambios.tamano = f.tamano;
+    if (f.etiquetaUnica !== editar.etiqueta_unica) cambios.etiqueta_unica = f.etiquetaUnica;
+    if (Object.keys(cambios).length === 0) return onCerrar();
+    setGuardando(true);
+    try {
+      await actualizarProducto(sb, editar.codigo, cambios);
+      onGuardado?.({ ...editar, ...cambios });
+    } catch (e) {
+      console.error(e);
+      setErrorServidor(e instanceof Error ? e.message : "No se pudo guardar. Revisa el internet.");
+    } finally {
+      setGuardando(false);
+    }
+  };
+
+  const eliminar = async () => {
+    if (!editar) return;
+    setGuardando(true);
+    try {
+      await eliminarProducto(sb, editar.codigo);
+      onEliminado?.(editar.codigo);
+    } catch (e) {
+      console.error(e);
+      setErrorServidor(e instanceof Error ? e.message : "No se pudo eliminar.");
+      setConfirmarEliminar(false);
+    } finally {
+      setGuardando(false);
+    }
+  };
+
   const guardar = async () => {
     setIntentado(true);
     if (hayErrores(errores) || !codigoLimpio.ok || !f.tamano || precio === null) return;
+    if (editar) return void guardarCambios();
     setGuardando(true);
     try {
       const p = await crearProducto(sb, {
@@ -68,7 +135,7 @@ export default function ModalProductoNuevo({ codigoInicial = "", categorias, exi
         etiquetaUnica: f.etiquetaUnica,
         agregar: 1,
       });
-      onCreado(p);
+      onCreado?.(p);
     } catch (e) {
       console.error(e);
       setErrorServidor(e instanceof Error ? e.message : "No se pudo guardar. Revisa el internet.");
@@ -85,10 +152,15 @@ export default function ModalProductoNuevo({ codigoInicial = "", categorias, exi
         <div className="flex flex-none items-start gap-3 border-b border-borde px-6 pb-4 pt-[22px]">
           <div className="flex flex-1 flex-col gap-1">
             <h2 id="titulo-nuevo" className="titulo text-[28px] leading-[1.1]">
-              PRODUCTO NUEVO
+              {editar ? "EDITAR PRODUCTO" : "PRODUCTO NUEVO"}
             </h2>
             <p className="text-base text-apagado">
-              {codigoInicial ? (
+              {editar ? (
+                <>
+                  Código <span className="font-mono">{editar.codigo}</span>
+                  {editar.oculto && <b className="ml-2 text-enlace">· Oculto</b>}
+                </>
+              ) : codigoInicial ? (
                 <>
                   No encontramos el código <span className="font-mono">{codigoInicial}</span>. Dalo de alta para imprimir su etiqueta.
                 </>
@@ -104,6 +176,15 @@ export default function ModalProductoNuevo({ codigoInicial = "", categorias, exi
 
         <div className="grid min-h-0 flex-1 grid-cols-[repeat(auto-fit,minmax(min(100%,340px),1fr))] overflow-auto">
           <div className="flex flex-col gap-[18px] px-6 py-5">
+            {deMulticomercio && (
+              <div className="flex items-start gap-2.5 rounded-[14px] bg-suave px-3.5 py-3 text-[15px] leading-snug text-[#7a2410]">
+                <Icono nombre="alerta" tam={20} className="mt-px text-enlace" />
+                <span>
+                  <b>Viene de Multicomercio.</b> Si cambias el nombre, el precio o la categoría, cámbialos también allá. Si no, la caja cobra otro
+                  precio y al sincronizar se regresa a lo que diga Multicomercio.
+                </span>
+              </div>
+            )}
             {/* Código */}
             <label className="flex flex-col gap-[7px]">
               <span className="text-[15px] font-bold">Código de barras</span>
@@ -111,10 +192,11 @@ export default function ModalProductoNuevo({ codigoInicial = "", categorias, exi
                 ref={primerCampo}
                 value={f.codigo}
                 onChange={(e) => set("codigo", e.target.value)}
+                readOnly={!!editar}
                 placeholder="Solo números y letras"
                 autoComplete="off"
                 spellCheck={false}
-                className={`h-14 rounded-[14px] border-2 bg-white px-4 font-mono text-xl font-semibold tracking-[1px] text-tinta outline-none ${borde("codigo")}`}
+                className={`h-14 rounded-[14px] border-2 px-4 font-mono text-xl font-semibold tracking-[1px] outline-none ${editar ? "border-borde bg-fondo text-apagado" : `bg-white text-tinta ${borde("codigo")}`}`}
               />
               {conCaracteresMalos && (
                 <div className="flex flex-wrap items-center gap-2.5 rounded-[10px] bg-suave px-3 py-2.5 text-[15px] text-[#7a2410]">
@@ -129,7 +211,7 @@ export default function ModalProductoNuevo({ codigoInicial = "", categorias, exi
                   <span className="flex-[1_1_200px]">
                     Este código ya existe: <b>{duplicado.nombre || "(sin nombre)"}</b>
                   </span>
-                  <button type="button" onClick={() => onAgregarExistente(duplicado)} className="h-[38px] rounded-[10px] bg-tinta px-3 text-sm font-bold text-white">
+                  <button type="button" onClick={() => onAgregarExistente?.(duplicado)} className="h-[38px] rounded-[10px] bg-tinta px-3 text-sm font-bold text-white">
                     Agregar ese a la lista
                   </button>
                 </div>
@@ -247,15 +329,56 @@ export default function ModalProductoNuevo({ codigoInicial = "", categorias, exi
         </div>
 
         <div className="flex flex-none flex-wrap items-center gap-3 border-t border-borde px-6 py-4">
-          <div className="flex-[1_1_240px] text-[15px] text-texto-2">
-            {errorServidor ? (
-              <span className="font-semibold text-enlace">{errorServidor}</span>
-            ) : (
-              <>
-                Quedará como <b className="text-enlace">pendiente de dar de alta en Multicomercio</b>.
-              </>
-            )}
-          </div>
+          {editar ? (
+            <div className="flex flex-[1_1_240px] flex-wrap items-center gap-2 text-[15px] text-texto-2">
+              {errorServidor && <span className="w-full font-semibold text-enlace">{errorServidor}</span>}
+              {editar.pendiente_multicomercio ? (
+                confirmarEliminar ? (
+                  <>
+                    <span className="font-semibold">¿Eliminar este producto? No se puede deshacer.</span>
+                    <button type="button" onClick={() => setConfirmarEliminar(false)} className="h-11 rounded-xl border border-borde-input px-3.5 font-semibold">
+                      No
+                    </button>
+                    <button type="button" onClick={() => void eliminar()} disabled={guardando} className="h-11 rounded-xl bg-[#b83a1d] px-3.5 font-bold text-white">
+                      Sí, eliminar
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => setConfirmarEliminar(true)}
+                    className="h-11 rounded-xl border-2 border-[#e9b8aa] px-3.5 font-semibold text-enlace hover:bg-suave"
+                  >
+                    Eliminar
+                  </button>
+                )
+              ) : (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => void guardarCambios({ oculto: !editar.oculto })}
+                    disabled={guardando}
+                    className="h-11 rounded-xl border-2 border-borde-input px-3.5 font-semibold hover:bg-fondo"
+                  >
+                    {editar.oculto ? "Mostrar otra vez" : "Ocultar"}
+                  </button>
+                  <span className="text-sm text-apagado">
+                    {editar.oculto ? "Está escondido del catálogo y de la búsqueda." : "Lo esconde del catálogo y de la búsqueda; no se borra."}
+                  </span>
+                </>
+              )}
+            </div>
+          ) : (
+            <div className="flex-[1_1_240px] text-[15px] text-texto-2">
+              {errorServidor ? (
+                <span className="font-semibold text-enlace">{errorServidor}</span>
+              ) : (
+                <>
+                  Quedará como <b className="text-enlace">pendiente de dar de alta en Multicomercio</b>.
+                </>
+              )}
+            </div>
+          )}
           <button type="button" onClick={onCerrar} className="h-14 rounded-[14px] border border-borde-input bg-white px-5 text-[17px] font-semibold text-texto-2 hover:bg-fondo">
             Cancelar
           </button>
@@ -265,7 +388,7 @@ export default function ModalProductoNuevo({ codigoInicial = "", categorias, exi
             disabled={guardando}
             className="h-14 rounded-[14px] bg-acento px-6 text-lg font-bold text-white hover:bg-acento-hover disabled:opacity-60"
           >
-            {guardando ? "Guardando…" : "Guardar y agregar"}
+            {guardando ? "Guardando…" : editar ? "Guardar cambios" : "Guardar y agregar"}
           </button>
         </div>
       </div>

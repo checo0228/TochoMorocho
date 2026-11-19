@@ -6,7 +6,7 @@ import Icono from "@/components/Icono";
 import Buscador from "./Buscador";
 import RenglonImpresion from "./RenglonImpresion";
 import EscanerCamara from "./EscanerCamara";
-import ModalProductoNuevo from "@/components/producto/ModalProductoNuevo";
+import ModalProducto from "@/components/producto/ModalProducto";
 import { AyudaZebra, BarraResumenCelular, ConfirmarVaciarCelular, PanelResumenEscritorio, type Resumen } from "./PanelResumen";
 import { supabaseNavegador } from "@/lib/supabase/client";
 import { agregarALista, asignarTamano, cargarLista, cargarProductos, fijarCantidad, registrarImpresion, vaciarLista } from "@/lib/datos";
@@ -440,7 +440,7 @@ export default function PantallaImprimir({ rol, productosIniciales, listaInicial
       )}
 
       {nuevo !== null && (
-        <ModalProductoNuevo
+        <ModalProducto
           codigoInicial={nuevo}
           categorias={categorias}
           existe={(c) => buscarCodigo(indice, c)}

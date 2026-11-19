@@ -12,7 +12,7 @@ export async function cargarProductos(sb: SupabaseClient): Promise<Producto[]> {
       .order("codigo")
       .range(desde, desde + PAGINA - 1);
     if (error) throw error;
-    todos.push(...(data as Producto[]).map((p) => ({ ...p, precio: Number(p.precio) })));
+    todos.push(...(data as Producto[]).map((p) => ({ ...p, precio: Number(p.precio), precio_mc: p.precio_mc == null ? null : Number(p.precio_mc) })));
     if (!data || data.length < PAGINA) break;
   }
   return todos;
@@ -98,11 +98,18 @@ export async function crearProducto(
   return { ...data, precio: Number(data.precio) };
 }
 
-export type CambiosProducto = Partial<Pick<Producto, "nombre" | "precio" | "tamano" | "etiqueta_unica" | "categoria">>;
+export type CambiosProducto = Partial<Pick<Producto, "nombre" | "precio" | "tamano" | "etiqueta_unica" | "categoria" | "oculto">>;
 
 /** Solo admin (RLS). */
 export async function actualizarProducto(sb: SupabaseClient, codigo: string, cambios: CambiosProducto) {
   const { data, error } = await sb.from("productos").update(cambios).eq("codigo", codigo).select("codigo");
   if (error) throw error;
   if (!data?.length) throw new Error("No tienes permiso para cambiar este producto.");
+}
+
+/** Solo admin y solo productos pendientes (creados en la app). */
+export async function eliminarProducto(sb: SupabaseClient, codigo: string) {
+  const { data, error } = await sb.from("productos").delete().eq("codigo", codigo).select("codigo");
+  if (error) throw error;
+  if (!data?.length) throw new Error("Solo se pueden eliminar productos creados aquí (pendientes en Multicomercio).");
 }

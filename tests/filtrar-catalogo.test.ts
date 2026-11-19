@@ -38,3 +38,16 @@ describe("filtros del catálogo", () => {
     expect(r.sinTamano).toBeGreaterThan(0); // 432 y 443 (FIESTA) siguen sin tamaño
   });
 });
+
+describe("ocultos", () => {
+  const conOcultos = productos.map((p) => (["327", "464", "2055"].includes(p.codigo) ? { ...p, oculto: true } : p));
+  it("no salen en activos ni en todos; sí en 'ocultos'", () => {
+    expect(filtrarCatalogo(conOcultos, FILTROS_INICIALES).some((p) => p.oculto)).toBe(false);
+    expect(filtrarCatalogo(conOcultos, { ...FILTROS_INICIALES, estado: "todos" })).toHaveLength(1165);
+    expect(filtrarCatalogo(conOcultos, { ...FILTROS_INICIALES, estado: "ocultos" }).map((p) => p.codigo).sort()).toEqual(["2055", "327", "464"]);
+  });
+  it("no cuentan para imprimir un grupo", () => {
+    const r = separarParaImprimir(conOcultos);
+    expect(r.imprimibles.some((p) => p.oculto)).toBe(false);
+  });
+});

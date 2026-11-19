@@ -5,7 +5,8 @@ export interface FiltrosCatalogo {
   q: string;
   categoria: string; // "" = todas
   tamano: "todos" | "grande" | "chica" | "sin";
-  estado: "activos" | "inactivos" | "todos";
+  /** "todos" = activos e inactivos; los ocultos solo salen en "ocultos". */
+  estado: "activos" | "inactivos" | "ocultos" | "todos";
   pendientes: boolean;
 }
 
@@ -22,7 +23,9 @@ export function filtrarCatalogo(productos: Producto[], f: FiltrosCatalogo, mante
   const pasa = (p: Producto) =>
     (f.categoria === "" || p.categoria === f.categoria) &&
     (f.tamano === "todos" || (f.tamano === "sin" ? !p.tamano : p.tamano === f.tamano) || !!mantener?.has(p.codigo)) &&
-    (f.estado === "todos" || (f.estado === "activos" ? p.activo : !p.activo)) &&
+    (f.estado === "ocultos"
+      ? !!p.oculto
+      : !p.oculto && (f.estado === "todos" || (f.estado === "activos" ? p.activo : !p.activo))) &&
     (!f.pendientes || p.pendiente_multicomercio);
 
   if (f.q.trim()) {
@@ -41,10 +44,11 @@ export function filtrarCatalogo(productos: Producto[], f: FiltrosCatalogo, mante
 
 /** Qué pasaría al mandar a imprimir un grupo: solo activos con tamaño. */
 export function separarParaImprimir(productos: Producto[]) {
-  const imprimibles = productos.filter((p) => p.activo && p.tamano);
+  const visibles = productos.filter((p) => !p.oculto);
+  const imprimibles = visibles.filter((p) => p.activo && p.tamano);
   return {
     imprimibles,
-    sinTamano: productos.filter((p) => p.activo && !p.tamano).length,
-    inactivos: productos.filter((p) => !p.activo).length,
+    sinTamano: visibles.filter((p) => p.activo && !p.tamano).length,
+    inactivos: visibles.filter((p) => !p.activo).length,
   };
 }
