@@ -113,3 +113,32 @@ export async function eliminarProducto(sb: SupabaseClient, codigo: string) {
   if (error) throw error;
   if (!data?.length) throw new Error("Solo se pueden eliminar productos creados aquí (pendientes en Multicomercio).");
 }
+
+export interface Sincronizacion {
+  archivo: string;
+  leidos: number;
+  resumen: Record<string, number>;
+  fecha: string;
+}
+
+export async function ultimaSincronizacion(sb: SupabaseClient): Promise<Sincronizacion | null> {
+  const { data, error } = await sb.from("sincronizaciones").select("archivo,leidos,resumen,fecha").order("fecha", { ascending: false }).limit(1).maybeSingle();
+  if (error) throw error;
+  return data as Sincronizacion | null;
+}
+
+/** Solo admin. Escribe todas las filas en una sola transacción. */
+export async function aplicarSync(
+  sb: SupabaseClient,
+  p: { filas: unknown[]; movidos: { codigo: string; de: string[] }[]; archivo: string; leidos: number; resumen: Record<string, number> },
+): Promise<number> {
+  const { data, error } = await sb.rpc("aplicar_sync", {
+    p_filas: p.filas,
+    p_movidos: p.movidos,
+    p_archivo: p.archivo,
+    p_leidos: p.leidos,
+    p_resumen: p.resumen,
+  });
+  if (error) throw error;
+  return data as number;
+}

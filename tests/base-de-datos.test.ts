@@ -52,6 +52,7 @@ beforeAll(async () => {
   await db.exec(readFileSync("supabase/migrations/20261119000000_lista_impresion.sql", "utf8"));
   await db.exec(readFileSync("supabase/migrations/20261120000000_catalogo.sql", "utf8"));
   await db.exec(readFileSync("supabase/migrations/20261121000000_editar_ocultar.sql", "utf8"));
+  await db.exec(readFileSync("supabase/migrations/20261122000000_sincronizar.sql", "utf8"));
   await db.exec(readFileSync("supabase/seed.sql", "utf8"));
   await db.exec(`
     insert into auth.users (id, email) values
@@ -233,6 +234,51 @@ describe("editar, ocultar y eliminar", () => {
     await como("authenticated", admin, `select public.crear_producto('77004', 'x', 5, null, 'chica', false, 0)`);
     const e = await como("authenticated", empleada, `delete from productos where codigo = '77004'`);
     expect(e.affectedRows).toBe(0);
+  });
+});
+
+describe("sincronizar (fase 4)", () => {
+  const fila = (o: Record<string, unknown>) => ({
+    nombre: "x", precio: 1, categoria: "JUGUETES", activo: true, tamano: null, etiqueta_unica: false, oculto: false,
+    pendiente_multicomercio: false, nombre_mc: "x", precio_mc: 1, categoria_mc: "JUGUETES", ...o,
+  });
+  const aplicar = (rol: object, filas: unknown[], movidos: unknown[] = []) =>
+    como<{ n: number }>("authenticated", rol, `select public.aplicar_sync($1::jsonb, $2::jsonb, 'prueba.xlsx', 10, '{"nuevo":1}'::jsonb) n`, [
+      JSON.stringify(filas),
+      JSON.stringify(movidos),
+    ]);
+
+  it("admin aplica: inserta nuevos, actualiza existentes, crea categorías, deja historial 'sync' y la sincronización", async () => {
+    const r = await aplicar(admin, [
+      fila({ codigo: "88001", nombre: "nuevo de mc", precio: 99.999, categoria: "CATEGORIA NUEVA", categoria_mc: "CATEGORIA NUEVA", nombre_mc: "nuevo de mc", precio_mc: 100 }),
+      fila({ codigo: "859", nombre: "bocina roja v2", precio: 500, tamano: null, nombre_mc: "bocina roja v2", precio_mc: 500 }),
+    ], [{ codigo: "859", de: ["123"] }]);
+    expect(r.rows[0].n).toBe(2);
+    const p = await db.query<{ codigo: string; nombre: string; precio: string; tamano: string | null }>(
+      `select codigo, nombre, precio, tamano from productos where codigo in ('88001','859') order by codigo`,
+    );
+    expect(p.rows.map((x) => [x.codigo, x.nombre, Number(x.precio), x.tamano])).toEqual([
+      ["859", "bocina roja v2", 500, null],
+      ["88001", "nuevo de mc", 100, null],
+    ]);
+    const c = await db.query<{ origen: string }>(`select origen from categorias where nombre = 'CATEGORIA NUEVA'`);
+    expect(c.rows[0].origen).toBe("multicomercio");
+    const h = await db.query<{ tipo: string; origen: string }>(`select tipo, origen from cambios where codigo = '859' and origen = 'sync' order by id`);
+    expect(h.rows.map((x) => x.tipo)).toEqual(expect.arrayContaining(["nombre", "precio", "tamano", "movido"]));
+    const s = await como<{ archivo: string }>("authenticated", admin, `select archivo from sincronizaciones order by id desc limit 1`);
+    expect(s.rows[0].archivo).toBe("prueba.xlsx");
+  });
+
+  it("empleada no puede sincronizar ni ver sincronizaciones", async () => {
+    await expect(aplicar(empleada, [fila({ codigo: "88002" })])).rejects.toThrow(/admin/);
+    const s = await como<{ n: number }>("authenticated", empleada, `select count(*)::int n from sincronizaciones`);
+    expect(s.rows[0].n).toBe(0);
+  });
+
+  it("todo o nada: si una fila es inválida no se aplica ninguna", async () => {
+    await expect(aplicar(admin, [fila({ codigo: "88003" }), fila({ codigo: "88-004" })])).rejects.toThrow();
+    const r = await db.query<{ n: number }>(`select count(*)::int n from productos where codigo = '88003'`);
+    expect(r.rows[0].n).toBe(0);
   });
 });
 

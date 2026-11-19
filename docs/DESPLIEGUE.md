@@ -12,6 +12,7 @@ Se hace una sola vez. Las claves **nunca** se escriben en el repo ni en el chat:
    - `20261119000000_lista_impresion.sql` (fase 2)
    - `20261120000000_catalogo.sql` (fase 3)
    - `20261121000000_editar_ocultar.sql` (editar, ocultar y eliminar)
+   - `20261122000000_sincronizar.sql` (fase 4)
    Cuando haya una migración nueva, se corre solo esa.
 4. **SQL Editor → New query**: pegar todo `supabase/seed.sql` y dar **Run**. Carga 1,168 productos al 17 nov, 14 categorías y los 2 formatos de etiqueta probados.
 5. **Project Settings → API Keys**: copiar la URL del proyecto, la clave **publishable** (o la *anon* antigua) y la **secret** (o la *service_role* antigua).

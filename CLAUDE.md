@@ -12,6 +12,7 @@ Hoy las etiquetas se generan a mano con scripts de Python a partir de exportacio
 - Fase 1 hecha: base Next.js + Supabase, login con PIN y tests. Despliegue: `docs/DESPLIEGUE.md`.
 - Fase 2 hecha: pantalla Imprimir (escaneo con pistola y cámara, lista compartida en vivo, PDFs grande/chica, partes de 300 páginas). Los PDFs salen **idénticos píxel por píxel a 203 dpi** a los de `etiquetas_ref.py` (`tests/pdf.test.ts`).
 - Fase 3 hecha: Catálogo (filtros, aviso de sin tamaño, edición rápida, imprimir un grupo) y Producto nuevo (desde Imprimir o Catálogo, con vista previa en vivo).
+- Fase 4 hecha: Sincronizar (`lib/sync/diff.ts` compara contra `*_mc`; `aplicar_sync` aplica todo o nada; sugerir qué imprimir con existencias opcionales), exportar pendientes (`lib/multicomercio/exportar.ts`) y hoja de llegada (`lib/multicomercio/llegada.ts`). Probado con los Excel de muestra: 4→13 nov y 13→17 nov (`tests/sync-diff.test.ts`).
 - Pendiente de decidir: los 5 códigos que quedaron sin nombre al 17 nov (2055, 2080, 2105, 2155, 2151) y los 7 sin tamaño de siempre (89920, 89913, 432, 443, 2054, 90034, 90022) siguen sin tamaño; se asignan desde el filtro "Sin tamaño".
 - Para asignar tamaños en lote desde la PC: `npm run tamanos:asignar -- grande=1,2 chica=3` (solo toca los que no tienen tamaño).
 
@@ -93,6 +94,10 @@ Otras tablas: `categorias`, `impresiones` (historial de impresiones), `formatos_
 | Nombre quedó vacío | descontinuado | avisar |
 | Mismo nombre aparece con otro código | código movido (p. ej. "cable v8" 249→248) | avisar: quitar etiquetas viejas del código anterior |
 | Activo cambió | | actualizar |
+| Editado en la app | la app ≠ `*_mc` y Multicomercio no cambió | vuelve a lo de Multicomercio (avisar) |
+| Pendiente aparece en el Excel | se creó en la app | deja de estar pendiente |
+
+Implementación: un código "movido" (también si es nuevo) **hereda el tamaño** del código viejo. Uno "reutilizado" pierde tamaño, etiqueta única y oculto. "Quedó sin nombre" conserva su tamaño y no se imprime. Los productos inactivos no se mandan a imprimir.
 
 Probar con `data/muestras/productos_2026-11-04.xlsx` → `productos_2026-11-13.xlsx`. Resultado esperado: 0 códigos nuevos o eliminados; 30 con nombre cambiado, entre ellos 2 movidos (cable v8 249→248, kit envase 269→626); 1 solo-precio (869 gorro navidad $15); 6 que quedaron sin nombre (2093, 2146, 607, 49, 746, 505); 0 cambios de activo. Ojo: hay nombres repetidos en el catálogo, así que la detección de "movidos" debe tolerar duplicados.
 
