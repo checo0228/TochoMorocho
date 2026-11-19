@@ -15,10 +15,13 @@ interface Pestana {
 
 export default function Encabezado({
   rol,
+  nombre,
   enLista,
   pendientes,
 }: {
   rol: Rol;
+  /** Quién entró (nombre del PIN): cada PIN tiene su propia lista. */
+  nombre: string;
   enLista: number;
   pendientes: number;
 }) {
@@ -32,7 +35,10 @@ export default function Encabezado({
   }
 
   const salir = (
-    <form action="/salir" method="post">
+    <form action="/salir" method="post" className="flex items-center gap-2.5">
+      <span className="max-w-[140px] truncate text-sm font-semibold text-apagado" title="Sesión actual">
+        {nombre}
+      </span>
       <button
         type="submit"
         className="h-10 rounded-[10px] border border-borde bg-white px-3 text-[15px] font-medium text-texto-2 hover:bg-fondo md:h-11 md:rounded-xl md:px-4 md:text-base"

@@ -16,7 +16,7 @@ export default async function LayoutApp({ children }: { children: React.ReactNod
 
   return (
     <div className="flex min-h-dvh flex-col lg:h-dvh">
-      <Encabezado rol={sesion.rol} enLista={lista.count ?? 0} pendientes={pendientes.count ?? 0} />
+      <Encabezado rol={sesion.rol} nombre={sesion.nombre} enLista={lista.count ?? 0} pendientes={pendientes.count ?? 0} />
       <main className="flex flex-1 flex-col lg:min-h-0">{children}</main>
     </div>
   );

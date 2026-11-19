@@ -53,6 +53,7 @@ beforeAll(async () => {
   await db.exec(readFileSync("supabase/migrations/20261120000000_catalogo.sql", "utf8"));
   await db.exec(readFileSync("supabase/migrations/20261121000000_editar_ocultar.sql", "utf8"));
   await db.exec(readFileSync("supabase/migrations/20261122000000_sincronizar.sql", "utf8"));
+  await db.exec(readFileSync("supabase/migrations/20261123000000_lista_por_usuario.sql", "utf8"));
   await db.exec(readFileSync("supabase/seed.sql", "utf8"));
   await db.exec(`
     insert into auth.users (id, email) values
@@ -101,8 +102,13 @@ describe("RLS", () => {
 
   it("empleada usa la lista de impresión y registra impresiones, pero no ve historial", async () => {
     await como("authenticated", empleada, `insert into lista_impresion (codigo, cantidad) values ('869', 3)`);
-    const l = await como<{ agregado_por: string }>("authenticated", admin, `select agregado_por from lista_impresion where codigo = '869'`);
-    expect(l.rows[0].agregado_por).toBe(EMPLEADA); // la lista es compartida
+    const propia = await como<{ usuario: string }>("authenticated", empleada, `select usuario from lista_impresion where codigo = '869'`);
+    expect(propia.rows[0].usuario).toBe(EMPLEADA); // cada quien su lista
+    const ajena = await como<{ n: number }>("authenticated", admin, `select count(*)::int n from lista_impresion where codigo = '869'`);
+    expect(ajena.rows[0].n).toBe(0); // el admin no ve la lista de las empleadas
+    await expect(
+      como("authenticated", empleada, `insert into lista_impresion (usuario, codigo, cantidad) values ('${ADMIN}', '84', 1)`),
+    ).rejects.toThrow(/row-level security/); // ni puede escribir en la lista de otro
     await como(
       "authenticated",
       empleada,
@@ -139,18 +145,20 @@ describe("RLS", () => {
 });
 
 describe("lista de impresión (fase 2)", () => {
-  it("agregar_a_lista suma de forma atómica y respeta RLS", async () => {
+  it("agregar_a_lista suma de forma atómica en la lista de cada quien y respeta RLS", async () => {
     await como("authenticated", admin, `select public.vaciar_lista()`);
+    await como("authenticated", empleada, `select public.vaciar_lista()`);
     const a = await como<{ n: number }>("authenticated", empleada, `select public.agregar_a_lista('802', 1) n`);
     const b = await como<{ n: number }>("authenticated", admin, `select public.agregar_a_lista('802', 4) n`);
-    expect([a.rows[0].n, b.rows[0].n]).toEqual([1, 5]);
+    const c = await como<{ n: number }>("authenticated", admin, `select public.agregar_a_lista('802', 2) n`);
+    expect([a.rows[0].n, b.rows[0].n, c.rows[0].n]).toEqual([1, 4, 6]); // listas separadas
     await expect(como("authenticated", sinRol, `select public.agregar_a_lista('802', 1)`)).rejects.toThrow(/row-level security/);
     await expect(como("anon", null, `select public.agregar_a_lista('802', 1)`)).rejects.toThrow(/permission denied/);
   });
-  it("vaciar_lista borra todo (empleada también puede)", async () => {
+  it("vaciar_lista solo borra la lista propia", async () => {
     await como("authenticated", empleada, `select public.vaciar_lista()`);
-    const r = await db.query<{ n: number }>(`select count(*)::int n from lista_impresion`);
-    expect(r.rows[0].n).toBe(0);
+    const r = await db.query<{ usuario: string; cantidad: number }>(`select usuario, cantidad from lista_impresion`);
+    expect(r.rows).toEqual([{ usuario: ADMIN, cantidad: 6 }]); // la del admin sigue
   });
 });
 
@@ -163,7 +171,9 @@ describe("catálogo y producto nuevo (fase 3)", () => {
       `select public.agregar_varios_a_lista('[{"codigo":"869","cantidad":2},{"codigo":"84"},{"codigo":"869","cantidad":1}]') n`,
     );
     expect(r.rows[0].n).toBe(2);
-    const l = await db.query<{ codigo: string; cantidad: number }>(`select codigo, cantidad from lista_impresion order by codigo`);
+    const l = await db.query<{ codigo: string; cantidad: number }>(
+      `select codigo, cantidad from lista_impresion where usuario = '${EMPLEADA}' order by codigo`,
+    );
     expect(l.rows).toEqual([
       { codigo: "84", cantidad: 1 },
       { codigo: "869", cantidad: 3 },

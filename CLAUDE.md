@@ -18,12 +18,12 @@ Hoy las etiquetas se generan a mano con scripts de Python a partir de exportacio
 
 ## Stack
 - Next.js (App Router, TypeScript), desplegado en Vercel.
-- Supabase: Postgres + Auth. **Acceso por PIN de 6 números** con 2 roles en `app_metadata.rol`: `admin` (todo) y `empleada` (solo Imprimir: no ve catálogo, sincronizar ni historial, y no edita). El PIN se valida en `/api/pin` (bcrypt en Postgres, límite de intentos) y abre una sesión larga. RLS por rol: `es_admin()` / `es_equipo()`.
+- Supabase: Postgres + Auth. **Acceso por PIN de 6 números** (Admin, Empleadas compartido, y opcionalmente un PIN por empleada con `EMPLEADAS="Ana:123456"` en `npm run usuarios:crear`), con 2 roles en `app_metadata.rol`: `admin` (todo) y `empleada` (solo Imprimir: no ve catálogo, sincronizar ni historial, y no edita). El PIN se valida en `/api/pin` (bcrypt en Postgres, límite de intentos) y abre una sesión larga. RLS por rol: `es_admin()` / `es_equipo()`.
 - PDFs generados **en el navegador** con jsPDF (`lib/etiquetas/pdf.ts`). Nada de PDFs en servidor. La vista previa en pantalla usa la misma composición (`componerEtiqueta`).
   - Code128: port propio de reportlab (`lib/etiquetas/code128.ts`), porque JsBarcode y bwip-js eligen otros juegos de caracteres (B/C) y dibujan otras barras. Está verificado contra reportlab con 3,011 códigos (`tests/fixtures/code128_reportlab.json`, generado con `scripts/fixture-code128.py`).
   - Anchos de texto con las métricas Adobe de Helvetica (`lib/etiquetas/metricas-helvetica.ts`). Las de jsPDF están redondeadas y descuadraban el centrado hasta 0.06 mm.
 - Lectura de Excel en el navegador (SheetJS `xlsx` 0.20.3 desde cdn.sheetjs.com).
-- Celular: escaneo con la cámara (BarcodeDetector) además de la pistola.
+- Celular: escaneo con la cámara (BarcodeDetector o zxing) además de la pistola. Botón "Escanear con cámara" debajo del buscador en pantallas < 1024 px.
 - UI en español de México, pensada para una persona no técnica: botones grandes, pocos pasos, mensajes claros.
 - Secretos solo en variables de entorno (`.env.local`, Vercel). Nunca subir la service role key al repo.
 
@@ -54,7 +54,7 @@ Hoy las etiquetas se generan a mano con scripts de Python a partir de exportacio
 | pendiente_multicomercio | boolean | default false |
 | updated_at | timestamptz | |
 
-`lista_impresion` (codigo, cantidad, agregado_por, created_at): la lista sobrevive recargas y la comparte todo el equipo, en vivo entre celular y PC (Realtime).
+`lista_impresion` (usuario, codigo, cantidad, agregado_por, created_at; PK usuario+codigo): **una lista por PIN**, para que admin y empleadas trabajen al mismo tiempo. El mismo PIN comparte su lista en vivo entre celular y PC (Realtime filtrado por usuario). Sobrevive recargas. Catálogo, Sincronizar y Llegada agregan a la lista de quien lo hace.
 `cambios` (historial: codigo, tipo, antes, despues, fecha, origen 'sync'|'manual'): sirve para "qué cambió" y para auditar.
 
 Carga inicial: `data/catalogo.csv` → `supabase/seed.sql` (`npm run db:seed-sql`): 1,168 productos (885 grandes, 269 chicas, 14 sin tamaño, 11 inactivos, 12 etiqueta única). Quedan 14 sin tamaño: los 7 de siempre, los 5 que quedaron sin nombre, y 327 papel navideño y 464 globo suelto (sin etiqueta, a propósito). Tamaños asignados el 18 nov: ver `data/catalogo_2026-11-17_cambios.md`. **No** incluye costos: la app no los necesita.

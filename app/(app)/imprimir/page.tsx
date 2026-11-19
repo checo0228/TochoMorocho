@@ -14,5 +14,5 @@ export default async function Imprimir() {
     cargarLista(supabase),
     sesion.rol === "admin" ? cargarCategorias(supabase) : Promise.resolve([]),
   ]);
-  return <PantallaImprimir rol={sesion.rol} productosIniciales={productos} listaInicial={lista} categorias={categorias} />;
+  return <PantallaImprimir rol={sesion.rol} usuario={sesion.usuario} productosIniciales={productos} listaInicial={lista} categorias={categorias} />;
 }

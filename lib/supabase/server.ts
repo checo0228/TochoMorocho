@@ -23,13 +23,14 @@ export async function supabaseServidor() {
 }
 
 /** Sesión verificada (firma del JWT) con el rol. null si no hay sesión o no tiene rol. */
-export async function sesionActual(): Promise<{ usuario: string; rol: Rol } | null> {
+export async function sesionActual(): Promise<{ usuario: string; rol: Rol; nombre: string } | null> {
   const supabase = await supabaseServidor();
   const { data } = await supabase.auth.getClaims();
   const claims = data?.claims;
-  const rol = (claims?.app_metadata as { rol?: string } | undefined)?.rol;
+  const meta = claims?.app_metadata as { rol?: string; nombre?: string } | undefined;
+  const rol = meta?.rol;
   if (!claims?.sub || (rol !== "admin" && rol !== "empleada")) return null;
-  return { usuario: claims.sub, rol };
+  return { usuario: claims.sub, rol, nombre: meta?.nombre ?? (rol === "admin" ? "Admin" : "Empleadas") };
 }
 
 /** Para páginas de admin: si no es admin, lo manda a Imprimir. (RLS también lo bloquea en la BD.) */

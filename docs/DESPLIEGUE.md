@@ -13,6 +13,7 @@ Se hace una sola vez. Las claves **nunca** se escriben en el repo ni en el chat:
    - `20261120000000_catalogo.sql` (fase 3)
    - `20261121000000_editar_ocultar.sql` (editar, ocultar y eliminar)
    - `20261122000000_sincronizar.sql` (fase 4)
+   - `20261123000000_lista_por_usuario.sql` (una lista por PIN)
    Cuando haya una migración nueva, se corre solo esa.
 4. **SQL Editor → New query**: pegar todo `supabase/seed.sql` y dar **Run**. Carga 1,168 productos al 17 nov, 14 categorías y los 2 formatos de etiqueta probados.
 5. **Project Settings → API Keys**: copiar la URL del proyecto, la clave **publishable** (o la *anon* antigua) y la **secret** (o la *service_role* antigua).
@@ -24,7 +25,9 @@ Se hace una sola vez. Las claves **nunca** se escriben en el repo ni en el chat:
 4. **Borrar** `PIN_ADMIN` y `PIN_EMPLEADAS` de `.env.local`.
 5. Probar en local con `npm run dev`, abrir http://localhost:3000 y entrar con cada PIN.
 
-Para cambiar un PIN después, vuelve a ponerlo en `.env.local`, corre `npm run usuarios:crear` y bórralo otra vez.
+Para cambiar un PIN después, pon solo ese en `.env.local`, corre `npm run usuarios:crear` y bórralo otra vez (solo se tocan los que tengan valor).
+
+**Un PIN por empleada (opcional):** cada PIN tiene su propia lista de impresión. Para que cada empleada tenga la suya, en `.env.local` pon `EMPLEADAS=Ana:123456,Lupita:234567` (nombre y PIN de 6 números, todos distintos), corre `npm run usuarios:crear` y bórralo. Tienen los mismos permisos que "Empleadas" y su nombre aparece arriba junto a "Salir".
 
 ## 3. Vercel (cuenta personal de Sergio, entrando con GitHub checo0228)
 1. **Add New → Project → Import** el repo `checo0228/TochoMorocho`. La primera vez Vercel pide permiso para leer el repo de GitHub.

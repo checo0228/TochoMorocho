@@ -55,17 +55,13 @@ async function crearDetector(): Promise<Detector> {
   };
 }
 
-function suscribirTactil(cb: () => void) {
-  const m = window.matchMedia("(pointer: coarse)");
-  m.addEventListener("change", cb);
-  return () => m.removeEventListener("change", cb);
-}
+const sinSuscripcion = () => () => {};
 
 export default function EscanerCamara({ onCodigo }: { onCodigo: (codigo: string) => void }) {
-  // solo en pantallas táctiles con cámara (celular / tablet)
+  // cualquier navegador que pueda usar la cámara (requiere https; en la PC el botón se oculta por CSS)
   const disponible = useSyncExternalStore(
-    suscribirTactil,
-    () => window.matchMedia("(pointer: coarse)").matches && !!navigator.mediaDevices?.getUserMedia,
+    sinSuscripcion,
+    () => !!navigator.mediaDevices?.getUserMedia,
     () => false,
   );
   const [abierto, setAbierto] = useState(false);
@@ -137,10 +133,10 @@ export default function EscanerCamara({ onCodigo }: { onCodigo: (codigo: string)
           setUltimo(null);
           setAbierto(true);
         }}
-        aria-label="Escanear con la cámara"
-        className="flex size-12 items-center justify-center rounded-xl bg-tinta text-white active:bg-[#333]"
+        className="flex h-14 w-full items-center justify-center gap-2.5 rounded-2xl bg-tinta text-lg font-bold text-white active:bg-[#333] lg:hidden"
       >
         <Icono nombre="camara" tam={24} trazo={2} />
+        Escanear con cámara
       </button>
 
       {abierto && (

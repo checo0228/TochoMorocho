@@ -21,6 +21,8 @@ import type { Rol } from "@/lib/roles";
 
 interface Props {
   rol: Rol;
+  /** Id del usuario: cada PIN tiene su propia lista (la misma en PC y celular). */
+  usuario: string;
   productosIniciales: Producto[];
   listaInicial: RenglonLista[];
   categorias: string[];
@@ -31,7 +33,7 @@ type Partes = { diseno: DisenoEtiqueta; partes: Etiqueta[][]; hechas: Set<number
 
 const DISENOS: Record<Tamano, DisenoEtiqueta> = { grande: GRANDE, chica: CHICA };
 
-export default function PantallaImprimir({ rol, productosIniciales, listaInicial, categorias }: Props) {
+export default function PantallaImprimir({ rol, usuario, productosIniciales, listaInicial, categorias }: Props) {
   const sb = supabaseNavegador();
   const esAdmin = rol === "admin";
   const [productos, setProductos] = useState(productosIniciales);
@@ -84,12 +86,12 @@ export default function PantallaImprimir({ rol, productosIniciales, listaInicial
     }
   }, [sb]);
 
-  // ── lista compartida en vivo (otro equipo escanea → aparece aquí) ──
+  // ── mi lista en vivo (escaneo con el celular → aparece en la PC con el mismo PIN) ──
   useEffect(() => {
     let espera: ReturnType<typeof setTimeout>;
     const canal = sb
-      .channel("lista_impresion")
-      .on("postgres_changes", { event: "*", schema: "public", table: "lista_impresion" }, () => {
+      .channel(`lista_impresion:${usuario}`)
+      .on("postgres_changes", { event: "*", schema: "public", table: "lista_impresion", filter: `usuario=eq.${usuario}` }, () => {
         clearTimeout(espera);
         espera = setTimeout(recargarLista, 250);
       })
@@ -106,7 +108,7 @@ export default function PantallaImprimir({ rol, productosIniciales, listaInicial
       document.removeEventListener("visibilitychange", alVolver);
       void sb.removeChannel(canal);
     };
-  }, [sb, recargarLista, recargarProductos]);
+  }, [sb, usuario, recargarLista, recargarProductos]);
 
   // ── la pistola escribe aunque el buscador no tenga el foco ──
   useEffect(() => {
@@ -338,8 +340,8 @@ export default function PantallaImprimir({ rol, productosIniciales, listaInicial
             sugerencias={sugerencias}
             enfocado={enfocado}
             onEnfoque={setEnfocado}
-            accionCamara={camara}
           />
+          {camara}
           <p className="-mt-1.5 text-[15px] text-apagado">Con el escáner se agrega solo. Si escribes, elige de la lista o presiona Enter.</p>
 
           {aviso && (
